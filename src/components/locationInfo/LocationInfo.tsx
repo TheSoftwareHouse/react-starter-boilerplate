@@ -8,7 +8,7 @@ const LocationInfo: React.FC = () => {
 
     return (
         <div>
-            <p>Current location (provided by <a href="https://reacttraining.com/react-router/web/api/Hooks/uselocation"><code>useLocation</code></a> hook):</p>
+            <p>Current location (provided by <a href="https://reacttraining.com/react-router/web/api/Hooks/uselocation"><code>useLocation</code></a> hook from <a href="https://github.com/ReactTraining/react-router">react-router</a>):</p>
             <CodeBlock>{JSON.stringify(location)}</CodeBlock>
         </div>
     );

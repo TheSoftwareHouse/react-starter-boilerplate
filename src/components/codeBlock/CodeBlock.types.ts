@@ -1,3 +1,3 @@
-export type Props = {
+export type PropsType = {
     className?: string
 }

@@ -13,6 +13,7 @@
     "@types/react-router-dom": "^5.1.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-intl": "^3.11.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "typescript": "~3.7.2"
@@ -20,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,5 +45,9 @@
       "!src/index.tsx",
       "!src/serviceWorker.ts"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "full-icu": "^1.3.0"
   }
 }

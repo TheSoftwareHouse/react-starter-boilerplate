@@ -3,9 +3,9 @@ import React from "react";
 import joinClassNames from "helpers/joinClassNames/joinClassNames";
 
 import "./CodeBlock.css";
-import { Props } from "./CodeBlock.types";
+import { PropsType } from "./CodeBlock.types";
 
-const CodeBlock: React.FC<Props> = ({ className, children, ...rest }) => (
+const CodeBlock: React.FC<PropsType> = ({ className, children, ...rest }) => (
     <p className={joinClassNames('CodeBlock', className)} {...rest}>
         <code>{children}</code>
     </p>
