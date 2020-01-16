@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, Link, Redirect } from "react-router-dom";
 
 import './App.css';
-import logo from './logo.svg';
 
+import logo from './assets/logo.svg';
 import About from './about/About';
 import Help from './help/Help';
 import Home from './home/Home';
