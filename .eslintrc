@@ -8,6 +8,10 @@
   ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-console": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/order": ["error", { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"] }]
   }
 }
