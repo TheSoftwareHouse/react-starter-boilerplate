@@ -6,7 +6,7 @@ import "./CodeBlock.css";
 import { CodeBlockPropsType } from "./CodeBlock.types";
 
 const CodeBlock: React.FC<CodeBlockPropsType> = ({ className, children, ...rest }) => (
-    <p className={joinClassNames('CodeBlock', className)} {...rest}>
+    <p className={joinClassNames('code-block', className)} {...rest}>
         <code>{children}</code>
     </p>
 );

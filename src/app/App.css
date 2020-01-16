@@ -1,10 +1,10 @@
-.App-logo {
+.app__logo {
   height: 5rem;
   pointer-events: none;
   margin: 1rem 0;
 }
 
-.App-header {
+.app__header {
   text-align: center;
   background-color: #282c34;
   min-height: 20vh;
@@ -17,16 +17,16 @@
   padding: 2rem 1rem;
 }
 
-.App-link {
+.app__link {
   color: #61dafb;
 }
 
-.App-navigation {
+.app__navigation {
   background-color: #004AE0;
   padding: .5rem 1rem;
 }
 
-.App-menu {
+.app__menu {
   margin: 0;
   padding: 0;
   display: flex;
@@ -35,7 +35,7 @@
   list-style: none;
 }
 
-.App-menuLink {
+.app__menu-link {
   display: block;
   padding: .5rem 1rem;
   color: #FFFFFF;
@@ -43,14 +43,14 @@
   font-weight: bold;
 }
 
-.App-menuLink:focus {
+.app__menu-link:focus {
   outline-color: #9EBEFF;
 }
 
-.App-menuLink:hover {
+.app__menu-link:hover {
   color: #9EBEFF;
 }
 
-.App-main {
+.app__main {
   padding: 2rem 1rem;
 }

@@ -10,14 +10,14 @@ import Home from './home/Home';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="app">
+      <header className="app__header">
+        <img src={logo} className="app__logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a
-          className="App-link"
+          className="app__link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
@@ -25,20 +25,20 @@ const App: React.FC = () => {
           Learn React
         </a>
       </header>
-      <nav className="App-navigation">
-        <ul className="App-menu">
-          <li className="App-menuItem">
-            <Link className="App-menuLink" to="/">Home</Link>
+      <nav className="app__navigation">
+        <ul className="app__menu">
+          <li className="app__menu-item">
+            <Link className="app__menu-link" to="/">Home</Link>
           </li>
-          <li className="App-menuItem">
-            <Link className="App-menuLink" to="/about">About</Link>
+          <li className="app__menu-item">
+            <Link className="app__menu-link" to="/about">About</Link>
           </li>
-          <li className="App-menuItem">
-            <Link className="App-menuLink" to="/help">Help</Link>
+          <li className="app__menu-item">
+            <Link className="app__menu-link" to="/help">Help</Link>
           </li>
         </ul>
       </nav>
-      <main className="App-main">
+      <main className="app__main">
         <Switch>
           <Route exact path="/">
             <Home />
