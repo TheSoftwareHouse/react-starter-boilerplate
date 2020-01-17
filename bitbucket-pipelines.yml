@@ -1,0 +1,11 @@
+image: node:12.14.1
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        name: Run linter and tests
+        script:
+          - npm install
+          - npm run lint
+          - npm run coverage
