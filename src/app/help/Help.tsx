@@ -17,6 +17,9 @@ export const Help: React.FC = () => {
             <h4 id="-npm-test-"><code>npm test</code></h4>
             <p>Launches the test runner in the interactive watch mode.<br />
               See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">running tests</a> for more information.</p>
+            <h4 id="-npm-run-coverage-"><code>npm run coverage</code></h4>
+            <p>Launches the test runner in the coverage report generation mode.<br />
+              See <a href="https://create-react-app.dev/docs/running-tests/#coverage-reporting">this</a> section for more information.</p>
             <h4 id="-npm-run-build-"><code>npm run build</code></h4>
             <p>Builds the app for production to the <code>build</code> folder.<br />
               It correctly bundles React in production mode and optimizes the build for the best performance.</p>
