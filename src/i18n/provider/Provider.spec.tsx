@@ -14,7 +14,7 @@ const TestComponent: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => context.setLocale(LocalesEnum.pl)}>SET LOCALE</button>
+      <button onClick={() => context?.setLocale(LocalesEnum.pl)}>SET LOCALE</button>
       <div title="CONTEXT">{JSON.stringify(context)}</div>
     </>
   );
