@@ -11,6 +11,7 @@
     "no-console": "error",
     "@typescript-eslint/no-explicit-any": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/order": ["error", { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"] }]
+    "import/order": ["error", { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"] }],
+    "import/no-default-export": "error"
   }
 }
