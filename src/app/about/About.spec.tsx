@@ -5,6 +5,6 @@ import { About } from './About';
 
 test('renders heading', () => {
     const { getByText } = render(<About />);
-    const element = getByText(/About/i);
+    const element = getByText(/About/);
     expect(element).toBeInTheDocument();
 });

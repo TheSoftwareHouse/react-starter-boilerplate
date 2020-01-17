@@ -5,7 +5,7 @@ import { CodeBlock } from './CodeBlock';
 
 test('renders its children', () => {
     const { getByText } = render(<CodeBlock>TEST</CodeBlock>);
-    const element = getByText(/TEST/i);
+    const element = getByText(/TEST/);
     expect(element).toBeInTheDocument();
 });
 

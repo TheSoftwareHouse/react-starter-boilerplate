@@ -6,7 +6,7 @@ import { messages } from "i18n/messages/messages";
 import { LocalesEnum } from "i18n/locales.enum";
 import { defaultLocale } from "i18n/defaultLocale";
 
-export const I18nProvider: React.FC = ({ children }) => {
+export const Provider: React.FC = ({ children }) => {
     const [locale, setLocale] = React.useState<LocalesEnum>(defaultLocale);
 
     return (

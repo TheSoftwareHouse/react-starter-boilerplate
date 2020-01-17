@@ -7,7 +7,7 @@ import { Home } from './Home';
 
 test('renders heading', () => {
     const {getByText} = render(<Home/>);
-    const element = getByText(/Home/i);
+    const element = getByText(/Home/);
     expect(element).toBeInTheDocument();
 });
 
@@ -23,13 +23,13 @@ test('changes locale when "here" button is clicked', () => {
         </LocaleContext.Consumer>
     );
 
-    const initialText = getByText(/LOCALE/i).textContent;
+    const initialText = getByText(/LOCALE/).textContent;
 
-    getByText(/here/i).click();
+    getByText(/here/).click();
 
-    expect(getByText(/LOCALE/i).textContent).not.toBe(initialText);
+    expect(getByText(/LOCALE/).textContent).not.toBe(initialText);
 
-    getByText(/here/i).click();
+    getByText(/here/).click();
 
-    expect(getByText(/LOCALE/i).textContent).toBe(initialText);
+    expect(getByText(/LOCALE/).textContent).toBe(initialText);
 });

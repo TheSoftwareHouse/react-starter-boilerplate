@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import { I18nProvider } from './i18n/provider/Provider';
+import { Provider as I18nProvider } from './i18n/provider/Provider';
 import { App } from './app/App';
 
 ReactDOM.render(

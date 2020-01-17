@@ -17,9 +17,9 @@ test('has default value with a setter that doesn\'t work', () => {
         </LocaleContext.Consumer>
     ), {wrapper: ({children}) => <>{children}</>});
 
-    expect(getByText(/LOCALE: en/i)).toBeInTheDocument();
+    expect(getByText(/LOCALE: en/)).toBeInTheDocument();
 
-    getByText(/SET LOCALE/i).click();
+    getByText(/SET LOCALE/).click();
 
-    expect(getByText(/LOCALE: en/i)).toBeInTheDocument();
+    expect(getByText(/LOCALE: en/)).toBeInTheDocument();
 });

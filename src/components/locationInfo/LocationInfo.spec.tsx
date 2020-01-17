@@ -6,6 +6,6 @@ import { LocationInfo } from './LocationInfo';
 
 test('renders current location data', () => {
     const { getByText } = render(<LocationInfo>TEST</LocationInfo>, { wrapper: ({ children }) => <Router initialEntries={["/foo"]}>{children}</Router> });
-    const element = getByText(/\/foo/i);
+    const element = getByText(/\/foo/);
     expect(element).toBeInTheDocument();
 });
