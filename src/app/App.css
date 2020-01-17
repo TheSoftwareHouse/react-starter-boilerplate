@@ -1,0 +1,56 @@
+.app__logo {
+  height: 5rem;
+  pointer-events: none;
+  margin: 1rem 0;
+}
+
+.app__header {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: .75rem;
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.app__link {
+  color: #61dafb;
+}
+
+.app__navigation {
+  background-color: #004AE0;
+  padding: .5rem 1rem;
+}
+
+.app__menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+
+.app__menu-link {
+  display: block;
+  padding: .5rem 1rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app__menu-link:focus {
+  outline-color: #9EBEFF;
+}
+
+.app__menu-link:hover {
+  color: #9EBEFF;
+}
+
+.app__main {
+  padding: 2rem 1rem;
+}
