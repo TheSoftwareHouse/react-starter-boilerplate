@@ -1,7 +1,7 @@
-import { LocalesEnum } from "i18n/locales.enum";
+import { LocalesEnum } from 'i18n/locales.enum';
 
 export type LocaleContextValueType = {
-    defaultLocale: LocalesEnum,
-    locale: LocalesEnum,
-    setLocale: (locale: LocalesEnum) => void,
-}
+  defaultLocale: LocalesEnum;
+  locale: LocalesEnum;
+  setLocale: (locale: LocalesEnum) => void;
+};

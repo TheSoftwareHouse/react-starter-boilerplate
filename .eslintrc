@@ -1,4 +1,5 @@
 {
+  "ignorePatterns": ["src/serviceWorker.ts"],
   "extends": [
     "react-app",
     "plugin:prettier/recommended",

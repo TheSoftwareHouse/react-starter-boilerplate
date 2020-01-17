@@ -4,7 +4,7 @@ import { render } from 'test-utils';
 import { About } from './About';
 
 test('renders heading', () => {
-    const { getByText } = render(<About />);
-    const element = getByText(/About/);
-    expect(element).toBeInTheDocument();
+  const { getByText } = render(<About />);
+  const element = getByText(/About/);
+  expect(element).toBeInTheDocument();
 });

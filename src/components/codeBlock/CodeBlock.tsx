@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { joinClassNames } from "helpers/joinClassNames/joinClassNames";
+import { joinClassNames } from 'helpers/joinClassNames/joinClassNames';
 
-import "./CodeBlock.css";
-import { CodeBlockPropsType } from "./CodeBlock.types";
+import './CodeBlock.css';
+import { CodeBlockPropsType } from './CodeBlock.types';
 
 export const CodeBlock: React.FC<CodeBlockPropsType> = ({ className, children, ...rest }) => (
-    <p className={joinClassNames('code-block', className)} {...rest}>
-        <code>{children}</code>
-    </p>
+  <p className={joinClassNames('code-block', className)} {...rest}>
+    <code>{children}</code>
+  </p>
 );

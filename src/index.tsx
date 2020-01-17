@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -9,12 +9,13 @@ import { Provider as I18nProvider } from './i18n/provider/Provider';
 import { App } from './app/App';
 
 ReactDOM.render(
-    <I18nProvider>
-        <Router>
-            <App />
-        </Router>
-    </I18nProvider>,
-    document.getElementById('root'));
+  <I18nProvider>
+    <Router>
+      <App />
+    </Router>
+  </I18nProvider>,
+  document.getElementById('root'),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

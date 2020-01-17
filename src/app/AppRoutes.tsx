@@ -1,11 +1,11 @@
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { RoutesEnum } from "navigation/routes.enum";
+import { RoutesEnum } from 'navigation/routes.enum';
 
-import { Home } from "./home/Home";
-import { About } from "./about/About";
-import { Help } from "./help/Help";
+import { Home } from './home/Home';
+import { About } from './about/About';
+import { Help } from './help/Help';
 
 export const AppRoutes = () => {
   return (
