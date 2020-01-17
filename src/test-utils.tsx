@@ -2,8 +2,8 @@
 import React from 'react';
 import {MemoryRouter as Router} from "react-router-dom";
 import {render, RenderOptions, RenderResult} from '@testing-library/react'
-import {Queries} from "@testing-library/dom";
-import I18nProvider from "./i18n/provider/Provider";
+import { Queries } from "@testing-library/dom";
+import { I18nProvider } from "./i18n/provider/Provider";
 
 const wrapper: React.FC = ({children}) => {
     return (

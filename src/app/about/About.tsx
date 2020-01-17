@@ -1,8 +1,8 @@
 import React from 'react';
 
-import LocationInfo from "components/locationInfo/LocationInfo";
+import { LocationInfo } from "components/locationInfo/LocationInfo";
 
-const About: React.FC = () => {
+export const About: React.FC = () => {
     return (
         <>
             <h2>About</h2>
@@ -19,5 +19,3 @@ const About: React.FC = () => {
         </>
     );
 };
-
-export default About;

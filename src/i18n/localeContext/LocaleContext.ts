@@ -11,6 +11,4 @@ const defaultValue = {
     setLocale: () => {}
 };
 
-const LocaleContext = React.createContext<LocaleContextValueType>(defaultValue);
-
-export default LocaleContext;
+export const LocaleContext = React.createContext<LocaleContextValueType>(defaultValue);

@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import CodeBlock from "components/codeBlock/CodeBlock";
+import { CodeBlock } from "components/codeBlock/CodeBlock";
 
-const LocationInfo: React.FC = () => {
+export const LocationInfo: React.FC = () => {
     const location = useLocation();
 
     return (
@@ -13,5 +13,3 @@ const LocationInfo: React.FC = () => {
         </div>
     );
 };
-
-export default LocationInfo;

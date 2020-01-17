@@ -1,11 +1,11 @@
 import React from 'react';
 import {useIntl} from "react-intl";
 
-import LocationInfo from "components/locationInfo/LocationInfo";
-import LocaleContext from "i18n/localeContext/LocaleContext";
-import {LocalesEnum} from "i18n/locales.enum";
+import { LocationInfo } from "components/locationInfo/LocationInfo";
+import { LocaleContext } from "i18n/localeContext/LocaleContext";
+import { LocalesEnum } from "i18n/locales.enum";
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
     const { formatMessage } = useIntl();
     const { locale, setLocale } = React.useContext(LocaleContext);
 
@@ -24,5 +24,3 @@ const Home: React.FC = () => {
         </>
     );
 };
-
-export default Home;

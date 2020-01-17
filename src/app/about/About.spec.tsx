@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'test-utils';
 
-import About from './About';
+import { About } from './About';
 
 test('renders heading', () => {
     const { getByText } = render(<About />);

@@ -1,14 +1,14 @@
 import React from 'react';
-import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { RoutesEnum } from "navigation/routes.enum";
 
 import './App.css';
+import { AppRoutes } from './AppRoutes';
 
 import logo from './assets/logo.svg';
-import About from './about/About';
-import Help from './help/Help';
-import Home from './home/Home';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <div className="app">
       <header className="app__header">
@@ -28,32 +28,19 @@ const App: React.FC = () => {
       <nav className="app__navigation">
         <ul className="app__menu">
           <li className="app__menu-item">
-            <Link className="app__menu-link" to="/">Home</Link>
+            <Link className="app__menu-link" to={RoutesEnum.home}>Home</Link>
           </li>
           <li className="app__menu-item">
-            <Link className="app__menu-link" to="/about">About</Link>
+            <Link className="app__menu-link" to={RoutesEnum.about}>About</Link>
           </li>
           <li className="app__menu-item">
-            <Link className="app__menu-link" to="/help">Help</Link>
+            <Link className="app__menu-link" to={RoutesEnum.help}>Help</Link>
           </li>
         </ul>
       </nav>
       <main className="app__main">
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/help">
-            <Help />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
+        <AppRoutes />
       </main>
     </div>
   );
 };
-
-export default App;

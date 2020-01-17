@@ -1,9 +1,9 @@
 import React from 'react';
 import {render} from 'test-utils';
 
-import LocaleContext from "i18n/localeContext/LocaleContext";
+import { LocaleContext } from "i18n/localeContext/LocaleContext";
 
-import Home from './Home';
+import { Home } from './Home';
 
 test('renders heading', () => {
     const {getByText} = render(<Home/>);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'test-utils';
 
-import CodeBlock from './CodeBlock';
+import { CodeBlock } from './CodeBlock';
 
 test('renders its children', () => {
     const { getByText } = render(<CodeBlock>TEST</CodeBlock>);

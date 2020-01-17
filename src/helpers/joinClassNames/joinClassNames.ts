@@ -3,8 +3,6 @@
  * Arguments other than non-empty strings are ignored.
  * @param parts Any type and number of arguments
  */
-const joinClassNames = (...parts: Array<any>) => {
+export const joinClassNames = (...parts: Array<any>) => {
     return parts.filter(part => part && typeof part === 'string').join(' ');
 };
-
-export default joinClassNames;

@@ -1,4 +1,4 @@
-import joinClassNames from './joinClassNames';
+import { joinClassNames } from './joinClassNames';
 
 test('joins any number of arguments with a space character', () => {
     expect(joinClassNames('foo', 'bar', 'baz')).toEqual('foo bar baz');
