@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider as I18nProvider } from './i18n/provider/Provider';
 import { App } from './app/App';
+
+import './assets/styles/main.css';
 
 ReactDOM.render(
   <I18nProvider>

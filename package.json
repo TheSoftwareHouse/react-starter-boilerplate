@@ -6,8 +6,8 @@
     "build": "react-scripts build",
     "coverage": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'",
+    "lint": "eslint './src/**/*.{ts,tsx}' && stylelint './src/**/*.{css,pcss,scss}'",
+    "lint:fix": "eslint --fix './src/**/*.{ts,tsx}' && stylelint --fix './src/**/*.{css,pcss,scss}'",
     "start": "react-scripts start",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test"
   },
@@ -17,8 +17,13 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,jsx,ts,tsx,json,md}": [
       "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{css,pcss,scss}": [
+      "stylelint --fix",
+      "prettier --write",
       "git add"
     ]
   },
@@ -70,6 +75,8 @@
     "full-icu": "1.3.0",
     "husky": "4.0.10",
     "lint-staged": "9.5.0",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "stylelint": "13.0.0",
+    "stylelint-config-recommended": "3.0.0"
   }
 }
