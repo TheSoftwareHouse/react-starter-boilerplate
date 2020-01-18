@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'clsx';
 
-import './CodeBlock.css';
-import { CodeBlockPropsType } from './CodeBlock.types';
+import { CodeBlockProps } from './CodeBlock.types';
 
-export const CodeBlock: React.FC<CodeBlockPropsType> = ({ className, children, ...rest }) => (
-  <p className={classNames('code-block', className)} {...rest}>
+import './CodeBlock.css';
+
+export const CodeBlock: React.FC<CodeBlockProps> = ({ className, children }) => (
+  <p className={classNames('code-block', className)}>
     <code>{children}</code>
   </p>
 );

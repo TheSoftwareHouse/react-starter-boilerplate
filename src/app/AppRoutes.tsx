@@ -7,7 +7,7 @@ import { Home } from './home/Home';
 import { About } from './about/About';
 import { Help } from './help/Help';
 
-export const AppRoutes = () => {
+export const AppRoutes: React.FC = () => {
   return (
     <Switch>
       <Route exact path={RoutesEnum.home}>

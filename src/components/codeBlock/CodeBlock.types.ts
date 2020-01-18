@@ -1,3 +1,3 @@
-export type CodeBlockPropsType = {
+export type CodeBlockProps = {
   className?: string;
 };
