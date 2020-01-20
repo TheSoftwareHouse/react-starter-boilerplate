@@ -8,6 +8,10 @@ export const useI18n = (): IntlShape & LocaleContextValueType => {
   const intl = useIntl();
   const localeContext = React.useContext(LocaleContext);
 
+  if (typeof localeContext !== 'object') {
+    throw new Error('LocaleContext is unavailable, make sure you are using i18n provider component');
+  }
+
   return {
     ...intl,
     ...localeContext,
