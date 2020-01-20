@@ -3,6 +3,7 @@
   "extends": [
     "react-app",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "prettier/react"
   ],
@@ -10,9 +11,34 @@
   "rules": {
     "prettier/prettier": "error",
     "no-console": "error",
-    "@typescript-eslint/no-explicit-any": "error",
+
+    "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "import/order": ["error", { "groups": ["builtin", "external", "internal", "parent", "sibling", "index"] }],
-    "import/no-default-export": "error"
-  }
+
+    "import/no-default-export": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
+      }
+    ],
+
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-function": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/!(test-utils.tsx|*.spec.*|*.test.*)"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "error",
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true
+          }
+        ]
+      }
+    }
+  ]
 }

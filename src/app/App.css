@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: white;
   padding: 2rem 1rem;
 }
@@ -22,8 +22,8 @@
 }
 
 .app__navigation {
-  background-color: #004AE0;
-  padding: .5rem 1rem;
+  background-color: #004ae0;
+  padding: 0.5rem 1rem;
 }
 
 .app__menu {
@@ -37,18 +37,18 @@
 
 .app__menu-link {
   display: block;
-  padding: .5rem 1rem;
-  color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
   text-decoration: none;
   font-weight: bold;
 }
 
 .app__menu-link:focus {
-  outline-color: #9EBEFF;
+  outline-color: #9ebeff;
 }
 
 .app__menu-link:hover {
-  color: #9EBEFF;
+  color: #9ebeff;
 }
 
 .app__main {
