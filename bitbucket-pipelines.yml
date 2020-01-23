@@ -6,6 +6,7 @@ pipelines:
           - node
         name: Run linter and tests
         script:
+          - cp .emv.dist .env
           - npm install
           - npm run lint
           - npm run coverage
