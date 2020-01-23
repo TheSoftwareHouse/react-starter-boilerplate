@@ -1,7 +1,7 @@
-image: node:12.14.1
 pipelines:
   default:
     - step:
+        image: node:12.14.1
         caches:
           - node
         name: Run linter and tests
@@ -9,3 +9,15 @@ pipelines:
           - npm install
           - npm run lint
           - npm run coverage
+    - step:
+        name: e2e
+        image: cypress/base:10
+        caches:
+          - node
+          - cypress
+        script:
+          - npm run cypress:e2e
+        artifacts:
+          # store any generates images and videos as artifacts
+          - cypress/screenshots/**
+          - cypress/videos/**

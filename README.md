@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and modified by TSH team.
 
+## E2E
+
+For E2E testing we are using the [Cypress](https://www.cypress.io/) framework.
+
+## Details
+
+The configuration is mostly isolated to the e2e folder, to allow for easy removal when not needed and to avoid conflicts with any other testing libraries, as they tend to pollute the global namespace.
+
+To get rid of e2e testing simply delete the e2e directory as well as anything beginning with "cypress" from package.json's scripts field.
+
 ## Available Scripts
 
 In the project directory, you can run:
