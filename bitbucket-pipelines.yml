@@ -25,7 +25,7 @@ pipelines:
             - cp .env.dist ./e2e/.env
             - npm install
             - cd e2e && npm install && cd ..
-            - npm run cypress:e2e
+            - npm run e2e:ci
           artifacts:
             # store any generates images and videos as artifacts
             - e2e/cypress/screenshots/**

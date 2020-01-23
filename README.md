@@ -4,11 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 For E2E testing we are using the [Cypress](https://www.cypress.io/) framework.
 
-## Details
+### Details
 
 The configuration is mostly isolated to the e2e folder, to allow for easy removal when not needed and to avoid conflicts with any other testing libraries, as they tend to pollute the global namespace.
 
-To get rid of e2e testing simply delete the e2e directory as well as anything beginning with "cypress" from package.json's scripts field.
+To get rid of e2e testing simply delete the e2e directory as well as anything beginning with "e2e" from package.json's scripts field.
 
 ## Available Scripts
 

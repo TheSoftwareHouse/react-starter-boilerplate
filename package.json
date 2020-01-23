@@ -10,11 +10,11 @@
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}' && stylelint --fix './src/**/*.{css,pcss,scss}'",
     "start": "react-scripts start",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test",
-    "cypress:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
-    "cypress:run": "cd e2e && ./node_modules/.bin/cypress run && cd ..",
+    "e2e:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
+    "e2e:run": "cd e2e && ./node_modules/.bin/cypress run && cd ..",
     "serve": "./node_modules/.bin/http-server ./build --port 1337",
-    "cypress:wait-and-run": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run cypress:run",
-    "cypress:e2e": "npm run build && npm-run-all -p -r serve cypress:wait-and-run"
+    "e2e:wait-and-run": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run",
+    "e2e:ci": "npm run build && npm-run-all -p -r serve e2e:wait-and-run"
   },
   "husky": {
     "hooks": {
