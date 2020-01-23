@@ -21,3 +21,7 @@ pipelines:
           # store any generates images and videos as artifacts
           - cypress/screenshots/**
           - cypress/videos/**
+
+definitions:
+  caches:
+    cypress: $HOME/.cache/Cypress
