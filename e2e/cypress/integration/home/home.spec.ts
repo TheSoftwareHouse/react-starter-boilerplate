@@ -8,7 +8,7 @@ context('HomePage should', () => {
   });
 
   it('navigate to about on clicking about', () => {
-    cy.get(`a[href*="${RoutesEnum.about}21345ty"]`).click();
+    cy.get(`a[href*="${RoutesEnum.about}"]`).click();
 
     cy.location().should(loc => {
       expect(loc.href).to.eq(`${Cypress.env().baseUrl}about`);
