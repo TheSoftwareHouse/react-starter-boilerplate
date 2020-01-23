@@ -14,7 +14,4 @@
       "experimentalDecorators": true
     },
     "compileOnSave": false,
-    "include": [
-      "../src"
-    ]
   }

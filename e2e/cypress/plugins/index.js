@@ -13,7 +13,7 @@
 // eslint-disable-next-line
 const wp = require('@cypress/webpack-preprocessor');
 
-require('dotenv-safe').config({ path: '.env', example: '.env.cypress.dist' });
+require('dotenv-safe').config({ path: '.env', example: '../.env.e2e.dist' });
 
 module.exports = (on, config) => {
   const options = {
@@ -37,6 +37,7 @@ module.exports = (on, config) => {
     },
   };
   on('file:preprocessor', wp(options));
+  
   config.env.baseUrl = process.env.CYPRESS_HOST;
 
   return config;

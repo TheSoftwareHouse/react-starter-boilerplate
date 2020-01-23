@@ -22,7 +22,7 @@ pipelines:
             - cypress-node
           script:
             - cp .env.dist .env
-            - cp .env.dist ./e2e/.env
+            - cp .env.e2e.dist ./e2e/.env
             - npm install
             - cd e2e && npm install && cd ..
             - npm run e2e:ci
