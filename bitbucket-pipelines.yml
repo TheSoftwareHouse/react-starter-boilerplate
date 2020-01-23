@@ -6,7 +6,7 @@ pipelines:
           - node
         name: Run linter and tests
         script:
-          - cp .emv.dist .env
+          - cp .env.dist .env
           - npm install
           - npm run lint
           - npm run coverage
@@ -17,7 +17,7 @@ pipelines:
           - node
           - cypress
         script:
-          - cp .emv.dist .env
+          - cp .env.dist .env
           - npm run cypress:e2e
         artifacts:
           # store any generates images and videos as artifacts
