@@ -16,9 +16,11 @@ pipelines:
         caches:
           - node
           - cypress
+          - cypress-node
         script:
           - cp .env.dist .env
           - npm install
+          - cd e2e && npm install && cd ..
           - npm run cypress:e2e
         artifacts:
           # store any generates images and videos as artifacts
@@ -28,3 +30,4 @@ pipelines:
 definitions:
   caches:
     cypress: $HOME/.cache/Cypress
+    cypress-node: ./e2e/node_modules
