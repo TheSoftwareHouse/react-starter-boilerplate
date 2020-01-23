@@ -18,6 +18,7 @@ pipelines:
           - cypress
         script:
           - cp .env.dist .env
+          - npm install
           - npm run cypress:e2e
         artifacts:
           # store any generates images and videos as artifacts
