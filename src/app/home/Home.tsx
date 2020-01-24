@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuthState } from 'hooks';
+import { useAuthState, useLocale } from 'hooks';
+import { AppLocale } from 'context/locale/AppLocale.enum';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
-import { LocalesEnum } from 'i18n/locales.enum';
-import { useI18n } from 'i18n/useI18n/useI18n';
 import { AppRoute } from '../routes/AppRoute.enum';
 
 export const Home: React.FC = () => {
-  const { formatMessage, locale, setLocale } = useI18n();
+  const { formatMessage, locale, setLocale } = useLocale();
   const { user } = useAuthState();
 
   return (
@@ -24,7 +23,7 @@ export const Home: React.FC = () => {
         function from <a href="https://github.com/formatjs/react-intl">react-intl</a>. Click{' '}
         <button
           style={{ fontSize: 'inherit' }}
-          onClick={() => setLocale(locale === LocalesEnum.pl ? LocalesEnum.en : LocalesEnum.pl)}
+          onClick={() => setLocale(locale === AppLocale.pl ? AppLocale.en : AppLocale.pl)}
         >
           here
         </button>{' '}
