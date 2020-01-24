@@ -1,4 +1,4 @@
-import { render } from 'test-utils';
+import { render } from 'tests';
 import React from 'react';
 
 import { LocaleContext } from './LocaleContext';

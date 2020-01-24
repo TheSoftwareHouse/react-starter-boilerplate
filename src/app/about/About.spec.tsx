@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'test-utils';
+import { render } from 'tests';
 
 import { About } from './About';
 

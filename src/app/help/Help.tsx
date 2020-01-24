@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LocationInfo } from 'components/locationInfo/LocationInfo';
+import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
 export const Help: React.FC = () => {
   return (
