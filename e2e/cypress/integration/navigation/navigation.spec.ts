@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-import { RoutesEnum } from '../../../../src/navigation/routes.enum';
+import { NavigationMenu } from '../../pages/Navigation';
 
 context('HomePage should', () => {
   beforeEach(() => {
@@ -8,18 +8,17 @@ context('HomePage should', () => {
   });
 
   it('navigate to about on clicking about', () => {
-    cy.get(`a[href*="${RoutesEnum.about}"]`).click();
-
+    NavigationMenu.goToAbout();
     cy.location().should(loc => {
-      expect(loc.href).to.eq(`${Cypress.env().baseUrl}about`);
+      expect(loc.href).to.eq(NavigationMenu.aboutLink);
     });
   });
 
   it('navigate to help on clicking help', () => {
-    cy.get(`a[href*="${RoutesEnum.help}"]`).click();
-
+    NavigationMenu.goToHelp();
+    // debugger;
     cy.location().should(loc => {
-      expect(loc.href).to.eq(`${Cypress.env().baseUrl}help`);
+      expect(loc.href).to.eq(NavigationMenu.helpLink);
     });
   });
 });

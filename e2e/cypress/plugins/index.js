@@ -13,6 +13,8 @@
 // eslint-disable-next-line
 const wp = require('@cypress/webpack-preprocessor');
 
+// this will fail if variables defined in the .dist file are not available either in the environment on the .env file
+// Anything already defined in the environment is not overriden by the values from .env
 require('dotenv-safe').config({ path: '.env', example: '../.env.e2e.dist' });
 
 module.exports = (on, config) => {
@@ -37,7 +39,7 @@ module.exports = (on, config) => {
     },
   };
   on('file:preprocessor', wp(options));
-  
+
   config.env.baseUrl = process.env.CYPRESS_HOST;
 
   return config;
