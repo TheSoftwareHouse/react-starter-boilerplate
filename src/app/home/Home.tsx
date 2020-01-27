@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { LocationInfo } from 'components/locationInfo/LocationInfo';
+import { useAuthState } from 'hooks';
+import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { LocalesEnum } from 'i18n/locales.enum';
 import { useI18n } from 'i18n/useI18n/useI18n';
+import { AppRoute } from '../routes/AppRoute.enum';
 
 export const Home: React.FC = () => {
   const { formatMessage, locale, setLocale } = useI18n();
+  const { user } = useAuthState();
 
   return (
     <>
@@ -29,6 +33,13 @@ export const Home: React.FC = () => {
       <p>This is a starter project for TSH React application. Click on navigation links above to learn more.</p>
       <hr />
       <LocationInfo />
+      <hr />
+      Current logged in user: {user?.username}{' '}
+      {user?.username && (
+        <>
+          Click <Link to={AppRoute.logout}>here</Link> to log out
+        </>
+      )}
     </>
   );
 };
