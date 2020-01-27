@@ -4,7 +4,7 @@ import { useQuery } from 'react-fetching-library';
 import { fetchCurrentUserAction } from 'api/actions/user/userActions';
 import { setAuthorized, setUnauthorized, startAuthorizing } from 'context/auth/authActionCreators/authActionCreators';
 import { useAuthDispatch } from 'hooks';
-import { Loader } from 'ui/loader/Loader';
+import { Loader } from 'ui';
 
 import { UserControllerProps } from './UserController.types';
 

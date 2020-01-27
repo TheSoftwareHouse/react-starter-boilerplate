@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { CodeBlock } from 'ui/codeBlock/CodeBlock';
+import { CodeBlock } from 'ui';
 
 export const LocationInfo: React.FC = () => {
   const location = useLocation();

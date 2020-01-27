@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuthState } from 'hooks';
-import { LocationInfo } from 'ui/locationInfo/LocationInfo';
+import { LocationInfo } from 'ui';
 import { LocalesEnum } from 'i18n/locales.enum';
 import { useI18n } from 'i18n/useI18n/useI18n';
 import { AppRoute } from '../routes/AppRoute.enum';
