@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+e2e/cypress/screenshots
+.env
+e2e/cypress/videos

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "sourceMap": true,
+      "module": "esnext",
+      "moduleResolution": "node",  
+      "target": "es5",
+      "lib": [
+        "dom",
+        "es6"
+      ],
+      "types": ["cypress"],
+      "jsx": "react",
+      "experimentalDecorators": true
+    },
+    "compileOnSave": false,
+  }

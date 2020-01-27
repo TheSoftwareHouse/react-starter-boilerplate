@@ -1,11 +1,36 @@
-image: node:12.14.1
 pipelines:
   default:
     - step:
+        image: node:12.14.1
         caches:
           - node
         name: Run linter and tests
         script:
+          - cp .env.dist .env
           - npm install
           - npm run lint
           - npm run coverage
+
+  pull-requests:
+    '**':
+      - step:
+          name: e2e
+          image: cypress/base:10
+          caches:
+            - node
+            - cypress
+            - cypress-node
+          script:
+            - cp .env.dist .env
+            - cp .env.e2e.dist ./e2e/.env
+            - npm install
+            - cd e2e && npm install && cd ..
+            - npm run e2e:ci
+          artifacts:
+            # store any generates images and videos as artifacts
+            - e2e/cypress/screenshots/**
+            - e2e/cypress/videos/**
+definitions:
+  caches:
+    cypress: $HOME/.cache/Cypress
+    cypress-node: ./e2e/node_modules
