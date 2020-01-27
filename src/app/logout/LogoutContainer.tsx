@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import { useAuthDispatch } from 'hooks';
 import { logout } from 'context/auth/authActionCreators/authActionCreators';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 import { AppRoute } from '../routes/AppRoute.enum';
 
@@ -10,6 +11,9 @@ export const LogoutContainer: React.FC = () => {
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
+    authStorage.accessToken = null;
+    authStorage.refreshToken = null;
+
     dispatch(logout());
   }, [dispatch]);
 

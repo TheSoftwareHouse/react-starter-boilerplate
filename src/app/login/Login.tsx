@@ -1,5 +1,6 @@
-import React, { createRef, FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import { useAuthDispatch, useAuthState } from 'hooks';
 import { setAuthorized, setTokens, startAuthorizing } from 'context/auth/authActionCreators/authActionCreators';
@@ -16,36 +17,28 @@ import { LoginProps } from './Login.types';
  * */
 
 export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
-  const username = createRef<HTMLInputElement>();
-  const password = createRef<HTMLInputElement>();
-
+  const { register, handleSubmit, errors } = useForm();
   const { isAuthorized, isAuthorizing } = useAuthState();
   const dispatch = useAuthDispatch();
   const [error, setError] = useState(false);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
-    const body = {
-      username: username.current?.value,
-      password: password.current?.value,
-    };
-
-    e.preventDefault();
-    e.currentTarget.reset();
-
+  async function handleSubmitCallback(body: FieldValues): Promise<void> {
     dispatch(startAuthorizing());
 
     const { payload, error: submitError } = await onSubmit(body);
 
     if (!submitError && payload) {
+      const { accessToken, refreshToken } = payload;
+
+      authStorage.accessToken = accessToken;
+      authStorage.refreshToken = refreshToken;
+
+      dispatch(setTokens(accessToken, refreshToken));
+
+      // @FIXME: accessToken is unavailable
       const { payload: currentUser, error: fetchError } = await fetchCurrentUser;
 
       if (!fetchError && currentUser) {
-        const { accessToken, refreshToken } = payload;
-
-        authStorage.accessToken = accessToken;
-        authStorage.refreshToken = refreshToken;
-
-        dispatch(setTokens(accessToken, refreshToken));
         dispatch(setAuthorized(currentUser));
       }
 
@@ -67,18 +60,20 @@ export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
     <>
       <h2>Login</h2>
       {error && <div>Invalid username and/or password</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleSubmitCallback)}>
         <div>
           <label>
             username:
-            <input ref={username} />
+            <input name="username" ref={register({ required: true })} />
           </label>
+          {errors.username && <span>This field is required</span>}
         </div>
         <div>
           <label>
             password:
-            <input type="password" ref={password} />
+            <input name="password" type="password" ref={register({ required: true })} />
           </label>
+          {errors.password && <span>This field is required</span>}
         </div>
         <button type="submit" disabled={isAuthorizing}>
           submit
