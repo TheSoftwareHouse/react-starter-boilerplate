@@ -23,15 +23,16 @@ if (process.env.NODE_ENV === 'development') {
 export const ClientContextController: React.FC<ClientProviderProps> = ({ children }) => {
   const { accessToken } = useAuthState();
 
-  requestInterceptors.push(requestHostInterceptor(String(process.env.REACT_APP_API_URL)));
-  requestInterceptors.push(requestAuthInterceptor(accessToken));
-
   const client = useMemo(() => {
     return createClient({
-      requestInterceptors,
-      responseInterceptors,
+      requestInterceptors: [
+        ...requestInterceptors,
+        requestHostInterceptor(String(process.env.REACT_APP_API_URL)),
+        requestAuthInterceptor(accessToken),
+      ],
+      responseInterceptors: [...responseInterceptors],
     });
-  }, []);
+  }, [accessToken]);
 
   return <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 };
