@@ -4,5 +4,5 @@ import { FetchCurrentUserResponse } from 'api/actions/user/userActions.types';
 
 export type LoginProps = {
   onSubmit(payload: LoginPayload): Promise<QueryResponse>;
-  fetchCurrentUser: Promise<QueryResponse<FetchCurrentUserResponse>>;
+  fetchCurrentUser: (accessToken: string) => Promise<QueryResponse<FetchCurrentUserResponse>>;
 };

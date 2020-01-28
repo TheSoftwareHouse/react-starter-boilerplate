@@ -2,7 +2,12 @@ import React, { createRef, FormEvent, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { useAuthDispatch, useAuthState } from 'hooks';
-import { setAuthorized, setTokens, startAuthorizing } from 'context/auth/authActionCreators/authActionCreators';
+import {
+  setAuthorized,
+  setTokens,
+  startAuthorizing,
+  setUnauthorized,
+} from 'context/auth/authActionCreators/authActionCreators';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 import { AppRoute } from '../routes/AppRoute.enum';
@@ -20,8 +25,16 @@ export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
   const password = createRef<HTMLInputElement>();
 
   const { isAuthorized, isAuthorizing } = useAuthState();
+
   const dispatch = useAuthDispatch();
   const [error, setError] = useState(false);
+
+  const setAuthorizationError = () => {
+    setError(true);
+    dispatch(setUnauthorized());
+    authStorage.accessToken = null;
+    authStorage.refreshToken = null;
+  };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     const body = {
@@ -30,32 +43,30 @@ export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
     };
 
     e.preventDefault();
-    e.currentTarget.reset();
 
     dispatch(startAuthorizing());
 
     const { payload, error: submitError } = await onSubmit(body);
 
     if (!submitError && payload) {
-      const { payload: currentUser, error: fetchError } = await fetchCurrentUser;
+      const { accessToken, refreshToken } = payload;
+      authStorage.accessToken = accessToken;
+      authStorage.refreshToken = refreshToken;
+      dispatch(setTokens(accessToken, refreshToken));
+
+      const { payload: currentUser, error: fetchError } = await fetchCurrentUser(accessToken);
 
       if (!fetchError && currentUser) {
-        const { accessToken, refreshToken } = payload;
-
-        authStorage.accessToken = accessToken;
-        authStorage.refreshToken = refreshToken;
-
-        dispatch(setTokens(accessToken, refreshToken));
         dispatch(setAuthorized(currentUser));
       }
 
       if (fetchError) {
-        setError(true);
+        setAuthorizationError();
       }
     }
 
     if (submitError) {
-      setError(true);
+      setAuthorizationError();
     }
   }
 

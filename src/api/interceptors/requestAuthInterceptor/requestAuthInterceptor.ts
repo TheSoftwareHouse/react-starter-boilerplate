@@ -11,8 +11,8 @@ export const requestAuthInterceptor: (accessToken: string | null) => RequestInte
   return {
     ...action,
     headers: {
-      ...(action.headers ?? {}),
-      Authorization: `Bearer ${accessToken ?? ''}`,
+      Authorization: `Bearer ${accessToken ? accessToken : ''}`,
+      ...action.headers,
     },
   };
 };

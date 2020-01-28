@@ -4,14 +4,15 @@ import { act, fireEvent, render, wait } from 'tests';
 import { Login } from './Login';
 
 describe('Login', () => {
-  const fetchCurrentUser = Promise.resolve({
-    error: false,
-    payload: {
-      firstName: 'Foo',
-      lastName: 'Bar',
-      username: 'baz',
-    },
-  });
+  const fetchCurrentUser = () =>
+    Promise.resolve({
+      error: false,
+      payload: {
+        firstName: 'Foo',
+        lastName: 'Bar',
+        username: 'baz',
+      },
+    });
 
   test('calls onSubmit prop with username and password and redirects on success', async () => {
     const onSubmit = jest.fn(() =>

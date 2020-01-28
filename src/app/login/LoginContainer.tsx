@@ -12,7 +12,8 @@ export const LoginContainer: React.FC = () => {
   const { query } = useContext(ClientContext);
 
   const { mutate } = useMutation<AuthorizeResponse, LoginPayload>(loginAction);
-  const fetchCurrentUser = query<FetchCurrentUserResponse>(fetchCurrentUserAction());
+  const fetchCurrentUser = (accessToken: string) =>
+    query<FetchCurrentUserResponse>(fetchCurrentUserAction(accessToken));
 
   return <Login onSubmit={mutate} fetchCurrentUser={fetchCurrentUser} />;
 };
