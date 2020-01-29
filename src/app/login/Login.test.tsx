@@ -59,14 +59,41 @@ describe('Login', () => {
         error: true,
       }),
     );
-    const { getByText } = render(<Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />);
+    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />);
+
+    act(() => {
+      fireEvent.change(getByLabelText(/username/), {
+        target: {
+          value: 'foo',
+        },
+      });
+      fireEvent.change(getByLabelText(/password/), {
+        target: {
+          value: 'bar',
+        },
+      });
+      fireEvent.click(getByText('submit'));
+    });
+
+    await wait(() => {
+      expect(getByText('Invalid username and/or password')).toBeTruthy();
+    });
+  });
+
+  test('displays validation errors', async () => {
+    const onSubmit = jest.fn(() =>
+      Promise.resolve({
+        error: false,
+      }),
+    );
+    const { getAllByText, getByText } = render(<Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />);
 
     act(() => {
       fireEvent.click(getByText('submit'));
     });
 
     await wait(() => {
-      expect(getByText('Invalid username and/or password')).toBeTruthy();
+      expect(getAllByText('This field is required').length).toBe(2);
     });
   });
 });

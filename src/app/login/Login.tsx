@@ -1,5 +1,6 @@
-import React, { createRef, FormEvent, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Redirect } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
 
 import { useAuthDispatch, useAuthState } from 'hooks';
 import {
@@ -21,54 +22,48 @@ import { LoginProps } from './Login.types';
  * */
 
 export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
-  const username = createRef<HTMLInputElement>();
-  const password = createRef<HTMLInputElement>();
-
+  const { register, handleSubmit, errors } = useForm();
   const { isAuthorized, isAuthorizing } = useAuthState();
 
   const dispatch = useAuthDispatch();
   const [error, setError] = useState(false);
 
-  const setAuthorizationError = () => {
+  const setAuthorizationError = useCallback(() => {
     setError(true);
     dispatch(setUnauthorized());
     authStorage.accessToken = null;
     authStorage.refreshToken = null;
-  };
+  }, [dispatch]);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
-    const body = {
-      username: username.current?.value,
-      password: password.current?.value,
-    };
+  const handleSubmitCallback = useCallback(
+    async function handleSubmitCallback(body: FieldValues): Promise<void> {
+      dispatch(startAuthorizing());
 
-    e.preventDefault();
+      const { payload, error: submitError } = await onSubmit(body);
 
-    dispatch(startAuthorizing());
+      if (!submitError && payload) {
+        const { accessToken, refreshToken } = payload;
+        authStorage.accessToken = accessToken;
+        authStorage.refreshToken = refreshToken;
+        dispatch(setTokens(accessToken, refreshToken));
 
-    const { payload, error: submitError } = await onSubmit(body);
+        const { payload: currentUser, error: fetchError } = await fetchCurrentUser(accessToken);
 
-    if (!submitError && payload) {
-      const { accessToken, refreshToken } = payload;
-      authStorage.accessToken = accessToken;
-      authStorage.refreshToken = refreshToken;
-      dispatch(setTokens(accessToken, refreshToken));
+        if (!fetchError && currentUser) {
+          dispatch(setAuthorized(currentUser));
+        }
 
-      const { payload: currentUser, error: fetchError } = await fetchCurrentUser(accessToken);
-
-      if (!fetchError && currentUser) {
-        dispatch(setAuthorized(currentUser));
+        if (fetchError) {
+          setAuthorizationError();
+        }
       }
 
-      if (fetchError) {
+      if (submitError) {
         setAuthorizationError();
       }
-    }
-
-    if (submitError) {
-      setAuthorizationError();
-    }
-  }
+    },
+    [dispatch, fetchCurrentUser, onSubmit, setAuthorizationError],
+  );
 
   if (isAuthorized) {
     return <Redirect to={AppRoute.home} />;
@@ -78,18 +73,20 @@ export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
     <>
       <h2>Login</h2>
       {error && <div>Invalid username and/or password</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleSubmitCallback)}>
         <div>
           <label>
             username:
-            <input ref={username} />
+            <input name="username" ref={register({ required: true })} />
           </label>
+          {errors.username && <span>This field is required</span>}
         </div>
         <div>
           <label>
             password:
-            <input type="password" ref={password} />
+            <input name="password" type="password" ref={register({ required: true })} />
           </label>
+          {errors.password && <span>This field is required</span>}
         </div>
         <button type="submit" disabled={isAuthorizing}>
           submit
