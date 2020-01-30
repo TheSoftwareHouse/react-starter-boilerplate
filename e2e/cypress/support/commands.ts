@@ -1,3 +1,5 @@
+import { NavigationMenu } from '../pages/Navigation';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +25,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('userLogin', () => {
+  NavigationMenu.goToLogin();
+  cy.get('input[name="username"]').type(Cypress.env().userLogin);
+  cy.get('input[name="password"]').type(Cypress.env().userPassword);
+  cy.get('button[type="submit"]').click();
+});
+
+Cypress.Commands.add('clearSession', () => {
+  cy.window().then(win => {
+    win.sessionStorage.clear();
+  });
+});

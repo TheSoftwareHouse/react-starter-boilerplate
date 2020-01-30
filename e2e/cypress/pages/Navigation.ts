@@ -1,12 +1,46 @@
 import { AppRoute } from '../../../src/app/routes/AppRoute.enum';
 
 class Navigation {
+  goToLogout(): void {
+    cy.get(`a[href*="${AppRoute.logout}"]`)
+      .first()
+      .click();
+  }
+
+  goToHome(): void {
+    cy.get(`a[href*="${AppRoute.home}"]`)
+      .first()
+      .click();
+  }
+
+  goToLogin(): void {
+    cy.get(`a[href*="${AppRoute.login}"]`)
+      .first()
+      .click();
+  }
+
   goToAbout(): void {
-    cy.get(`a[href*="${AppRoute.about}"]`).click();
+    cy.get(`a[href*="${AppRoute.about}"]`)
+      .first()
+      .click();
   }
 
   goToHelp(): void {
-    cy.get(`a[href*="${AppRoute.help}"]`).click();
+    cy.get(`a[href*="${AppRoute.help}"]`)
+      .first()
+      .click();
+  }
+
+  get homeLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.home}`;
+  }
+
+  get loginLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.login}`;
+  }
+
+  get logoutLink(): string {
+    return `${Cypress.env().baseUrl}${AppRoute.logout}`;
   }
 
   get aboutLink(): string {

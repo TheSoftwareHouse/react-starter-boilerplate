@@ -10,7 +10,7 @@ import { ClientProviderProps } from './clientContextController.types';
 const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
-if (process.env.NODE_ENV === 'development') {
+if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV === 'development') {
   responseInterceptors.push(authorizeMock);
   // eslint-disable-next-line no-console
   console.log('authorizeMock has been added!');

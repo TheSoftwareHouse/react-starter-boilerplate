@@ -1,17 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { Redirect } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import { useAuthDispatch, useAuthState } from 'hooks';
-import {
-  setAuthorized,
-  setTokens,
-  startAuthorizing,
-  setUnauthorized,
-} from 'context/auth/authActionCreators/authActionCreators';
-import { authStorage } from 'context/auth/authStorage/AuthStorage';
-
-import { AppRoute } from '../routes/AppRoute.enum';
+import { useAuthState } from 'hooks';
 import { LoginProps } from './Login.types';
 
 /*
@@ -21,53 +11,21 @@ import { LoginProps } from './Login.types';
  *     https://pl.reactjs.org/docs/forwarding-refs.html
  * */
 
-export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
+export const Login: React.FC<LoginProps> = ({ onSubmit }) => {
   const { register, handleSubmit, errors } = useForm();
-  const { isAuthorized, isAuthorizing } = useAuthState();
+  const { isAuthorizing } = useAuthState();
 
-  const dispatch = useAuthDispatch();
   const [error, setError] = useState(false);
 
-  const setAuthorizationError = useCallback(() => {
-    setError(true);
-    dispatch(setUnauthorized());
-    authStorage.accessToken = null;
-    authStorage.refreshToken = null;
-  }, [dispatch]);
-
   const handleSubmitCallback = useCallback(
-    async function handleSubmitCallback(body: FieldValues): Promise<void> {
-      dispatch(startAuthorizing());
-
-      const { payload, error: submitError } = await onSubmit(body);
-
-      if (!submitError && payload) {
-        const { accessToken, refreshToken } = payload;
-        authStorage.accessToken = accessToken;
-        authStorage.refreshToken = refreshToken;
-        dispatch(setTokens(accessToken, refreshToken));
-
-        const { payload: currentUser, error: fetchError } = await fetchCurrentUser(accessToken);
-
-        if (!fetchError && currentUser) {
-          dispatch(setAuthorized(currentUser));
-        }
-
-        if (fetchError) {
-          setAuthorizationError();
-        }
-      }
-
-      if (submitError) {
-        setAuthorizationError();
+    async (body: FieldValues) => {
+      const valid = await onSubmit(body);
+      if (!valid) {
+        setError(!valid);
       }
     },
-    [dispatch, fetchCurrentUser, onSubmit, setAuthorizationError],
+    [onSubmit],
   );
-
-  if (isAuthorized) {
-    return <Redirect to={AppRoute.home} />;
-  }
 
   return (
     <>

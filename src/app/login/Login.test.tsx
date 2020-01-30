@@ -2,32 +2,11 @@ import React from 'react';
 import { act, fireEvent, render, wait } from 'tests';
 
 import { Login } from './Login';
-
 describe('Login', () => {
-  const fetchCurrentUser = () =>
-    Promise.resolve({
-      error: false,
-      payload: {
-        firstName: 'Foo',
-        lastName: 'Bar',
-        username: 'baz',
-      },
-    });
+  test('calls onSubmit prop with username and password', async () => {
+    const onSubmit = jest.fn(() => Promise.resolve(true));
 
-  test('calls onSubmit prop with username and password and redirects on success', async () => {
-    const onSubmit = jest.fn(() =>
-      Promise.resolve({
-        error: false,
-        payload: {
-          accessToken: 'foo',
-          refreshToken: 'bar',
-        },
-      }),
-    );
-
-    const { getByText, getByLabelText, queryByText } = render(
-      <Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />,
-    );
+    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
       fireEvent.change(getByLabelText(/username/), {
@@ -48,18 +27,12 @@ describe('Login', () => {
         username: 'foo',
         password: 'bar',
       });
-
-      expect(queryByText('Login')).not.toBeInTheDocument();
     });
   });
 
   test('displays an error if login failed', async () => {
-    const onSubmit = jest.fn(() =>
-      Promise.resolve({
-        error: true,
-      }),
-    );
-    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />);
+    const onSubmit = jest.fn(() => Promise.resolve(false));
+    const { getByText, getByLabelText } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
       fireEvent.change(getByLabelText(/username/), {
@@ -81,12 +54,8 @@ describe('Login', () => {
   });
 
   test('displays validation errors', async () => {
-    const onSubmit = jest.fn(() =>
-      Promise.resolve({
-        error: false,
-      }),
-    );
-    const { getAllByText, getByText } = render(<Login onSubmit={onSubmit} fetchCurrentUser={fetchCurrentUser} />);
+    const onSubmit = jest.fn(() => Promise.resolve(true));
+    const { getAllByText, getByText } = render(<Login onSubmit={onSubmit} />);
 
     act(() => {
       fireEvent.click(getByText('submit'));
