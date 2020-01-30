@@ -19,36 +19,11 @@ import { FieldValues } from 'react-hook-form';
 import { Login } from './Login';
 
 export const LoginContainer: React.FC = () => {
-  const { query } = useContext(ClientContext);
-
-  const { mutate } = useMutation<AuthorizeResponse, LoginPayload>(loginAction);
   const dispatch = useAuthDispatch();
 
-  const { isAuthorized } = useAuthState();
+  const { isAuthorized, login } = useAuthState();
 
-  const onSubmit = useCallback(
-    async (body: FieldValues): Promise<boolean> => {
-      dispatch(startAuthorizing());
-      const { payload, error: submitError } = await mutate(body);
-
-      if (!submitError && payload) {
-        const { accessToken, refreshToken } = payload;
-        dispatch(setTokens(accessToken, refreshToken));
-
-        const { payload: currentUser, error: fetchError } = await query<FetchCurrentUserResponse>(
-          fetchCurrentUserAction(accessToken),
-        );
-
-        if (!fetchError && currentUser) {
-          dispatch(setAuthorized(currentUser));
-          return true;
-        }
-      }
-      dispatch(setUnauthorized());
-      return false;
-    },
-    [dispatch, mutate, query],
-  );
+  const onSubmit = login;
 
   if (isAuthorized) {
     return <Redirect to={AppRoute.home} />;
