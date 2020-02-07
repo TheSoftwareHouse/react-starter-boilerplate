@@ -10,7 +10,7 @@ import { ClientProviderProps } from './clientContextController.types';
 const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
-if (process.env.NODE_ENV === 'development') {
+if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV === 'development') {
   responseInterceptors.push(authorizeMock);
   // eslint-disable-next-line no-console
   console.log('authorizeMock has been added!');
@@ -23,15 +23,16 @@ if (process.env.NODE_ENV === 'development') {
 export const ClientContextController: React.FC<ClientProviderProps> = ({ children }) => {
   const { accessToken } = useAuthState();
 
-  requestInterceptors.push(requestHostInterceptor(String(process.env.REACT_APP_API_URL)));
-  requestInterceptors.push(requestAuthInterceptor(accessToken));
-
   const client = useMemo(() => {
     return createClient({
-      requestInterceptors,
-      responseInterceptors,
+      requestInterceptors: [
+        ...requestInterceptors,
+        requestHostInterceptor(String(process.env.REACT_APP_API_URL)),
+        requestAuthInterceptor(accessToken),
+      ],
+      responseInterceptors: [...responseInterceptors],
     });
-  }, []);
+  }, [accessToken]);
 
   return <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 };

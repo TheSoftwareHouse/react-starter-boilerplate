@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import { useAuthDispatch, useAuthState } from 'hooks';
-import { setAuthorized, setTokens, startAuthorizing } from 'context/auth/authActionCreators/authActionCreators';
-import { authStorage } from 'context/auth/authStorage/AuthStorage';
-
-import { AppRoute } from '../routes/AppRoute.enum';
+import { useAuthState } from 'hooks';
 import { LoginProps } from './Login.types';
 
 /*
@@ -16,45 +11,21 @@ import { LoginProps } from './Login.types';
  *     https://pl.reactjs.org/docs/forwarding-refs.html
  * */
 
-export const Login: React.FC<LoginProps> = ({ fetchCurrentUser, onSubmit }) => {
+export const Login: React.FC<LoginProps> = ({ onSubmit }) => {
   const { register, handleSubmit, errors } = useForm();
-  const { isAuthorized, isAuthorizing } = useAuthState();
-  const dispatch = useAuthDispatch();
+  const { isAuthorizing } = useAuthState();
+
   const [error, setError] = useState(false);
 
-  async function handleSubmitCallback(body: FieldValues): Promise<void> {
-    dispatch(startAuthorizing());
-
-    const { payload, error: submitError } = await onSubmit(body);
-
-    if (!submitError && payload) {
-      const { accessToken, refreshToken } = payload;
-
-      authStorage.accessToken = accessToken;
-      authStorage.refreshToken = refreshToken;
-
-      dispatch(setTokens(accessToken, refreshToken));
-
-      // @FIXME: accessToken is unavailable
-      const { payload: currentUser, error: fetchError } = await fetchCurrentUser;
-
-      if (!fetchError && currentUser) {
-        dispatch(setAuthorized(currentUser));
+  const handleSubmitCallback = useCallback(
+    async (body: FieldValues) => {
+      const valid = await onSubmit(body);
+      if (!valid) {
+        setError(!valid);
       }
-
-      if (fetchError) {
-        setError(true);
-      }
-    }
-
-    if (submitError) {
-      setError(true);
-    }
-  }
-
-  if (isAuthorized) {
-    return <Redirect to={AppRoute.home} />;
-  }
+    },
+    [onSubmit],
+  );
 
   return (
     <>
