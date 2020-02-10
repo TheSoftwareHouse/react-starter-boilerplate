@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
-import { useAuthState } from 'hooks';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { LoginProps } from './Login.types';
 
 /*

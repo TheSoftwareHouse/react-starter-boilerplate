@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { AuthStateContext } from 'context/auth';
 import { AuthStateContextType } from 'context/auth/authContext/AuthContext.types';
+import { AuthStateContext } from 'context/auth/authContext/AuthContext';
 
 export const useAuthState: () => AuthStateContextType = () => {
   const context = useContext(AuthStateContext);

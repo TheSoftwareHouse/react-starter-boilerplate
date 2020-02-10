@@ -24,27 +24,15 @@ interceptors:
 the difference between them is that the first one is executed before action is handled by `fetch` and the other one is
 performed on the response returned by the server before it is resolved by a promise.
 
-All interceptors should be added under `src/api/interceptors` directory and re-exported inside
-`src/api/interceptors/index.ts` file. After creating new interceptor you have to add it to the fetching client, which is
+All interceptors should be added under `src/api/interceptors` directory. After creating new interceptor you have to add it to the fetching client, which is
 created in **ClientContextController** inside `src/context/client`.
 
 ### Mocks
 
 If you are working on a new functionallity and the backend is not ready yet, you can create a mock which will simulate
-an endpoint and return given response instead of the real one. Mocks are in fact `response interceptors`, which returns
-static response based on the action.
+an endpoint and return given response instead of the real one. 
 
-All mocks should be added under `src/api/mocks` directory and re-exported inside `src/api/mocks/index.ts` file. After
-creating new mock you have to add it to the fetching client, which is created in **ClientContextController** inside
-`src/context/client`. You have to add them conditionally:
-
-```javascript
-if (process.env.NODE_ENV === 'development') {
-  // Add mock here
-}
-```
-
-otherwise they will be included in the production build.
+All mocks should be added under `src/api/mocks` directory, and used in the 'src/api/mocks/mock-server' mock server, made with [mirage.js](https://github.com/miragejs/miragejs). The mock server is enabled when NODE_ENV is not `production`, or when REACT_APP_CI=1.
 
 ### Types
 
