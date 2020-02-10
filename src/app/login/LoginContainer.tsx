@@ -29,8 +29,8 @@ export const LoginContainer: React.FC = () => {
   const onSubmit = useCallback(
     async (body: FieldValues): Promise<boolean> => {
       dispatch(startAuthorizing());
-      const { payload, error: submitError } = await mutate(body);
 
+      const { payload, error: submitError } = await mutate(body);
       if (!submitError && payload) {
         const { accessToken, refreshToken } = payload;
         dispatch(setTokens(accessToken, refreshToken));
