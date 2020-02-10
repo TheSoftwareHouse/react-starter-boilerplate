@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { useAuthState } from 'hooks';
-
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRouteProps } from './AuthorizedRoute.types';
 

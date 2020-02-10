@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { ClientContextProvider, createClient, RequestInterceptor, ResponseInterceptor } from 'react-fetching-library';
 
-import { requestAuthInterceptor, requestHostInterceptor } from 'api/interceptors';
-import { useAuthState } from 'hooks';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
+import { requestAuthInterceptor } from 'api/interceptors/requestAuthInterceptor/requestAuthInterceptor';
+import { requestHostInterceptor } from 'api/interceptors/requestHostInterceptor/requestHostInterceptor';
 import { ClientProviderProps } from './clientContextController.types';
 
 const requestInterceptors: RequestInterceptor[] = [];

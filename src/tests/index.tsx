@@ -5,10 +5,10 @@ import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
 import { IntlProvider } from 'react-intl';
 import { ClientContextProvider, createClient } from 'react-fetching-library';
+import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { defaultLocale } from '../i18n/defaultLocale';
 import { LocaleContext } from '../i18n/localeContext/LocaleContext';
 import { LocalesEnum } from '../i18n/locales.enum';
-import { AuthContextController } from '../context/auth';
 
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
 const Wrapper: React.FC = ({ children }) => {

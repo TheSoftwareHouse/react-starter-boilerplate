@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuthState } from '../hooks';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
+
 import { AppRoutes } from './routes/AppRoutes';
 import { AppRoute } from './routes/AppRoute.enum';
 

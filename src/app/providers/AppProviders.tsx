@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AuthContextController } from 'context/auth';
-import { ClientContextController } from 'context/client';
+import { ClientContextController } from 'context/client/clientContextController/clientContextController';
+import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { Provider as I18nProvider } from '../../i18n/provider/Provider';
 import { UserController } from '../user/UserController';
 
