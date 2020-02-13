@@ -6,6 +6,7 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from '../routes/AppRoute.enum';
 import { useLocale } from '../../hooks/useLocale/useLocale';
 import { AppLocale } from '../../context/locale/AppLocale.enum';
+import { AppMessages } from '../../i18n/messages';
 
 export const Home: React.FC = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -15,7 +16,7 @@ export const Home: React.FC = () => {
     <>
       <h2>Home</h2>
       <p>
-        {formatMessage({ id: 'home.helloWorld' })}
+        {formatMessage({ id: AppMessages['home.helloWorld'] })}
         <span style={{ margin: '0 1rem' }}>&#x2190;</span>
         This text is translated using{' '}
         <a href="https://github.com/formatjs/react-intl/blob/master/docs/API.md#formatmessage">
