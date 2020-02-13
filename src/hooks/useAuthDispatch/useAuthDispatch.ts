@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { AuthDispatchContext } from 'context/auth';
 import { AuthDispatchContextType } from 'context/auth/authContext/AuthContext.types';
+import { AuthDispatchContext } from 'context/auth/authContext/AuthContext';
 
 export const useAuthDispatch: () => AuthDispatchContextType = () => {
   const context = useContext(AuthDispatchContext);

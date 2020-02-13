@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuthState, useLocale } from 'hooks';
-import { AppLocale } from 'context/locale/AppLocale.enum';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from '../routes/AppRoute.enum';
+import { useLocale } from '../../hooks/useLocale/useLocale';
 
 export const Home: React.FC = () => {
   const { formatMessage, locale, setLocale } = useLocale();
