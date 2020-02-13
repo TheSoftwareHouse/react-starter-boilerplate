@@ -8,7 +8,7 @@ import { ClientContextProvider, createClient } from 'react-fetching-library';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
-import { LocaleContext } from '../context/locale';
+import { LocaleContext } from '../context/locale/localeContext/LocaleContext';
 
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
 const Wrapper: React.FC = ({ children }) => {

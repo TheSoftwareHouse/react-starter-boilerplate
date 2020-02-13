@@ -11,7 +11,7 @@ export const useLocale = (): IntlShape & LocaleContextValueType => {
   if (localeContext === undefined) {
     throw new Error('LocaleContext is unavailable, make sure you are using LocaleContextController');
   }
-
+  console.log('making new locale');
   return {
     ...intl,
     ...localeContext,

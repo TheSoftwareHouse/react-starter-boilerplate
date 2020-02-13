@@ -1,9 +1,10 @@
 import React from 'react';
 import { render } from 'tests';
 
-import { LocaleContext, LocaleContextController } from 'context/locale';
-import { defaultLocale } from '../defaultLocale';
 import { AppLocale } from '../AppLocale.enum';
+import { defaultLocale } from '../defaultLocale';
+import { LocaleContext } from '../localeContext/LocaleContext';
+import { LocaleContextController } from './LocaleContextController';
 
 describe('LocaleContextController', () => {
   const wrapper: React.FC = ({ children }) => <>{children}</>;

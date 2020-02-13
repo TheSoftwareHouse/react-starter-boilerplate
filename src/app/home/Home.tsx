@@ -5,6 +5,7 @@ import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from '../routes/AppRoute.enum';
 import { useLocale } from '../../hooks/useLocale/useLocale';
+import { AppLocale } from '../../context/locale/AppLocale.enum';
 
 export const Home: React.FC = () => {
   const { formatMessage, locale, setLocale } = useLocale();
