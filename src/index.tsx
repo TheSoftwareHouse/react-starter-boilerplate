@@ -13,6 +13,12 @@ if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV !== 'producti
   mockServer();
 }
 
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  whyDidYouRender(React);
+}
+
 ReactDOM.render(
   <AppProviders>
     <App />

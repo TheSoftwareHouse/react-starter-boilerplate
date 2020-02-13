@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
@@ -11,9 +11,14 @@ export const useLocale = (): IntlShape & LocaleContextValueType => {
   if (localeContext === undefined) {
     throw new Error('LocaleContext is unavailable, make sure you are using LocaleContextController');
   }
-  console.log('making new locale');
-  return {
-    ...intl,
-    ...localeContext,
-  };
+
+  const locale = useMemo(
+    () => ({
+      ...intl,
+      ...localeContext,
+    }),
+    [intl, localeContext],
+  );
+
+  return locale;
 };
