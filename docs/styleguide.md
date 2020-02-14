@@ -69,7 +69,7 @@ useLocale.test.ts
 
 ## Placement
 
-- Common components, like a button should be placed inside the `ui`directory
+- Common components, like a button should be placed inside the `ui` directory
 
 ```typescript
 // good
