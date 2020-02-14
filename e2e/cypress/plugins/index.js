@@ -41,6 +41,8 @@ module.exports = (on, config) => {
   on('file:preprocessor', wp(options));
 
   config.env.baseUrl = process.env.CYPRESS_HOST;
+  config.env.userLogin = process.env.CYPRESS_USER_LOGIN;
+  config.env.userPassword = process.env.CYPRESS_USER_PASSWORD;
 
   return config;
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuthState } from 'hooks';
-import { LocationInfo } from 'ui';
+import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { LocalesEnum } from 'i18n/locales.enum';
 import { useI18n } from 'i18n/useI18n/useI18n';
+import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from '../routes/AppRoute.enum';
 
 export const Home: React.FC = () => {
