@@ -1,8 +1,7 @@
 import React from 'react';
 import { render } from 'tests';
 
-import { LocaleContext } from 'i18n/localeContext/LocaleContext';
-
+import { LocaleContext } from '../../context/locale/localeContext/LocaleContext';
 import { Home } from './Home';
 
 test('renders heading', () => {
@@ -14,9 +13,9 @@ test('renders heading', () => {
 test('changes locale when "here" button is clicked', () => {
   const { getByText } = render(
     <LocaleContext.Consumer>
-      {({ locale }) => (
+      {value => (
         <>
-          <span>LOCALE: {locale}</span>
+          <span>LOCALE: {value?.locale}</span>
           <Home />
         </>
       )}

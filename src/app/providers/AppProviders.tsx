@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { ClientContextController } from 'context/client/clientContextController/clientContextController';
+import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
-import { Provider as I18nProvider } from '../../i18n/provider/Provider';
 import { UserController } from '../user/UserController';
 
+import { LocaleContextController } from '../../context/locale/localeContextController/LocaleContextController';
 import { AppProvidersProps } from './AppProviders.types';
 
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
-  <I18nProvider>
+  <LocaleContextController>
     <AuthContextController>
       <ClientContextController>
         <UserController>
@@ -17,5 +17,5 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
         </UserController>
       </ClientContextController>
     </AuthContextController>
-  </I18nProvider>
+  </LocaleContextController>
 );

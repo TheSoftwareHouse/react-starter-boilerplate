@@ -6,13 +6,13 @@ import { Queries } from '@testing-library/dom';
 import { IntlProvider } from 'react-intl';
 import { ClientContextProvider, createClient } from 'react-fetching-library';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
-import { defaultLocale } from '../i18n/defaultLocale';
-import { LocaleContext } from '../i18n/localeContext/LocaleContext';
-import { LocalesEnum } from '../i18n/locales.enum';
+import { AppLocale } from '../context/locale/AppLocale.enum';
+import { defaultLocale } from '../context/locale/defaultLocale';
+import { LocaleContext } from '../context/locale/localeContext/LocaleContext';
 
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
 const Wrapper: React.FC = ({ children }) => {
-  const [locale, setLocale] = React.useState<LocalesEnum>(defaultLocale);
+  const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
 
   return (
     <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
