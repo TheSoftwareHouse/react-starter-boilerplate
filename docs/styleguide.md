@@ -46,13 +46,13 @@ Tooltip.types.ts
 
 ```typescript
 // bad
-import Footer from './footer';
+import { Footer } from './footer';
 
 // bad
-import Footer from './footer/index';
+import { Footer } from './footer/index';
 
 // good
-import Footer from './footer/Footer';
+import { Footer } from './footer/Footer';
 ```
 
 - Use `.test` suffix for filenames which contains tests
@@ -65,4 +65,26 @@ useLocale.spec.ts
 // good
 Tooltip.test.tsx
 useLocale.test.ts
+```
+
+## Placement
+
+- Common components, like a button should be placed inside the `ui`directory
+
+```typescript
+// good
+import { CodeBlock } from './ui/codeBlock/CodeBlock';
+
+// bad
+import { CodeBlock } from './app/codeBlock/CodeBlock';
+```
+
+- Feature specific components, like a page should be placed inside the `app` directory
+
+```typescript
+// bad
+import { About } from './ui/about/About';
+
+// good
+import { About } from './app/about/About';
 ```
