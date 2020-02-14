@@ -1,0 +1,16 @@
+import React from 'react';
+import { render } from 'tests';
+
+import { {{pascalCase name}} } from './{{pascalCase name}}';
+
+describe('{{pascalCase name}}', () => {
+  test('renders', () => {
+    const { getByText } = render(
+      <{{pascalCase name}} />,
+    );
+
+    const element = getByText('{{pascalCase name}}');
+
+    expect(element).toBeInTheDocument();
+  });
+});

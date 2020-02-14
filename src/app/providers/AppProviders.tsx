@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { ClientContextController } from 'context/client/clientContextController/clientContextController';
+import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
 import { UserController } from '../user/UserController';
 
