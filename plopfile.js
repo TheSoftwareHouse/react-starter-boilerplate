@@ -94,8 +94,6 @@ const reactComponentGenerator = () => ({
 
 module.exports = function(plop) {
   plop.setPrompt('directory', promptDirectory);
-  plop.setGenerator(componentTypes.REQUEST_INTERCEPTOR, {});
-  plop.setGenerator(componentTypes.RESPONSE_INTERCEPTOR);
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
   plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
 };
