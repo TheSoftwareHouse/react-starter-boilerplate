@@ -20,6 +20,26 @@ The repository contains a .env.dist file with a list of all env variables used i
 
 In the project directory, you can run:
 
+### `npm lint(:fix)`
+
+Runs the linter (and fixes fixable issues)
+
+### `npm plop`
+
+Runs [Plop JS](https://plopjs.com/) used for generating custom hooks and react components. 
+
+### `e2e:run`
+
+Runs Cypress E2E tests in a headless mode (the browser window is not visible)
+
+### `e2e:open`
+
+Opens the Cypress UI, allowing to run and watch E2E tests
+
+### `e2e:ci`
+
+Builds the app as a CI environment, sets up an html server with `npm run serve` and runs the E2E tests in a headless mode. Useful when investigating pipeline failures.
+
 ### `npm start`
 
 Runs the app in the development mode.<br />
