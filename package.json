@@ -17,7 +17,13 @@
     "e2e:run": "cd e2e && ./node_modules/.bin/cypress run && cd ..",
     "serve": "./node_modules/.bin/http-server ./build --port 1337",
     "e2e:wait-and-run": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run",
-    "e2e:ci": "npm run build:ci && npm-run-all -p -r serve e2e:wait-and-run"
+    "e2e:wait-and-run:firefox": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run --browser firefox",
+    "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run --browser chrome",
+    "e2e:wait-and-run:edge": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run --browser edge",
+    "e2e:ci": "npm-run-all -p -r serve e2e:wait-and-run",
+    "e2e:ci:firefox": "npm-run-all -p -r serve e2e:wait-and-run:firefox",
+    "e2e:ci:chrome": "npm-run-all -p -r serve e2e:wait-and-run:chrome",
+    "e2e:ci:edge": "npm-run-all -p -r serve e2e:wait-and-run:edge"
   },
   "husky": {
     "hooks": {

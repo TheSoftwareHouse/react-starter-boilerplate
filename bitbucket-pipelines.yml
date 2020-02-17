@@ -13,23 +13,47 @@ pipelines:
 
   pull-requests:
     '**':
-      - step:
-          name: e2e
-          image: cypress/base:10
+      - step: 
+          name: build and install
+          image: jakubmusik/cypress-e2e-runner:latest
           caches:
             - node
             - cypress
             - cypress-node
           script:
             - cp .env.dist .env
-            - cp .env.e2e.dist ./e2e/.env
             - npm install
+            - npm run build:ci
             - cd e2e && npm install && cd ..
-            - npm run e2e:ci
           artifacts:
-            # store any generates images and videos as artifacts
-            - e2e/cypress/screenshots/**
-            - e2e/cypress/videos/**
+            - build/**
+            - e2e/node_modules/**
+      - parallel:
+        - step:
+            name: e2e - firefox
+            image: jakubmusik/cypress-e2e-runner:latest
+            caches:
+              - node
+            script:
+              - cp .env.e2e.dist ./e2e/.env
+              - npm run e2e:ci:firefox
+        - step:
+            name: e2e - chrome
+            image: jakubmusik/cypress-e2e-runner:latest
+            caches:
+              - node
+            script:
+              - cp .env.e2e.dist ./e2e/.env
+              - npm run e2e:ci:chrome
+        - step:
+            name: e2e - edge
+            image: jakubmusik/cypress-e2e-runner:latest
+            caches:
+              - node
+            script:
+              - cp .env.e2e.dist ./e2e/.env
+              - npm run e2e:ci:edge
+
 definitions:
   caches:
     cypress: $HOME/.cache/Cypress
