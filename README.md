@@ -1,5 +1,32 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and modified by TSH team.
 
+## Quick Start
+
+To start the development, run: 
+```
+mkdir nowy-projekcik
+cd nowy-projekcik/
+git clone git@bitbucket.org:thesoftwarehouse/react-starter-boilerplate.git .
+sudo rm -r .git
+git init
+git remote add origin git@bitbucket.org:thesoftwarehouse/rss-test-1.git
+git remote -v
+git add .
+git commit -m 'initial commit'
+git push origin master
+npm install
+cd e2e
+npm install
+cd ..
+cp .env.dist .env
+cp .env.e2e.dist ./e2e/.env
+npm run lint:fix
+npm run test
+npm run e2e:ci
+```
+where `nowy-projekcik` is your desired folder and and `git@bitbucket.org:thesoftwarehouse/rss-test-1.git` is your empty project repository.
+This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
+
 ## E2E
 
 For E2E testing we are using the [Cypress](https://www.cypress.io/) framework.
