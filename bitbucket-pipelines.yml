@@ -15,7 +15,7 @@ pipelines:
     '**':
       - step: 
           name: build and install
-          image: jakubmusik/cypress-e2e-runner:latest
+          image: tshio/e2e-runner:v4.0.2.1
           caches:
             - node
             - cypress
@@ -31,7 +31,7 @@ pipelines:
       - parallel:
         - step:
             name: e2e - firefox
-            image: jakubmusik/cypress-e2e-runner:latest
+            image: tshio/e2e-runner:v4.0.2.1
             caches:
               - node
             script:
@@ -39,7 +39,7 @@ pipelines:
               - npm run e2e:ci:firefox
         - step:
             name: e2e - chrome
-            image: jakubmusik/cypress-e2e-runner:latest
+            image: tshio/e2e-runner:v4.0.2.1
             caches:
               - node
             script:
@@ -47,7 +47,7 @@ pipelines:
               - npm run e2e:ci:chrome
         - step:
             name: e2e - edge
-            image: jakubmusik/cypress-e2e-runner:latest
+            image: tshio/e2e-runner:v4.0.2.1
             caches:
               - node
             script:
