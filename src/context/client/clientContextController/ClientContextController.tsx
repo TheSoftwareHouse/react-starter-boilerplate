@@ -9,7 +9,7 @@ import { ClientProviderProps } from './ClientContextController.types';
 const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
-export const ClientContextController: React.FC<ClientProviderProps> = ({ children }) => {
+export const ClientContextController = ({ children }: ClientProviderProps) => {
   const { accessToken } = useAuthState();
 
   const client = useMemo(() => {

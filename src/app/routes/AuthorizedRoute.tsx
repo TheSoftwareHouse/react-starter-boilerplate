@@ -5,7 +5,7 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { AppRoute } from './AppRoute.enum';
 import { AuthorizedRouteProps } from './AuthorizedRoute.types';
 
-export const AuthorizedRoute: React.FC<AuthorizedRouteProps> = props => {
+export const AuthorizedRoute = (props: AuthorizedRouteProps) => {
   const { isAuthorized } = useAuthState();
 
   if (isAuthorized) {

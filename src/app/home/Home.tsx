@@ -8,7 +8,7 @@ import { useLocale } from '../../hooks/useLocale/useLocale';
 import { AppLocale } from '../../context/locale/AppLocale.enum';
 import { AppMessages } from '../../i18n/messages';
 
-export const Home: React.FC = () => {
+export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
   const { user } = useAuthState();
 

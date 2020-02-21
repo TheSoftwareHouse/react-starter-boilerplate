@@ -7,7 +7,7 @@ import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { AppRoute } from '../routes/AppRoute.enum';
 
-export const LogoutContainer: React.FC = () => {
+export const LogoutContainer = () => {
   const dispatch = useAuthDispatch();
 
   useEffect(() => {
