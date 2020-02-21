@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { render } from 'tests';
 
 import { AppLocale } from '../AppLocale.enum';
@@ -7,9 +7,9 @@ import { LocaleContext } from '../localeContext/LocaleContext';
 import { LocaleContextController } from './LocaleContextController';
 
 describe('LocaleContextController', () => {
-  const wrapper: React.FC = ({ children }) => <>{children}</>;
+  const wrapper = ({ children }: { children?: ReactNode }) => <>{children}</>;
 
-  const TestComponent: React.FC = () => {
+  const TestComponent = () => {
     const context = React.useContext(LocaleContext);
 
     return (

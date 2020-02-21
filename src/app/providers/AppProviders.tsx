@@ -8,7 +8,7 @@ import { UserController } from '../user/UserController';
 import { LocaleContextController } from '../../context/locale/localeContextController/LocaleContextController';
 import { AppProvidersProps } from './AppProviders.types';
 
-export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => (
+export const AppProviders = ({ children }: AppProvidersProps) => (
   <LocaleContextController>
     <AuthContextController>
       <ClientContextController>

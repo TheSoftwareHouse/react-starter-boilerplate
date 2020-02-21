@@ -10,7 +10,7 @@ import logo from './assets/images/logo.svg';
 
 import './App.css';
 
-export const App: React.FC = () => {
+export const App = () => {
   const { isAuthorized } = useAuthState();
 
   return (

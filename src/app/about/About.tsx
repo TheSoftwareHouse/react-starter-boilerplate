@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
-export const About: React.FC = () => {
+export const About = () => {
   return (
     <>
       <h2>About</h2>

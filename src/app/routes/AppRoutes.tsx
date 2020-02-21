@@ -9,7 +9,7 @@ import { LogoutContainer } from '../logout/LogoutContainer';
 
 import { AppRoute } from './AppRoute.enum';
 
-export const AppRoutes: React.FC = () => {
+export const AppRoutes = () => {
   return (
     <Switch>
       <Route path={AppRoute.home} exact component={Home} />

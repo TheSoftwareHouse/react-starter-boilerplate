@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-export type CodeBlockProps = {
-  className?: string;
+export type LocaleContextControllerProps = {
   children: ReactNode;
 };

@@ -8,7 +8,7 @@ import { Loader } from 'ui/loader/Loader';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { UserControllerProps } from './UserController.types';
 
-export const UserController: React.FC<UserControllerProps> = ({ children }) => {
+export const UserController = ({ children }: UserControllerProps) => {
   const dispatch = useAuthDispatch();
 
   const { loading, payload, error } = useQuery(fetchCurrentUserAction());

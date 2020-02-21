@@ -1,5 +1,5 @@
 // see https://testing-library.com/docs/react-testing-library/setup#custom-render
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
@@ -11,7 +11,7 @@ import { defaultLocale } from '../context/locale/defaultLocale';
 import { LocaleContext } from '../context/locale/localeContext/LocaleContext';
 
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
-const Wrapper: React.FC = ({ children }) => {
+const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
 
   return (

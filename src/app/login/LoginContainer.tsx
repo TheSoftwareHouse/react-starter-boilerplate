@@ -19,7 +19,7 @@ import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { Login } from './Login';
 
-export const LoginContainer: React.FC = () => {
+export const LoginContainer = () => {
   const { query } = useContext(ClientContext);
 
   const { mutate } = useMutation<AuthorizeResponse, LoginPayload>(loginAction);

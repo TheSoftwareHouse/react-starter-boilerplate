@@ -4,8 +4,9 @@ import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { translations } from '../../../i18n/messages';
 import { LocaleContext } from '../localeContext/LocaleContext';
+import { LocaleContextControllerProps } from './LocaleContextController.types';
 
-export const LocaleContextController: React.FC = ({ children }) => {
+export const LocaleContextController = ({ children }: LocaleContextControllerProps) => {
   const [locale, setLocale] = useState<AppLocale>(defaultLocale);
 
   return (

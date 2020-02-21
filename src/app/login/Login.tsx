@@ -11,7 +11,7 @@ import { LoginProps } from './Login.types';
  *     https://pl.reactjs.org/docs/forwarding-refs.html
  * */
 
-export const Login: React.FC<LoginProps> = ({ onSubmit }) => {
+export const Login = ({ onSubmit }: LoginProps) => {
   const { register, handleSubmit, errors } = useForm();
   const { isAuthorizing } = useAuthState();
 
