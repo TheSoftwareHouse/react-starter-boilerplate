@@ -2,9 +2,9 @@ import { RequestInterceptor } from 'react-fetching-library';
 import { Action } from 'api/types';
 
 export const requestAuthInterceptor: (accessToken: string | null) => RequestInterceptor = accessToken => () => async (
-  action: Action,
+  action: Action<unknown>,
 ) => {
-  if (action.skipAuthorization) {
+  if (action.config && action.config.skipAuthorization) {
     return action;
   }
 
