@@ -4,4 +4,4 @@ export type AdditionalProperties = {
   skipAuthorization?: boolean;
 };
 
-export type Action = BaseAction<AdditionalProperties>;
+export type Action<R> = BaseAction<R, AdditionalProperties>;

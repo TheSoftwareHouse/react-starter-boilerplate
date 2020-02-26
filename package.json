@@ -79,7 +79,7 @@
     "flat": "5.0.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "react-fetching-library": "1.5.14",
+    "react-fetching-library": "1.7.0",
     "react-hook-form": "4.6.2",
     "react-intl": "3.11.0",
     "react-router-dom": "5.1.2",

@@ -36,12 +36,16 @@ describe('requestAuthInterceptor', () => {
     const client = createClient();
     const action = {
       foo: 'bar',
-      skipAuthorization: true,
+      config: {
+        skipAuthorization: true,
+      },
     };
 
     expect(await requestAuthInterceptor(accessToken)(client)(action)).toEqual({
       foo: 'bar',
-      skipAuthorization: true,
+      config: {
+        skipAuthorization: true,
+      },
     });
   });
 });

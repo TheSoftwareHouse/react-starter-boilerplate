@@ -3,7 +3,6 @@ import { ClientContext, useMutation } from 'react-fetching-library';
 
 import { loginAction } from 'api/actions/auth/authActions';
 import { fetchCurrentUserAction } from 'api/actions/user/userActions';
-import { AuthorizeResponse, LoginPayload } from 'api/actions/auth/authActions.types';
 import { FetchCurrentUserResponse } from 'api/actions/user/userActions.types';
 
 import { Redirect } from 'react-router-dom';
@@ -22,7 +21,7 @@ import { Login } from './Login';
 export const LoginContainer = () => {
   const { query } = useContext(ClientContext);
 
-  const { mutate } = useMutation<AuthorizeResponse, LoginPayload>(loginAction);
+  const { mutate } = useMutation(loginAction);
   const dispatch = useAuthDispatch();
 
   const { isAuthorized } = useAuthState();
