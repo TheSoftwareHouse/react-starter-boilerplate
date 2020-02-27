@@ -1,4 +1,4 @@
-import { AppRoute } from '../../../src/app/routes/AppRoute.enum';
+import { AppRoute } from '../../../src/routing/AppRoute.enum';
 
 class Navigation {
   goToLogout(): void {

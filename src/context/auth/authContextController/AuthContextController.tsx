@@ -1,8 +1,9 @@
 import React, { useReducer, useEffect } from 'react';
+
+import { authStorage } from '../authStorage/AuthStorage';
 import { AuthDispatchContext, AuthStateContext } from 'context/auth/authContext/AuthContext';
 import { authReducer } from 'context/auth/authReducer/authReducer';
 
-import { authStorage } from '../authStorage/AuthStorage';
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {

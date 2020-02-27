@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { render } from 'tests';
 
 import { LocaleContext } from './LocaleContext';

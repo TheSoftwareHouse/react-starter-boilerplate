@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { Home } from '../home/Home';
-import { About } from '../about/About';
-import { Help } from '../help/Help';
-import { LoginContainer } from '../login/LoginContainer';
-import { LogoutContainer } from '../logout/LogoutContainer';
+import { Home } from 'app/home/Home';
+import { About } from 'app/about/About';
+import { Help } from 'app/help/Help';
+import { LoginContainer } from 'app/login/LoginContainer';
+import { LogoutContainer } from 'app/logout/LogoutContainer';
 
 import { AppRoute } from './AppRoute.enum';
 

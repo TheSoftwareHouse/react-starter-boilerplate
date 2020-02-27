@@ -1,21 +1,21 @@
 import React, { useContext, useCallback } from 'react';
 import { ClientContext, useMutation } from 'react-fetching-library';
+import { Redirect } from 'react-router-dom';
+import { FieldValues } from 'react-hook-form';
 
 import { loginAction } from 'api/actions/auth/authActions';
 import { fetchCurrentUserAction } from 'api/actions/user/userActions';
 import { FetchCurrentUserResponse } from 'api/actions/user/userActions.types';
-
-import { Redirect } from 'react-router-dom';
-import { AppRoute } from 'app/routes/AppRoute.enum';
+import { AppRoute } from 'routing/AppRoute.enum';
 import {
   startAuthorizing,
   setTokens,
   setAuthorized,
   setUnauthorized,
 } from 'context/auth/authActionCreators/authActionCreators';
-import { FieldValues } from 'react-hook-form';
 import { useAuthDispatch } from 'hooks/useAuthDispatch/useAuthDispatch';
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
+
 import { Login } from './Login';
 
 export const LoginContainer = () => {

@@ -1,4 +1,5 @@
 import { RequestInterceptor } from 'react-fetching-library';
+
 import { Action } from 'api/types';
 
 export const requestAuthInterceptor: (accessToken: string | null) => RequestInterceptor = accessToken => () => async (

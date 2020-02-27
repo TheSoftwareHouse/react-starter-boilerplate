@@ -19,13 +19,22 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
+        "groups": [["external", "builtin"], ["parent","internal"], ["index", "sibling"]],
+        "newlines-between": "always"
       }
     ],
-
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-empty-function": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "moduleDirectory": ["node_modules", "src/"],
+        "extensions": [".ts", ".tsx"]
+      },
+    }
   },
   "overrides": [
     {

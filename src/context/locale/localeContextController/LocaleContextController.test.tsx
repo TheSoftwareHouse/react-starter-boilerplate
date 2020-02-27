@@ -1,9 +1,10 @@
 import React, { ReactNode } from 'react';
-import { render } from 'tests';
 
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { LocaleContext } from '../localeContext/LocaleContext';
+import { render } from 'tests';
+
 import { LocaleContextController } from './LocaleContextController';
 
 describe('LocaleContextController', () => {

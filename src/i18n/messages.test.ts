@@ -1,4 +1,5 @@
 import { AppLocale } from '../context/locale/AppLocale.enum';
+
 import { translations } from './messages';
 
 test('has object entries for all locales', () => {

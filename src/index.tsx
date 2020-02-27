@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AppProviders } from 'app/providers/AppProviders';
+import 'assets/styles/main.css';
+import { AppProviders } from 'providers/AppProviders';
 import { mockServer } from 'api/mocks/mock-server';
+
 import { App } from './app/App';
-
 import * as serviceWorker from './serviceWorker';
-
-import './app/assets/styles/main.css';
 
 if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV !== 'production') {
   mockServer();

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MemoryRouter as Router } from 'react-router';
+
 import { render } from 'tests';
 
 import { LocationInfo } from './LocationInfo';
