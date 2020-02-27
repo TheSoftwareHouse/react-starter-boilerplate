@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { act, fireEvent, render, wait } from 'tests';
 
 import { Login } from './Login';
+
 describe('Login', () => {
   test('calls onSubmit prop with username and password', async () => {
     const onSubmit = jest.fn(() => Promise.resolve(true));

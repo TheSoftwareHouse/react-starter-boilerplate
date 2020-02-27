@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { render } from 'tests';
 
-import { LocaleContext } from '../../context/locale/localeContext/LocaleContext';
 import { Home } from './Home';
 
 test('renders heading', () => {

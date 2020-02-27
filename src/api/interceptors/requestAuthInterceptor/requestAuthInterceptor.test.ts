@@ -1,4 +1,5 @@
 import { createClient } from 'react-fetching-library';
+
 import { requestAuthInterceptor } from './requestAuthInterceptor';
 
 describe('requestAuthInterceptor', () => {

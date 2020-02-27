@@ -4,6 +4,7 @@ import { ClientContextProvider, createClient, RequestInterceptor, ResponseInterc
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { requestAuthInterceptor } from 'api/interceptors/requestAuthInterceptor/requestAuthInterceptor';
 import { requestHostInterceptor } from 'api/interceptors/requestHostInterceptor/requestHostInterceptor';
+
 import { ClientProviderProps } from './ClientContextController.types';
 
 const requestInterceptors: RequestInterceptor[] = [];

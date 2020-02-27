@@ -1,4 +1,5 @@
 import { AuthStateContextType } from '../authContext/AuthContext.types';
+
 import { AuthAction } from './authReducer.types';
 
 export const SET_AUTHORIZED = 'auth/set-authorized';

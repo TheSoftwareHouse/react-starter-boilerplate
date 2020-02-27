@@ -1,4 +1,5 @@
 import { SET_AUTHORIZED, SET_TOKENS, SET_UNAUTHORIZED, START_AUTHORIZING, LOGOUT } from '../authReducer/authReducer';
+
 import { logout, setAuthorized, setTokens, setUnauthorized, startAuthorizing } from './authActionCreators';
 
 describe('authActionCreators', () => {
