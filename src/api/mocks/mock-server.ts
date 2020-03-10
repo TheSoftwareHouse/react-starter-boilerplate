@@ -31,6 +31,8 @@ export const mockServer = () => {
 
         return new MockResponse(403, {});
       });
+
+      this.passthrough();
     },
   });
 };
