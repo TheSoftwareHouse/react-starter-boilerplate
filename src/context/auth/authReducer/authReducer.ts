@@ -35,6 +35,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
       isAuthorized: false,
       accessToken: null,
       refreshToken: null,
+      expires: null,
     }),
     [SET_TOKENS]: state => {
       if (!action.accessToken) {
@@ -45,10 +46,15 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
         throw new Error('Missing refresh token in authReducer');
       }
 
+      if (!action.expires) {
+        throw new Error('Missing expires in authReducer');
+      }
+
       return {
         ...state,
         accessToken: action.accessToken,
         refreshToken: action.refreshToken,
+        expires: action.expires,
       };
     },
   };

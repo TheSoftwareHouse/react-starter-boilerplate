@@ -9,6 +9,7 @@ function AuthStateFactory(state: Partial<AuthStateContextType> = {}): AuthStateC
     refreshToken: null,
     isAuthorizing: false,
     isAuthorized: false,
+    expires: null,
     ...state,
   };
 }
@@ -25,6 +26,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: true,
       isAuthorized: false,
+      expires: null,
     });
   });
 
@@ -42,6 +44,7 @@ describe('authReducer', () => {
       refreshToken: null,
       isAuthorizing: false,
       isAuthorized: true,
+      expires: null,
       user: {
         foo: 'bar',
       },
@@ -63,6 +66,7 @@ describe('authReducer', () => {
       isAuthorizing: false,
       isAuthorized: false,
       user: undefined,
+      expires: null,
     });
   });
 
@@ -72,6 +76,7 @@ describe('authReducer', () => {
       refreshToken: 'foo',
       isAuthorized: true,
       user: ({ foo: 'bar' } as unknown) as User,
+      expires: 123,
     });
     const action = {
       type: LOGOUT,
@@ -83,6 +88,7 @@ describe('authReducer', () => {
       isAuthorizing: false,
       isAuthorized: false,
       user: undefined,
+      expires: null,
     });
   });
 
@@ -92,6 +98,7 @@ describe('authReducer', () => {
       type: SET_TOKENS,
       accessToken: 'foo',
       refreshToken: 'bar',
+      expires: 123,
     };
 
     expect(authReducer(state, action)).toEqual({
@@ -99,6 +106,7 @@ describe('authReducer', () => {
       refreshToken: 'bar',
       isAuthorizing: false,
       isAuthorized: false,
+      expires: 123,
     });
   });
 });

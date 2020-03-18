@@ -32,8 +32,8 @@ export const LoginContainer = () => {
 
       const { payload, error: submitError } = await mutate(body);
       if (!submitError && payload) {
-        const { accessToken, refreshToken } = payload;
-        dispatch(setTokens(accessToken, refreshToken));
+        const { accessToken, refreshToken, expires } = payload;
+        dispatch(setTokens(accessToken, refreshToken, expires));
 
         const { payload: currentUser, error: fetchError } = await query<FetchCurrentUserResponse>(
           fetchCurrentUserAction(accessToken),

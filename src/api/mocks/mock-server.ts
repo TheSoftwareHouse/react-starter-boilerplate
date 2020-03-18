@@ -1,5 +1,7 @@
 import { Server, Response as MockResponse } from 'miragejs';
 
+import { timestampNow } from '../../context/auth/helpers';
+
 export const mockServer = () => {
   new Server({
     routes() {
@@ -11,8 +13,20 @@ export const mockServer = () => {
           JSON.stringify({
             accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
             tokenType: 'bearer',
-            expires: '2592000',
+            expires: 123,
             refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          }),
+        );
+      });
+      this.post('/refresh-token', () => {
+        return new MockResponse(
+          200,
+          {},
+          JSON.stringify({
+            accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            tokenType: 'bearer',
+            expires: timestampNow() + 300,
+            refreshToken: 'eKKF2QT4fwpMeJf36PO',
           }),
         );
       });

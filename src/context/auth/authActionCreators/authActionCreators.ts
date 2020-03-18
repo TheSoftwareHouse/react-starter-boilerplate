@@ -10,10 +10,15 @@ export const setUnauthorized: () => AuthAction = () => ({
   type: SET_UNAUTHORIZED,
 });
 
-export const setTokens: (accessToken: string, refreshToken: string) => AuthAction = (accessToken, refreshToken) => ({
+export const setTokens: (accessToken: string, refreshToken: string, expires: number) => AuthAction = (
+  accessToken,
+  refreshToken,
+  expires,
+) => ({
   type: SET_TOKENS,
   accessToken,
   refreshToken,
+  expires,
 });
 
 export const logout: () => AuthAction = () => ({
