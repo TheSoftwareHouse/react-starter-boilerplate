@@ -1,11 +1,11 @@
-name: E2E
-on: pull_request
+name: Linters and tests
+on: [push, pull_request]
 
 jobs:
-  prepare_app:
+  run_tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Use Node.js 12.14.1
         uses: actions/setup-node@v1
         with:
@@ -14,59 +14,9 @@ jobs:
         run: cp .env.dist .env
       - name: Install root dependencies
         uses: bahmutov/npm-install@v1
-      - name: Build ci
-        run: npm run build:ci
-      - name: Upload build
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: build
-
-  cypress_chrome:
-    needs: prepare_app
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 12.14.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.14.1
-      - name: Copy e2e envs
-        run: cp .env.e2e.dist ./e2e/.env
-      - name: Download build
-        uses: actions/download-artifact@v1
-        with:
-          name: build
-      - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v1
-        with:
-          working-directory: e2e
-          start: npx http-server ../build --port 1337
-          wait-on: 'http://localhost:1337'
-          browser: chrome
-
-  cypress_firefox:
-    needs: prepare_app
-    runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
-      options: --user 1001
-    steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js 12.14.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.14.1
-      - name: Copy e2e envs
-        run: cp .env.e2e.dist ./e2e/.env
-      - name: Download build
-        uses: actions/download-artifact@v1
-        with:
-          name: build
-      - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v1
-        with:
-          working-directory: e2e
-          start: npx http-server ../build --port 1337
-          wait-on: 'http://localhost:1337'
-          browser: firefox
+      - name: Lint
+        run: npm run lint
+      - name: Test & coverage
+        run: npm run coverage
+        env:
+          CI: true
