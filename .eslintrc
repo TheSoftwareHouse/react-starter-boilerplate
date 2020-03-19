@@ -9,7 +9,13 @@
   ],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", {
+      "printWidth": 120,
+      "tabWidth": 2,
+      "singleQuote": true,
+      "trailingComma": "all",
+      "proseWrap": "always"
+    }],
     "no-console": "error",
 
     "react/jsx-props-no-spreading": "error",
@@ -33,7 +39,7 @@
         "paths": ["src"],
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".ts", ".tsx"]
-      },
+      }
     }
   },
   "overrides": [
