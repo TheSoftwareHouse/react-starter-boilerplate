@@ -1,0 +1,56 @@
+default:
+  image: node:12.14.1
+
+stages:
+  - build
+  - test
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+# cache using branch name
+# https://gitlab.com/help/ci/caching/index.md
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - cache/Cypress
+    - node_modules
+    - e2e/node_modules
+
+spa_test:
+  stage: test
+  script:
+    - cp .env.dist .env
+    - npm install
+    - npm run lint
+    - npm run coverage
+
+e2e_build:
+  stage: build
+  script:
+    - cp .env.dist .env
+    - npm install
+    - npm run build:ci
+    - cd e2e && npm install && cd ..
+  artifacts:
+    paths:
+      - build/**
+      - e2e/node_modules/**
+
+e2e_chrome:
+  stage: test
+  image: tshio/e2e-runner:v4.0.2.2
+  script:
+    - cp .env.e2e.dist ./e2e/.env
+    - npm install
+    - npm run e2e:ci:chrome
+
+e2e_firefox:
+  stage: test
+  image: tshio/e2e-runner:v4.0.2.2
+  script:
+    - cp .env.e2e.dist ./e2e/.env
+    - npm install
+    - npm run e2e:ci:firefox
