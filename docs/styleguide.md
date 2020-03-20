@@ -2,6 +2,10 @@
 
 This style guide presents preferred syntax, conventions, and application structure.
 
+## General
+- before adding new package check if it is still maintained and how many dependencies it will install on [bundlephobia](https://bundlephobia.com/) 
+- [CSS rules order](https://9elements.com/css-rule-order/) 
+
 ## Naming
 
 - Use `.tsx` extension for React components
@@ -67,6 +71,27 @@ Tooltip.test.tsx
 useLocale.test.ts
 ```
 
+- use hooks to read from context, dont use `useContext(ContextName)`
+
+```typescript
+// bad
+const localeContext = useContext(LocaleContext);
+
+// good
+const localeContext = useLocale();
+```
+
+= use singular in enum names
+
+```typescript
+// bad
+enum Days {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
+
+
+// good
+enum Day {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY}
+```
+
 ## Placement
 
 - Common components, like a button should be placed inside the `ui` directory
@@ -88,3 +113,76 @@ import { About } from './ui/about/About';
 // good
 import { About } from './app/about/About';
 ```
+
+## Export & Imports
+
+- Don't use default export to export component
+```typescript
+// bad
+const About = ()=>{}
+export default About
+
+// good
+export const About = ()=>{}
+```
+- Styles import `* as Styled` to distinguish styled components from normal ones
+```typescript
+// bad
+import { Header } from './About.styles.ts'
+
+// good
+import * as Styled from './About.styles.ts'
+```
+
+## Typings
+- Dont use React.FC - write your own type if you need it
+```typescript
+// bad
+export const About: React.FC<Props> = ()=>{}
+
+// good
+export const About: AboutProps = ()=>{}
+```
+- you should write types instead of interface
+
+```typescript
+// bad
+export interface Props {}
+
+// good
+export type Props = {}
+```
+- dont write `Type` in type name
+
+```typescript
+// bad
+export type PropsType = {}
+
+// good
+export type Props = {}
+```
+
+- optional properties should be after the obligatory
+
+```typescript
+// bad
+export type Props = {
+  name0: string;
+  name1?: string
+  name2: string;
+}
+
+// good
+export type Props = {
+  name0: string;
+  name2: string
+  name1?: string;
+}
+```
+
+## Testing
+
+- avoid snapshots - use simple asserts
+- minimal coverage should be on 80% level - more important is use case coverage ([How to know what to test - Kent C. Dodds](https://kentcdodds.com/blog/how-to-know-what-to-test))
+- mark DOM elements with property `test-id`
+- import react-testing-library from `test` directory
