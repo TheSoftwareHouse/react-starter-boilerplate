@@ -183,6 +183,6 @@ export type Props = {
 ## Testing
 
 - avoid snapshots - use simple asserts
-- minimal coverage should be on 80% level - more important is use case coverage ([How to know what to test - Kent C. Dodds](https://kentcdodds.com/blog/how-to-know-what-to-test))
-- mark DOM elements with property `test-id`
+- more important is use case coverage ([How to know what to test - Kent C. Dodds](https://kentcdodds.com/blog/how-to-know-what-to-test))
+- mark DOM elements with property `data-testid`
 - import react-testing-library from `test` directory
