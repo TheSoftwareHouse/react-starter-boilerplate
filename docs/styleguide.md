@@ -162,24 +162,6 @@ export type PropsType = {}
 export type Props = {}
 ```
 
-- optional properties should be after the obligatory
-
-```typescript
-// bad
-export type Props = {
-  name0: string;
-  name1?: string
-  name2: string;
-}
-
-// good
-export type Props = {
-  name0: string;
-  name2: string
-  name1?: string;
-}
-```
-
 ## Testing
 
 - avoid snapshots - use simple asserts
