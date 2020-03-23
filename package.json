@@ -20,13 +20,18 @@
     "e2e:wait-and-run:firefox": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:firefox",
     "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome",
     "e2e:ci:firefox": "npm-run-all -p -r serve e2e:wait-and-run:firefox",
-    "e2e:ci:chrome": "npm-run-all -p -r serve e2e:wait-and-run:chrome"
+    "e2e:ci:chrome": "npm-run-all -p -r serve e2e:wait-and-run:chrome",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "auto-changelog": {
+    "issueUrl": "https://headstart.atlassian.net/browse/{id}",
+    "issuePattern": "[A-Z]+-[1-9]+"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,md}": [
@@ -93,6 +98,7 @@
     "@commitlint/config-conventional": "8.3.4",
     "@types/testing-library__jest-dom": "5.0.0",
     "@welldone-software/why-did-you-render": "4.0.3",
+    "auto-changelog": "1.16.2",
     "babelsheet": "1.5.0",
     "cross-env": "6.0.3",
     "eslint-config-prettier": "6.9.0",
