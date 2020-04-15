@@ -5,17 +5,20 @@ import { UserController } from 'context/auth/userController/UserController';
 import { LocaleContextController } from 'context/locale/localeContextController/LocaleContextController';
 import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
 import { AuthContextController } from 'context/auth/authContextController/AuthContextController';
+import { ErrorBoundary } from 'app/errorBoundary/ErrorBoundary';
 
 import { AppProvidersProps } from './AppProviders.types';
 
 export const AppProviders = ({ children }: AppProvidersProps) => (
   <LocaleContextController>
-    <AuthContextController>
-      <ClientContextController>
-        <UserController>
-          <Router>{children}</Router>
-        </UserController>
-      </ClientContextController>
-    </AuthContextController>
+    <ErrorBoundary>
+      <AuthContextController>
+        <ClientContextController>
+          <UserController>
+            <Router>{children}</Router>
+          </UserController>
+        </ClientContextController>
+      </AuthContextController>
+    </ErrorBoundary>
   </LocaleContextController>
 );
