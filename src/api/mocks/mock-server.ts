@@ -1,7 +1,5 @@
 import { Server, Response as MockResponse } from 'miragejs';
 
-import { timestampNow } from '../../context/auth/helpers';
-
 export const mockServer = () => {
   new Server({
     routes() {
@@ -25,7 +23,7 @@ export const mockServer = () => {
           JSON.stringify({
             accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
             tokenType: 'bearer',
-            expires: timestampNow() + 300,
+            expires: '124',
             refreshToken: 'eKKF2QT4fwpMeJf36PO',
           }),
         );

@@ -9,3 +9,10 @@ export type AuthorizeResponse = {
   expires: number;
   refreshToken: string;
 };
+
+export type RefreshTokenResponse = {
+  accessToken: string;
+  tokenType: string;
+  refreshToken: string;
+  expires: number;
+};

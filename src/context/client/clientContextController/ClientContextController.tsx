@@ -5,7 +5,7 @@ import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { requestAuthInterceptor } from 'api/interceptors/requestAuthInterceptor/requestAuthInterceptor';
 import { requestHostInterceptor } from 'api/interceptors/requestHostInterceptor/requestHostInterceptor';
 import { useAuthDispatch } from '../../../hooks/useAuthDispatch/useAuthDispatch';
-import { requestTokenRefreshInterceptor } from '../../../api/interceptors/requestTokenRefreshInterceptor/requestTokenRefreshInterceptor';
+import { responseRefreshTokenInterceptor } from '../../../api/interceptors/responseRefreshTokenInterceptor/responseRefreshTokenInterceptor';
 
 import { ClientProviderProps } from './ClientContextController.types';
 
@@ -13,11 +13,10 @@ const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
 export const ClientContextController = ({ children }: ClientProviderProps) => {
-  const { accessToken, refreshToken, expires } = useAuthState();
+  const { accessToken, refreshToken } = useAuthState();
   const dispatch = useAuthDispatch();
 
   const baseUrl = String(process.env.REACT_APP_API_URL);
-  const refreshUrl = `${baseUrl}/refresh-token`;
 
   const client = useMemo(() => {
     return createClient({
@@ -25,11 +24,10 @@ export const ClientContextController = ({ children }: ClientProviderProps) => {
         ...requestInterceptors,
         requestHostInterceptor(baseUrl),
         requestAuthInterceptor(accessToken),
-        requestTokenRefreshInterceptor(refreshUrl, { accessToken, refreshToken, expires }, dispatch),
       ],
-      responseInterceptors: [...responseInterceptors],
+      responseInterceptors: [...responseInterceptors, responseRefreshTokenInterceptor(refreshToken ?? '', dispatch)],
     });
-  }, [accessToken, baseUrl, dispatch, expires, refreshToken, refreshUrl]);
+  }, [accessToken, baseUrl, dispatch, refreshToken]);
 
   return <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 };
