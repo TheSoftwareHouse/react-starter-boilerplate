@@ -4,6 +4,8 @@ import { ClientContextProvider, createClient, RequestInterceptor, ResponseInterc
 import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { requestAuthInterceptor } from 'api/interceptors/requestAuthInterceptor/requestAuthInterceptor';
 import { requestHostInterceptor } from 'api/interceptors/requestHostInterceptor/requestHostInterceptor';
+import { useAuthDispatch } from '../../../hooks/useAuthDispatch/useAuthDispatch';
+import { responseRefreshTokenInterceptor } from '../../../api/interceptors/responseRefreshTokenInterceptor/responseRefreshTokenInterceptor';
 
 import { ClientProviderProps } from './ClientContextController.types';
 
@@ -11,18 +13,21 @@ const requestInterceptors: RequestInterceptor[] = [];
 const responseInterceptors: ResponseInterceptor[] = [];
 
 export const ClientContextController = ({ children }: ClientProviderProps) => {
-  const { accessToken } = useAuthState();
+  const { accessToken, refreshToken } = useAuthState();
+  const dispatch = useAuthDispatch();
+
+  const baseUrl = String(process.env.REACT_APP_API_URL);
 
   const client = useMemo(() => {
     return createClient({
       requestInterceptors: [
         ...requestInterceptors,
-        requestHostInterceptor(String(process.env.REACT_APP_API_URL)),
+        requestHostInterceptor(baseUrl),
         requestAuthInterceptor(accessToken),
       ],
-      responseInterceptors: [...responseInterceptors],
+      responseInterceptors: [...responseInterceptors, responseRefreshTokenInterceptor(refreshToken ?? '', dispatch)],
     });
-  }, [accessToken]);
+  }, [accessToken, baseUrl, dispatch, refreshToken]);
 
   return <ClientContextProvider client={client}>{children}</ClientContextProvider>;
 };

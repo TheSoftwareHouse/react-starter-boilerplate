@@ -3,6 +3,7 @@ export type AuthAction = {
   user?: User;
   accessToken?: string;
   refreshToken?: string;
+  expires?: number;
 };
 
 export type User = {

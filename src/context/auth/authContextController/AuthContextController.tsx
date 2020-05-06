@@ -13,12 +13,14 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     user: undefined,
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,
+    expires: authStorage.expires,
   });
 
   useEffect(() => {
     authStorage.accessToken = state.accessToken;
     authStorage.refreshToken = state.refreshToken;
-  }, [state.accessToken, state.refreshToken]);
+    authStorage.expires = state.expires;
+  }, [state.accessToken, state.refreshToken, state.expires]);
 
   return (
     <AuthStateContext.Provider value={state}>

@@ -7,6 +7,7 @@ export type AuthStateContextType = {
   isAuthorizing: boolean;
   accessToken: string | null;
   refreshToken: string | null;
+  expires: number | null;
   user?: User;
 };
 

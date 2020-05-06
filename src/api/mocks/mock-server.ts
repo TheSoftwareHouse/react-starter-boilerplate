@@ -11,8 +11,20 @@ export const mockServer = () => {
           JSON.stringify({
             accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
             tokenType: 'bearer',
-            expires: '2592000',
+            expires: 123,
             refreshToken: 'IwOGYzYTlmM2YxOTQ5MGE3YmNmMDFkNTVk',
+          }),
+        );
+      });
+      this.post('/refresh-token', () => {
+        return new MockResponse(
+          200,
+          {},
+          JSON.stringify({
+            accessToken: 'MTQ0NjJkZmQ5OTM2NDE1ZTZjNGZmZjI3',
+            tokenType: 'bearer',
+            expires: '124',
+            refreshToken: 'eKKF2QT4fwpMeJf36PO',
           }),
         );
       });
