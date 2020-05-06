@@ -24,14 +24,14 @@ describe('Home', () => {
       </LocaleContext.Consumer>,
     );
 
-    const initialText = getByText(/LOCALE/).textContent;
+    const initialText = getByText(/LOCALE/).textContent as string;
 
     getByText(/here/).click();
 
-    expect(getByText(/LOCALE/).textContent).not.toBe(initialText);
+    expect(getByText(/LOCALE/)).not.toHaveTextContent(initialText);
 
     getByText(/here/).click();
 
-    expect(getByText(/LOCALE/).textContent).toBe(initialText);
+    expect(getByText(/LOCALE/)).toHaveTextContent(initialText);
   });
 });

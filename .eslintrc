@@ -5,7 +5,9 @@
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
-    "prettier/react"
+    "prettier/react",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/recommended"
   ],
   "plugins": ["prettier"],
   "rules": {
