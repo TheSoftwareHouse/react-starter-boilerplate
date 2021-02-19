@@ -12,9 +12,9 @@ let refreshPromise: null | Promise<QueryResponse<RefreshTokenResponse>> = null;
 export const responseRefreshTokenInterceptor: (
   refreshToken: string,
   dispatch: Dispatch<AuthAction>,
-) => ResponseInterceptor = (refreshToken, dispatch) => client => async (
+) => ResponseInterceptor = (refreshToken, dispatch) => (client) => async (
   action: Action,
-  response: QueryResponse<object>,
+  response: QueryResponse<unknown>,
 ) => {
   if (action.config && (action.config.skipAuthorization || action.config.skipRefreshToken)) {
     return response;
@@ -22,7 +22,7 @@ export const responseRefreshTokenInterceptor: (
 
   if (response.status === 401) {
     if (!refreshPromise) {
-      refreshPromise = client.query<RefreshTokenResponse>(refreshTokenAction(refreshToken)).then(refreshResponse => {
+      refreshPromise = client.query<RefreshTokenResponse>(refreshTokenAction(refreshToken)).then((refreshResponse) => {
         if (refreshResponse.error || !refreshResponse.payload) {
           dispatch(setUnauthorized());
 

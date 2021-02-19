@@ -18,8 +18,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     if (process.env.REACT_APP_SENTRY_DSN) {
-      Sentry.withScope(scope => {
-        scope.setExtras(errorInfo);
+      Sentry.withScope((scope) => {
+        scope.setExtras({ errorInfo });
         Sentry.captureException(error);
       });
     }

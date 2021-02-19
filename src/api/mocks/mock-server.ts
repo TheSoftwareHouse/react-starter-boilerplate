@@ -44,7 +44,7 @@ export const mockServer = () => {
         return new MockResponse(403, {});
       });
 
-      this.passthrough();
+      this.passthrough(`${process.env.REACT_APP_API_URL}/**`);
     },
   });
 };
