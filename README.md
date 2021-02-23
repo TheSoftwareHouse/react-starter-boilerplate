@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and modified by TSH team.
+<img src="/docs/images/react-starter.svg" />
+
+This project was bootstrapped with [Create React App] (https://github.com/facebook/create-react-app)and modified by TSH team.
+
+[![Watch on GitHub][github-watch-badge]][github-watch][![Star on GitHub][github-star-badge]][github-star][![Tweet][twitter-badge]][twitter]
+
+[[![version][version-badge]][package] ![downloads][downloads-badge] [![MIT License][license-badge]][license]
+ [![PRs Welcome][prs-badge]][prs] [![Code of Conduct][coc-badge]][coc] ![Code of Conduct][gzip-badge]
 
 ## Quick Start
 
