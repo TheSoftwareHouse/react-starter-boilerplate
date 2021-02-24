@@ -25,9 +25,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0px 20px 20px 20px;
-  width: 577px;
-  height: 326px;
+  padding: 48px 72px;
+  width: 700px;
+  height: 400px;
   background: #ffffff;
   border: 1px solid rgba(70, 97, 158, 0.2);
   box-sizing: border-box;
@@ -36,14 +36,13 @@ body {
 }
 
 .card__logo {
-  width: 243px;
-  height: 125px;
+  width: 40%;
 }
 
 .card__button-group {
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  margin-top: 24px;
 }
 
 .card__github-button-group {
@@ -54,7 +53,13 @@ body {
 .card__description {
   font-size: 16px;
   text-align: center;
-  padding: 10px 0;
+  padding: 32px;
+  margin: 0;
+}
+
+.card__button-container {
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -64,7 +69,7 @@ body {
   box-sizing: border-box;
   border-radius: 8px;
   margin: 10px;
-  padding: 15px 45px;
+  padding: 15px 68px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
@@ -94,10 +99,15 @@ body {
   color: #ffffff;
 }
 
-@media screen and (max-width: 600px) {
+.button--badges {
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 700px) {
     .card {
       width: 100%;
       height: fit-content;
+      padding: 32px;
     }
 
     .card__github-button-group {
