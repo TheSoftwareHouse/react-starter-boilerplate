@@ -13,7 +13,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
   action,
 ) => {
   const behaviours: Record<string, (state: AuthStateContextType, action: AuthAction) => AuthStateContextType> = {
-    [START_AUTHORIZING]: state => ({
+    [START_AUTHORIZING]: (state) => ({
       ...state,
       isAuthorizing: true,
     }),
@@ -23,7 +23,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
       isAuthorizing: false,
       isAuthorized: true,
     }),
-    [SET_UNAUTHORIZED]: state => ({
+    [SET_UNAUTHORIZED]: (state) => ({
       ...state,
       user: undefined,
       isAuthorizing: false,
@@ -37,7 +37,7 @@ export const authReducer: (state: AuthStateContextType, action: AuthAction) => A
       refreshToken: null,
       expires: null,
     }),
-    [SET_TOKENS]: state => {
+    [SET_TOKENS]: (state) => {
       if (!action.accessToken) {
         throw new Error('Missing access token in authReducer');
       }

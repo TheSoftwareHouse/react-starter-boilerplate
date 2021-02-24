@@ -1,7 +1,7 @@
 pipelines:
   default:
     - step:
-        image: node:12.14.1
+        image: node:14.15.5-alpine3.10
         caches:
           - node
         name: Run linter and tests
@@ -15,7 +15,7 @@ pipelines:
     '**':
       - step: 
           name: build and install
-          image: tshio/e2e-runner:v4.0.2.2
+          image: tshio/e2e-runner:v4.0.2.3
           caches:
             - node
             - cypress
@@ -31,7 +31,7 @@ pipelines:
       - parallel:
         - step:
             name: e2e - firefox
-            image: tshio/e2e-runner:v4.0.2.2
+            image: tshio/e2e-runner:v4.0.2.3
             caches:
               - node
             script:

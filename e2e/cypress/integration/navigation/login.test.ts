@@ -11,7 +11,7 @@ context('Login Page should', () => {
     //session clearing is currently not done automatically https://github.com/cypress-io/cypress/issues/413
     cy.clearSession();
     cy.userLogin();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.href).to.eq(NavigationMenu.homeLink);
     });
   });
