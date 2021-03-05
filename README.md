@@ -18,10 +18,10 @@ To start the development, run:
 ```
 mkdir nowy-projekcik
 cd nowy-projekcik/
-git clone git@bitbucket.org:thesoftwarehouse/react-starter-boilerplate.git .
+git clone https://github.com/TheSoftwareHouse/react-starter-boilerplate.git .
 sudo rm -r .git
 git init
-git remote add origin git@bitbucket.org:thesoftwarehouse/rss-test-1.git
+git remote add origin [your empty project repository]
 git remote -v
 git add .
 git commit -m 'initial commit'
@@ -37,8 +37,7 @@ npm run test
 npm run e2e:ci
 ```
 
-where `nowy-projekcik` is your desired folder and and `git@bitbucket.org:thesoftwarehouse/rss-test-1.git` is your empty project repository.
-This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
+where `nowy-projekcik` is your desired folder. This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
 
 ## E2E
 
