@@ -1,5 +1,5 @@
 default:
-  image: node:12.14.1
+  image: node:14.15.5-alpine3.10
 
 stages:
   - build
@@ -41,7 +41,7 @@ e2e_build:
 
 e2e_chrome:
   stage: test
-  image: tshio/e2e-runner:v4.0.2.2
+  image: tshio/e2e-runner:v4.0.2.3
   script:
     - cp .env.e2e.dist ./e2e/.env
     - npm install
@@ -49,7 +49,7 @@ e2e_chrome:
 
 e2e_firefox:
   stage: test
-  image: tshio/e2e-runner:v4.0.2.2
+  image: tshio/e2e-runner:v4.0.2.3
   script:
     - cp .env.e2e.dist ./e2e/.env
     - npm install
