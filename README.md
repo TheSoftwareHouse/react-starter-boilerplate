@@ -39,6 +39,7 @@ npm run e2e:ci
 
 where `new-project` is your desired folder. This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
 
+
 ## E2E
 
 For E2E testing we are using the [Cypress](https://www.cypress.io/) framework.

@@ -1,0 +1,129 @@
+@import url('https://rsms.me/inter/inter.css');
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 100vh;
+  background-image: url(../images/react-starter-background.svg);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 800px 700px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 72px;
+  width: 700px;
+  height: 400px;
+  background: #ffffff;
+  border: 1px solid rgba(70, 97, 158, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0px 48px 80px rgba(70, 97, 158, 0.1);
+  border-radius: 16px;
+}
+
+.card__logo {
+  width: 40%;
+}
+
+.card__button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.card__github-button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__description {
+  font-size: 16px;
+  text-align: center;
+  padding: 32px;
+  margin: 0;
+}
+
+.card__button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.button {
+  height: 48px;
+  border: 1px solid #46619e;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 15px 68px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button--contained {
+  background: #46619e;
+  color: #ffffff;
+}
+
+.button--contained:hover {
+  background: #ffffff;
+  color: #46619e;
+}
+
+.button--outlined {
+  background: #ffffff;
+  color: #46619e;
+}
+
+.button--outlined:hover {
+  background: #46619e;
+  color: #ffffff;
+}
+
+.button--badges {
+  margin: 0 10px;
+}
+
+@media screen and (max-width: 700px) {
+    .card {
+      width: 100%;
+      height: fit-content;
+      padding: 32px;
+    }
+
+    .card__github-button-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card__button-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .button {
+      font-size: 14px;
+      padding: 15px 30px;
+    }
+}
