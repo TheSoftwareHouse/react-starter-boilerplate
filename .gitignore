@@ -12,6 +12,7 @@
 /build
 
 # misc
+/.idea
 .DS_Store
 .env.babelsheet
 .env

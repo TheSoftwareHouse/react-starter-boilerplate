@@ -1,21 +1,8 @@
-import { Action } from 'api/types';
+import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { LoginPayload, AuthorizeResponse, RefreshTokenResponse } from './authActions.types';
+import { LoginActionArguments, LoginActionResponse } from './authActions.types';
 
-export function loginAction(values: LoginPayload): Action<AuthorizeResponse> {
-  return {
-    method: 'POST',
-    endpoint: '/authorize',
-    body: values,
-  };
-}
-
-export function refreshTokenAction(refreshToken: string): Action<RefreshTokenResponse> {
-  return {
-    method: 'POST',
-    endpoint: '/refresh-token',
-    body: {
-      refreshToken,
-    },
-  };
-}
+export const loginAction = (client: AxiosInstance) => async ({ username, password }: LoginActionArguments) => {
+  const response = await client.post<LoginActionResponse>('/authorize', { username, password });
+  return response;
+};
