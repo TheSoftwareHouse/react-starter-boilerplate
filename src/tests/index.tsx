@@ -4,7 +4,6 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
 import { IntlProvider } from 'react-intl';
-import { ClientContextProvider, createClient } from 'react-fetching-library';
 
 import { AppLocale } from '../context/locale/AppLocale.enum';
 import { defaultLocale } from '../context/locale/defaultLocale';
@@ -15,11 +14,9 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
 
   return (
     <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
-      <ClientContextProvider client={createClient()}>
-        <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-          <Router>{children}</Router>
-        </LocaleContext.Provider>
-      </ClientContextProvider>
+      <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
+        <Router>{children}</Router>
+      </LocaleContext.Provider>
     </IntlProvider>
   );
 };

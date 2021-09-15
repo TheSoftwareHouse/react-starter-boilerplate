@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export type AxiosProviderProps = {
+export type ClientProviderProps = {
   children: ReactNode;
 };

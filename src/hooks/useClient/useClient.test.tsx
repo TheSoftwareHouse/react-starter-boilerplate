@@ -1,21 +1,20 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import { mockServer } from '../../api/mocks/mock-server';
-import { AxiosContextController } from '../../context/axios/axiosContextController/AxiosContextController';
+import { ClientContextController } from '../../context/client/clientContextController/ClientContextController';
 import { authStorage } from '../../context/auth/authStorage/AuthStorage';
 
-import { useAxios } from './useAxios';
+import { useClient } from './useClient';
 
-describe('useAxios', () => {
+describe('useClient', () => {
   afterEach(() => {
     authStorage.accessToken = null;
   });
   test("adds token to the header if it's set up in local storage", async () => {
     authStorage.accessToken = 'test';
     mockServer();
-    const { result } = renderHook(() => useAxios(), {
-      wrapper: ({ children }) => <AxiosContextController>{children}</AxiosContextController>,
+    const { result } = renderHook(() => useClient(), {
+      wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
     const req = await result.current?.get('/users');
@@ -23,8 +22,8 @@ describe('useAxios', () => {
   });
 
   test('sends request without an authorization header', async () => {
-    const { result } = renderHook(() => useAxios(), {
-      wrapper: ({ children }) => <AxiosContextController>{children}</AxiosContextController>,
+    const { result } = renderHook(() => useClient(), {
+      wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
     const req = await result.current?.get('/users');

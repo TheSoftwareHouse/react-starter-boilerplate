@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 
-import { AxiosContext } from '../../context/axios/axiosContext/AxiosContext';
+import { ClientContext } from '../../context/client/clientContext/ClientContext';
 
-export const useAxios = () => {
-  const context = useContext(AxiosContext);
+export const useClient = () => {
+  const context = useContext(ClientContext);
 
   if (context === undefined) {
     throw new Error('AuthContext must be within AuthProvider');

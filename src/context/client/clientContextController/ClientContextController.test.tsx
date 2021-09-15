@@ -2,16 +2,16 @@ import React, { ReactNode } from 'react';
 
 import { render } from 'tests';
 
-import { AxiosContextController } from './AxiosContextController';
+import { ClientContextController } from './ClientContextController';
 
-describe('AxiosContextController', () => {
+describe('ClientContextController', () => {
   const wrapper = ({ children }: { children?: ReactNode }) => <>{children}</>;
 
   test('renders its children', () => {
     const { getByText } = render(
-      <AxiosContextController>
+      <ClientContextController>
         <span>TEST</span>
-      </AxiosContextController>,
+      </ClientContextController>,
       { wrapper },
     );
 
