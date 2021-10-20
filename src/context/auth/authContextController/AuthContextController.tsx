@@ -1,30 +1,30 @@
-import React, { useReducer, useEffect } from 'react';
+import { useMutation } from 'react-query';
 
+import { AuthContext } from '../authContext/AuthContext';
+import { loginAction } from '../../../api/actions/auth/authActions';
+import { useClient } from '../../../hooks/useClient/useClient';
 import { authStorage } from '../authStorage/AuthStorage';
-import { AuthDispatchContext, AuthStateContext } from 'context/auth/authContext/AuthContext';
-import { authReducer } from 'context/auth/authReducer/authReducer';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    isAuthorized: false,
-    isAuthorizing: false,
-    user: undefined,
-    accessToken: authStorage.accessToken,
-    refreshToken: authStorage.refreshToken,
-    expires: authStorage.expires,
+  const axios = useClient();
+
+  const loginQuery = useMutation(loginAction(axios), {
+    onSuccess: (res) => {
+      authStorage.accessToken = res.data.accessToken;
+      authStorage.expires = res.data.expires;
+      authStorage.refreshToken = res.data.refreshToken;
+    },
+    onError: (error) => {},
   });
 
-  useEffect(() => {
-    authStorage.accessToken = state.accessToken;
-    authStorage.refreshToken = state.refreshToken;
-    authStorage.expires = state.expires;
-  }, [state.accessToken, state.refreshToken, state.expires]);
+  const login = async ({ password, username }: { password: string; username: string }) => {
+    await loginQuery.mutateAsync({ password, username });
+  };
 
-  return (
-    <AuthStateContext.Provider value={state}>
-      <AuthDispatchContext.Provider value={dispatch}>{children}</AuthDispatchContext.Provider>
-    </AuthStateContext.Provider>
-  );
+  const isSuccess = loginQuery.isSuccess;
+  const isAuthenticated = isSuccess && !!authStorage.accessToken;
+
+  return <AuthContext.Provider value={{ isAuthenticated, login }}>{children}</AuthContext.Provider>;
 };

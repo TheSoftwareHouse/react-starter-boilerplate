@@ -5,12 +5,10 @@ import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
-import { useAuthState } from 'hooks/useAuthState/useAuthState';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
-  const { user } = useAuthState();
 
   return (
     <>
@@ -35,12 +33,6 @@ export const Home = () => {
       <hr />
       <LocationInfo />
       <hr />
-      Current logged in user: {user?.username}{' '}
-      {user?.username && (
-        <>
-          Click <Link to={AppRoute.logout}>here</Link> to log out
-        </>
-      )}
     </>
   );
 };

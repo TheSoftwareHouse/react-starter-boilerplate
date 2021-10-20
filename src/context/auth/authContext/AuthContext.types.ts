@@ -1,14 +1,6 @@
-import { Dispatch } from 'react';
+import { LoginActionArguments } from 'api/actions/auth/authActions.types';
 
-import { AuthAction, User } from '../authReducer/authReducer.types';
-
-export type AuthStateContextType = {
-  isAuthorized: boolean;
-  isAuthorizing: boolean;
-  accessToken: string | null;
-  refreshToken: string | null;
-  expires: number | null;
-  user?: User;
+export type AuthContextValueType = {
+  isAuthenticated: boolean;
+  login: ({ password, username }: LoginActionArguments) => void;
 };
-
-export type AuthDispatchContextType = Dispatch<AuthAction>;

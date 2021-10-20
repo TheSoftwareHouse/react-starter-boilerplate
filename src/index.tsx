@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Sentry from '@sentry/browser';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import 'assets/styles/main.css';
+
 import { AppProviders } from 'providers/AppProviders';
-import { mockServer } from 'api/mocks/mock-server';
 
 import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
+import { mockServer } from './api/mocks/mock-server';
 
-if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV !== 'production') {
-  mockServer();
-}
+const openReactQueryDevtools = process.env.NODE_ENV === 'development';
+
+mockServer();
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -26,6 +28,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
 ReactDOM.render(
   <AppProviders>
     <App />
+    {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
   </AppProviders>,
   document.getElementById('root'),
 );

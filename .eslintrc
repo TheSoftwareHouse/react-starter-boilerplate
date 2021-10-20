@@ -18,7 +18,7 @@
       "trailingComma": "all",
       "proseWrap": "always"
     }],
-    "no-console": "error",
+    "no-console": "warn",
 
     "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
