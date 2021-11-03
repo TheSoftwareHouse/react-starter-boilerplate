@@ -60,9 +60,6 @@
       "last 1 safari version"
     ]
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
@@ -105,8 +102,11 @@
     "babelsheet": "1.5.0",
     "cross-env": "7.0.3",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.2",
     "eslint-plugin-jest-dom": "3.9.2",
     "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.26.1",
+    "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-testing-library": "5.0.0",
     "full-icu": "1.4.0",
     "http-server": "14.0.0",

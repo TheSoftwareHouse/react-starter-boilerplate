@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import { AppRoute } from 'routing/AppRoute.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
