@@ -1,2 +1,2 @@
-FROM cypress/browsers:node14.15.0-chrome86-ff82
-RUN npm install --save-dev cypress@4.0.2
+FROM cypress/browsers:node14.17.0-chrome88-ff89
+RUN npm install --save-dev cypress@8.7.0
