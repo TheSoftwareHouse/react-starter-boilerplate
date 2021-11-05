@@ -1,5 +1,4 @@
 {
-  "root": true,
   "ignorePatterns": ["src/serviceWorker.ts"],
   "extends": [
     "plugin:react-hooks/recommended",
@@ -23,6 +22,7 @@
 
     "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/display-name": "off",
 
     "import/no-default-export": "error",
     "import/order": [
@@ -44,6 +44,9 @@
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".ts", ".tsx"]
       }
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "overrides": [
@@ -60,7 +63,18 @@
       }
     },
     {
-      "files": ["e2e/integration/(*.spec.*)|(*.test).ts"],
+      "files": ["**/*.test.tsx"],
+      "rules": {
+        "testing-library/prefer-screen-queries": "off",
+        "react/react-in-jsx-scope": "off",
+        "testing-library/no-container": "off"
+      }
+    },
+    {
+      "files": ["e2e/cypress/integration/**/*.(test|spec|e2e).ts"],
+      "extends": [
+        "plugin:cypress/recommended"
+      ],
       "rules": {
         "jest/valid-expect": "off",
         "@typescript-eslint/no-empty-function": "error",
