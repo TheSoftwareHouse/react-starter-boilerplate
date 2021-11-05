@@ -69,22 +69,6 @@
         "react/react-in-jsx-scope": "off",
         "testing-library/no-container": "off"
       }
-    },
-    {
-      "files": ["e2e/cypress/integration/**/*.(test|spec|e2e).ts"],
-      "extends": [
-        "plugin:cypress/recommended"
-      ],
-      "rules": {
-        "jest/valid-expect": "off",
-        "@typescript-eslint/no-empty-function": "error",
-        "@typescript-eslint/explicit-function-return-type": [
-          "error",
-          {
-            "allowExpressions": true
-          }
-        ]
-      }
     }
   ]
 }
