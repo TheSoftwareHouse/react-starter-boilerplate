@@ -15,11 +15,11 @@ pipelines:
     '**':
       - step: 
           name: build and install
-          image: tshio/e2e-runner:v4.0.2.3
+          image: cypress/browsers:node14.17.0-chrome88-ff89
           caches:
             - node
             - cypress
-            - cypress-node
+            - npm
           script:
             - cp .env.dist .env
             - npm install
@@ -31,7 +31,7 @@ pipelines:
       - parallel:
         - step:
             name: e2e - firefox
-            image: tshio/e2e-runner:v4.0.2.3
+            image: cypress/browsers:node14.17.0-chrome88-ff89
             caches:
               - node
             script:
@@ -39,7 +39,7 @@ pipelines:
               - npm run e2e:ci:firefox
         - step:
             name: e2e - chrome
-            image: tshio/e2e-runner:v4.0.2.2
+            image: cypress/browsers:node14.17.0-chrome88-ff89
             caches:
               - node
             script:
@@ -48,5 +48,5 @@ pipelines:
 
 definitions:
   caches:
-    cypress: $HOME/.cache/Cypress
-    cypress-node: ./e2e/node_modules
+    cypress: ~/.cache/Cypress
+    npm: ~/.npm
