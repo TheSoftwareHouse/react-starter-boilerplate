@@ -5,7 +5,7 @@ React. Full documentation is available [HERE](https://marcin-piela.github.io/rea
 
 ### Actions
 
-In order to add new request you have to create an **Action** and add it under `src/api/actions` directory. Instead of
+In order to add new request you have to create an **Query** and add it under `src/api/actions` directory. Instead of
 creating plain actions you should export action creators - functions that returns an action based on the arguments
 passed (e.g. payload which should be sent to the API).
 
@@ -40,11 +40,11 @@ If you would like to modify default `react-fetching-library` types, you can do i
 is perfect place for extending action with additional parameters:
 
 ```typescript
-import { Action as BaseAction } from 'react-fetching-library';
+import { Query as BaseAction } from 'react-fetching-library';
 
 export type AdditionalProperties = {
   skipAuthorization?: boolean;
 };
 
-export type Action<R> = BaseAction<R, AdditionalProperties>;
+export type Query<R> = BaseAction<R, AdditionalProperties>;
 ```

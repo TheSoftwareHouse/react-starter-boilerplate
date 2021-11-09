@@ -2,10 +2,10 @@ import { UseQueryOptions as UseRQQueryOptions } from 'react-query';
 import { QueryKey } from 'react-query/types/core/types';
 
 export type UseQueryOptions<
-  TQueryFnData = unknown,
+  TParams = unknown,
   TError = unknown,
-  TData = TQueryFnData,
+  TData = TParams,
   TQueryKey extends QueryKey = QueryKey,
 > = {
-  variables: TQueryFnData;
-} & UseRQQueryOptions<TQueryFnData, TError, TData, TQueryKey>;
+  params: TParams;
+} & UseRQQueryOptions<TParams, TError, TData, TQueryKey>;

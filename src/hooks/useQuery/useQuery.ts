@@ -1,13 +1,14 @@
 import { stringify } from 'qs';
 import { QueryFunction, QueryKey, useQuery as useRQQuery, UseQueryResult } from 'react-query';
-import axios from 'axios';
+import { useCallback } from 'react';
 
-import { ActionFn } from '../../api/types/types';
+import { QueryFn } from '../../api/types/types';
+import { useClient } from '../useClient/useClient';
 
 import { UseQueryOptions } from './useQuery.types';
 
-function getUrl<TVariables>(path: string, params?: TVariables) {
-  let url = process.env.REACT_APP_API_URL + path;
+function getUrl<TParams>(path: string, params?: TParams) {
+  let url = path;
 
   if (params && Object.keys(params).length > 0) {
     url = url + '?' + stringify(params);
@@ -17,18 +18,19 @@ function getUrl<TVariables>(path: string, params?: TVariables) {
 }
 
 export const useQuery = <TQueryFnData = unknown, TError = unknown, TData = TQueryFnData>(
-  action: ActionFn<TQueryFnData>,
+  action: QueryFn<TQueryFnData>,
   options: UseQueryOptions<TQueryFnData, TError, TData>,
 ): UseQueryResult<TData, TError> => {
-  const { variables, ...reactQueryOptions } = options;
+  const client = useClient();
+  const { params, ...reactQueryOptions } = options;
 
-  const { name, endpoint, params } = action(variables);
+  const { name, endpoint } = action(params);
 
   const queryKey: QueryKey = [name, endpoint, params];
 
-  const queryFn: QueryFunction<TQueryFnData> = async () => {
-    return axios.get(getUrl(endpoint, params));
-  };
+  const queryFn: QueryFunction<TQueryFnData> = useCallback(() => {
+    return client.get(getUrl(endpoint, params));
+  }, [client, endpoint, params]);
 
   return useRQQuery<TQueryFnData, TError, TData, QueryKey>(queryKey, queryFn, {
     ...reactQueryOptions,
