@@ -10,11 +10,11 @@ export type Query<TParams> = {
 
 export type QueryFn<TParams> = (params: TParams) => Query<TParams>;
 
-export type Mutation<TParams> = {
+/** @TODO In order to type it correctly then it is needed to take a look at useMutation from RFL it must propagate response, params types to library */
+export type Mutation<TParams, TResponse> = {
   endpoint: string;
-  name: string;
   params: TParams;
   method: MutationHTTPMethod;
 };
 
-export type MutationFn<TParams> = (params: TParams) => Mutation<TParams>;
+export type MutationFn<TParams = Record<string, unknown>> = (params: TParams) => Mutation<TParams>;

@@ -1,6 +1,13 @@
-import { AxiosInstance } from 'axios';
+import {Mutation, MutationFn} from '../../types/types';
 
-import { LoginActionArguments, LoginActionResponse } from './authActions.types';
+import { LoginActionArguments } from './authActions.types';
 
-export const loginAction = (client: AxiosInstance) => async (body: LoginActionArguments) =>
-  await client.post<LoginActionResponse>('/authorize', body);
+export const loginAction = (body: LoginActionArguments): Mutation<any> => {
+  return {
+    endpoint: '/authorize',
+    method: 'POST',
+    params: {
+      ...body,
+    },
+  };
+};

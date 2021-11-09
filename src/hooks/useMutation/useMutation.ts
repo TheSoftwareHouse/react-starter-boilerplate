@@ -1,5 +1,5 @@
 import { UseMutationResult, useMutation as useRQMutation, UseMutationOptions, MutationFunction } from 'react-query';
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import { useCallback } from 'react';
 
 import { MutationFn } from '../../api/types/types';
