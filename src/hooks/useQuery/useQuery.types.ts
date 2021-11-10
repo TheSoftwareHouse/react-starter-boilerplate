@@ -7,7 +7,7 @@ export type UseQueryOptions<
   TData = TParams,
   TQueryKey extends QueryKey = QueryKey,
 > = {
-  params: TParams;
+  params?: TParams;
 } & UseRQQueryOptions<TParams, TError, TData, TQueryKey>;
 
 export type Query<TParams> = {

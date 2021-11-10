@@ -9,7 +9,7 @@ import { LoginMutationArguments } from '../../../api/actions/auth/authActions.ty
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const { mutateAsync, isSuccess } = useMutation('login', loginMutation, {
+  const { mutateAsync, isSuccess, isLoading } = useMutation('login', loginMutation, {
     onSuccess: (res) => {
       authStorage.accessToken = res.data.accessToken;
       authStorage.expires = res.data.expires;
@@ -30,9 +30,10 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const contextValue = useMemo(
     () => ({
       isAuthenticated,
+      isAuthenticating: isLoading,
       login,
     }),
-    [isAuthenticated, login],
+    [isAuthenticated, isLoading, login],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

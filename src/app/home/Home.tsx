@@ -6,11 +6,13 @@ import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useQuery } from '../../hooks/useQuery/useQuery';
 import { getMeQuery } from '../../api/actions/auth/authActions';
+import { useAuth } from '../../hooks/useAuth/useAuth';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
+  const { login, isAuthenticated, isAuthenticating } = useAuth();
 
-  const { data, isLoading, isFetched } = useQuery('me', getMeQuery);
+  const { data: meResponse, isLoading, isFetched } = useQuery('me', getMeQuery, { enabled: isAuthenticated });
 
   return (
     <>
@@ -37,9 +39,17 @@ export const Home = () => {
       <hr />
       <div>
         <p>User information &#129489;</p>
+        <div style={{ marginBottom: '2rem' }}>
+          <button
+            disabled={isAuthenticating || isAuthenticated}
+            onClick={() => login({ password: 'tsh-react-starter', username: 'tsh' })}
+          >
+            {isAuthenticating ? 'Signing in...' : 'Click here to login'}
+          </button>
+        </div>
         {isLoading && <p>Loading...</p>}
         {isFetched && (
-          <code style={{ background: '#BADA55', padding: '8px 16px' }}>{JSON.stringify(data?.data, null, 2)}</code>
+          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse?.data, null, 2)}</code>
         )}
       </div>
     </>
