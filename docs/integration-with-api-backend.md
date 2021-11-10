@@ -1,11 +1,11 @@
 # Integrating with an API Backend
 
-All request to the API should be made using `react-fetching-library`, which is a simple and powerful API client for
-React. Full documentation is available [HERE](https://marcin-piela.github.io/react-fetching-library).
+All request to the API should be made using `react-query, which is a simple and powerful API client for
+React. Full documentation is available [HERE](https://react-query.tanstack.com/).
 
 ### Actions
 
-In order to add new request you have to create an **Query** and add it under `src/api/actions` directory. Instead of
+In order to add new request you have to create an **Action** and add it under `src/api/actions` directory. Instead of
 creating plain actions you should export action creators - functions that returns an action based on the arguments
 passed (e.g. payload which should be sent to the API).
 
@@ -15,18 +15,30 @@ file, which helds the action creators, should be in singular form. Good examples
 
 ### Interceptors
 
-In order to create a logic which will be executed on all actions you can create an interceptor. There are two types of
-interceptors:
+In order to create a logic which will be executed on all actions you can create an interceptor over api client e.g `axios`. There are two types of
+interceptors ([read more](https://axios-http.com/docs/interceptors)):
 
-- request interceptors ([read more](https://marcin-piela.github.io/react-fetching-library/#/?id=request-interceptors))
-- response interceptors ([read more](https://marcin-piela.github.io/react-fetching-library/#/?id=response-interceptors))
+- request interceptors
+- response interceptors 
 
-the difference between them is that the first one is executed before action is handled by `fetch` and the other one is
+the difference between them is that the first one is executed before action is handled by `axios` and the other one is
 performed on the response returned by the server before it is resolved by a promise.
 
-All interceptors should be added under `src/api/interceptors` directory. After creating new interceptor you have to add it to the fetching client, which is
+All interceptors should be added under `src/context/client/interceptors` directory. After creating new interceptor you have to add it to the fetching client, which is
 created in **ClientContextController** inside `src/context/client`.
 
+### Custom hooks
+
+`react-query` library gives the possibility to call the API by specifying `query/mutation` function, which is responsible
+for calling the fetching utility e.g. `axios` or `fetch`. 
+This approach is fully correct, but in order to make it easier to develop and maintain we have decided to prepare set of hooks
+that use already existing client in **ClientContextController**. 
+
+These hooks are placed in `src/hooks/useQuery` and `src/hooks/useMutation`
+
+- `useQuery` - Allows to call the GET request with existing fetching client, also it has the very same functionalities as original [useQuery](https://react-query.tanstack.com/reference/useQuery) hook.
+- `useMutation` - Allows to call the POST/PUT/PATCH/DELETE request with existing fetching client, also it has the very same functionalities as original [useMutation](https://react-query.tanstack.com/reference/useMutation) hook.
+- 
 ### Mocks
 
 If you are working on a new functionality and the backend is not ready yet, you can create a mock which will simulate
@@ -36,7 +48,7 @@ All mocks should be added under `src/api/mocks` directory, and used in the 'src/
 
 ### Types
 
-If you would like to modify default `react-fetching-library` types, you can do it inside `src/api/types` directory. This
+If you would like to modify default `react-query` types, you can do it inside `src/api/types` directory. This
 is perfect place for extending action with additional parameters:
 
 ```typescript
