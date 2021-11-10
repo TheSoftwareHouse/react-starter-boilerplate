@@ -12,9 +12,8 @@ export type UseQueryOptions<
 
 export type Query<TParams> = {
   endpoint: string;
-  name: string;
   params?: TParams;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type QueryFn<TParams = unknown, TData = unknown> = (params: TParams) => Query<TParams>;
+export type QueryFn<TParams = unknown, TData = unknown> = (params?: TParams) => Query<TParams>;

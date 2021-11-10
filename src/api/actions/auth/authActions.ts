@@ -14,9 +14,8 @@ export const loginMutation: MutationFn<LoginMutationArguments, ClientResponse<Lo
   };
 };
 
-export const getMeQuery: QueryFn<undefined, ClientResponse<GetMeQueryResponse>> = () => {
+export const getMeQuery: QueryFn<unknown, ClientResponse<GetMeQueryResponse>> = () => {
   return {
     endpoint: '/me',
-    name: 'me',
   };
 };

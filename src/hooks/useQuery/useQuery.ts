@@ -15,23 +15,26 @@ function getUrl<TParams>(path: string, params?: TParams) {
 
   return url;
 }
-
+/**
+ * Fetching data via this hook will not require specifying client in each query function, as it is required in React-query
+ * @see https://react-query.tanstack.com/guides/query-functions
+ * This hook will automatically use client from ClientContext e.g Axios
+ * @see ClientContext.ts
+ * */
 export const useQuery = <TParams = unknown, TError = unknown, TData = unknown>(
+  queryKey: QueryKey,
   action: QueryFn<TParams, TData>,
-  options: UseQueryOptions<TParams, TError, TData>,
+  options?: UseQueryOptions<TParams, TError, TData>,
 ): UseQueryResult<TData, TError> => {
   const client = useClient();
-  const { params, ...reactQueryOptions } = options;
 
-  const { name, endpoint } = action(params);
-
-  const queryKey: QueryKey = [name, endpoint, params];
+  const { endpoint } = action(options?.params);
 
   const queryFn: QueryFunction<TParams> = useCallback(() => {
-    return client.get(getUrl(endpoint, params));
-  }, [client, endpoint, params]);
+    return client.get(getUrl(endpoint, options?.params));
+  }, [client, endpoint, options?.params]);
 
   return useRQQuery<TParams, TError, TData, QueryKey>(queryKey, queryFn, {
-    ...reactQueryOptions,
+    ...options,
   });
 };

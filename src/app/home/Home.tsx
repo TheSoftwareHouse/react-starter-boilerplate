@@ -4,9 +4,13 @@ import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
+import { useQuery } from '../../hooks/useQuery/useQuery';
+import { getMeQuery } from '../../api/actions/auth/authActions';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
+
+  const { data, isLoading, isFetched } = useQuery('me', getMeQuery);
 
   return (
     <>
@@ -31,6 +35,13 @@ export const Home = () => {
       <hr />
       <LocationInfo />
       <hr />
+      <div>
+        <p>User information &#129489;</p>
+        {isLoading && <p>Loading...</p>}
+        {isFetched && (
+          <code style={{ background: '#BADA55', padding: '8px 16px' }}>{JSON.stringify(data?.data, null, 2)}</code>
+        )}
+      </div>
     </>
   );
 };

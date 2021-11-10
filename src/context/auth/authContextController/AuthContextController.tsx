@@ -8,7 +8,7 @@ import { useMutation } from '../../../hooks/useMutation/useMutation';
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const loginQuery = useMutation(loginMutation, {
+  const loginQuery = useMutation('login', loginMutation, {
     onSuccess: (res) => {
       authStorage.accessToken = res.data.accessToken;
       authStorage.expires = res.data.expires;
