@@ -1,12 +1,15 @@
 import React from 'react';
 import Axios from 'axios';
 import { useMemo } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { ClientContext } from '../clientContext/ClientContext';
 
 import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
 import { responseSuccessInterceptor, responseFailureInterceptor } from './interceptors/responseInterceptors';
 import { ClientProviderProps } from './ClientContextController.types';
+
+const queryClient = new QueryClient();
 
 export const ClientContextController = ({ children }: ClientProviderProps) => {
   const axios = useMemo(() => {
@@ -23,5 +26,9 @@ export const ClientContextController = ({ children }: ClientProviderProps) => {
     return axios;
   }, []);
 
-  return <ClientContext.Provider value={axios}>{children}</ClientContext.Provider>;
+  return (
+    <ClientContext.Provider value={axios}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </ClientContext.Provider>
+  );
 };

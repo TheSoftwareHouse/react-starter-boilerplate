@@ -44,7 +44,7 @@ export const Home = () => {
             disabled={isAuthenticating || isAuthenticated}
             onClick={() => login({ password: 'tsh-react-starter', username: 'tsh' })}
           >
-            {isAuthenticating ? 'Signing in...' : 'Click here to login'}
+            {isAuthenticating ? 'Logging in...' : 'Click to login'}
           </button>
         </div>
         {isLoading && <p>Loading...</p>}
