@@ -16,7 +16,7 @@ export const mockServer = () => {
           }),
         );
       });
-      this.get('/users', () => {
+      this.get('/me', () => {
         return new MockResponse(
           200,
           {},

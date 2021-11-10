@@ -17,7 +17,7 @@ describe('useClient', () => {
       wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
-    const req = await result.current?.get('/users');
+    const req = await result.current?.get('/me');
     expect(req?.request.requestHeaders.Authorization).toBe('Bearer test');
   });
 
@@ -26,7 +26,7 @@ describe('useClient', () => {
       wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
-    const req = await result.current?.get('/users');
+    const req = await result.current?.get('/me');
     expect(req?.request.requestHeaders.Authorization).toBe(undefined);
   });
 });

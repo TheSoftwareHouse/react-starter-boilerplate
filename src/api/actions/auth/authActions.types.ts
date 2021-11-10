@@ -1,11 +1,17 @@
-export type LoginActionArguments = {
+export type LoginMutationArguments = {
   username: string;
   password: string;
 };
 
-export type LoginActionResponse = {
+export type LoginMutationResponse = {
   accessToken: string;
   tokenType: string;
   expires: number;
   refreshToken: string;
+};
+
+export type GetMeQueryResponse = {
+  firstName: string;
+  lastName: string;
+  username: string;
 };

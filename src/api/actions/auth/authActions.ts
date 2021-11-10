@@ -1,14 +1,22 @@
 import { MutationFn } from '../../../hooks/useMutation/useMutation.types';
 import { ClientResponse } from '../../types/types';
+import { QueryFn } from '../../../hooks/useQuery/useQuery.types';
 
-import { LoginActionArguments, LoginActionResponse } from './authActions.types';
+import { GetMeQueryResponse, LoginMutationArguments, LoginMutationResponse } from './authActions.types';
 
-export const loginMutation: MutationFn<LoginActionArguments, ClientResponse<LoginActionResponse>> = (body) => {
+export const loginMutation: MutationFn<LoginMutationArguments, ClientResponse<LoginMutationResponse>> = (body) => {
   return {
     endpoint: '/authorize',
     method: 'POST',
     params: {
       ...body,
     },
+  };
+};
+
+export const getMeQuery: QueryFn<undefined, ClientResponse<GetMeQueryResponse>> = () => {
+  return {
+    endpoint: '/me',
+    name: 'me',
   };
 };
