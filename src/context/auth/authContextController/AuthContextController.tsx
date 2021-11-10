@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { AuthContext } from '../authContext/AuthContext';
 import { loginMutation } from '../../../api/actions/auth/authActions';
 import { authStorage } from '../authStorage/AuthStorage';
 import { useMutation } from '../../../hooks/useMutation/useMutation';
+import { LoginMutationArguments } from '../../../api/actions/auth/authActions.types';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const loginQuery = useMutation('login', loginMutation, {
+  const { mutateAsync, isSuccess } = useMutation('login', loginMutation, {
     onSuccess: (res) => {
       authStorage.accessToken = res.data.accessToken;
       authStorage.expires = res.data.expires;
@@ -17,12 +18,22 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     onError: () => {},
   });
 
-  const login = async ({ password, username }: { password: string; username: string }) => {
-    await loginQuery.mutateAsync({ password, username });
-  };
+  const login = useCallback(
+    async (params: LoginMutationArguments) => {
+      await mutateAsync(params);
+    },
+    [mutateAsync],
+  );
 
-  const isSuccess = loginQuery.isSuccess;
-  const isAuthenticated = isSuccess && !!authStorage.accessToken;
+  const isAuthenticated = useMemo(() => isSuccess && !!authStorage.accessToken, [isSuccess]);
 
-  return <AuthContext.Provider value={{ isAuthenticated, login }}>{children}</AuthContext.Provider>;
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      login,
+    }),
+    [isAuthenticated, login],
+  );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
