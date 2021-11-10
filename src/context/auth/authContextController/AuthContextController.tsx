@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMutation } from 'react-query';
 
 import { AuthContext } from '../authContext/AuthContext';
@@ -16,7 +17,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
       authStorage.expires = res.data.expires;
       authStorage.refreshToken = res.data.refreshToken;
     },
-    onError: (error) => {},
+    onError: () => {},
   });
 
   const login = async ({ password, username }: { password: string; username: string }) => {
