@@ -2,15 +2,12 @@ import { UseMutationResult, useMutation as useRQMutation, UseMutationOptions, Mu
 import { AxiosRequestConfig } from 'axios';
 import { useCallback } from 'react';
 
-import { MutationFn } from '../../api/types/types';
 import { useClient } from '../useClient/useClient';
 
-function getUrl(endpoint: string) {
-  return process.env.REACT_APP_API_URL + endpoint;
-}
+import { MutationFn } from './useMutation.types';
 
 export const useMutation = <TData = unknown, TError = unknown, TParams = unknown, TContext = unknown>(
-  mutation: MutationFn<TParams>,
+  mutation: MutationFn<TParams, TData>,
   options: UseMutationOptions<TData, TError, TParams, TContext>,
 ): UseMutationResult<TData, TError, TParams, TContext> => {
   const client = useClient();
@@ -20,7 +17,7 @@ export const useMutation = <TData = unknown, TError = unknown, TParams = unknown
       const { endpoint, params, method } = mutation(variables);
 
       const axiosConfig: AxiosRequestConfig = {
-        url: getUrl(endpoint),
+        url: endpoint,
         data: params ? JSON.stringify(params) : undefined,
         method: method || 'POST',
       };

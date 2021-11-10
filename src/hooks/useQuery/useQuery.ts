@@ -2,10 +2,9 @@ import { stringify } from 'qs';
 import { QueryFunction, QueryKey, useQuery as useRQQuery, UseQueryResult } from 'react-query';
 import { useCallback } from 'react';
 
-import { QueryFn } from '../../api/types/types';
 import { useClient } from '../useClient/useClient';
 
-import { UseQueryOptions } from './useQuery.types';
+import { QueryFn, UseQueryOptions } from './useQuery.types';
 
 function getUrl<TParams>(path: string, params?: TParams) {
   let url = path;
@@ -17,9 +16,9 @@ function getUrl<TParams>(path: string, params?: TParams) {
   return url;
 }
 
-export const useQuery = <TQueryFnData = unknown, TError = unknown, TData = TQueryFnData>(
-  action: QueryFn<TQueryFnData>,
-  options: UseQueryOptions<TQueryFnData, TError, TData>,
+export const useQuery = <TParams = unknown, TError = unknown, TData = unknown>(
+  action: QueryFn<TParams, TData>,
+  options: UseQueryOptions<TParams, TError, TData>,
 ): UseQueryResult<TData, TError> => {
   const client = useClient();
   const { params, ...reactQueryOptions } = options;
@@ -28,11 +27,11 @@ export const useQuery = <TQueryFnData = unknown, TError = unknown, TData = TQuer
 
   const queryKey: QueryKey = [name, endpoint, params];
 
-  const queryFn: QueryFunction<TQueryFnData> = useCallback(() => {
+  const queryFn: QueryFunction<TParams> = useCallback(() => {
     return client.get(getUrl(endpoint, params));
   }, [client, endpoint, params]);
 
-  return useRQQuery<TQueryFnData, TError, TData, QueryKey>(queryKey, queryFn, {
+  return useRQQuery<TParams, TError, TData, QueryKey>(queryKey, queryFn, {
     ...reactQueryOptions,
   });
 };

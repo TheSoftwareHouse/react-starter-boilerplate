@@ -9,3 +9,12 @@ export type UseQueryOptions<
 > = {
   params: TParams;
 } & UseRQQueryOptions<TParams, TError, TData, TQueryKey>;
+
+export type Query<TParams> = {
+  endpoint: string;
+  name: string;
+  params: TParams;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type QueryFn<TParams, TData> = (params: TParams) => Query<TParams>;
