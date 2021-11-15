@@ -1,5 +1,5 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { Fragment } from 'react';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
@@ -7,7 +7,7 @@ import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from '../../hooks/useAuth/useAuth';
 import { ClientResponse } from '../../api/types/types';
-import { GetMeQueryResponse } from '../../api/actions/auth/authActions.types';
+import { GetMeQueryResponse, GetUsersResponse } from '../../api/actions/auth/authActions.types';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -15,9 +15,21 @@ export const Home = () => {
 
   const {
     data: meResponse,
-    isLoading,
-    isFetched,
+    isLoading: isGettingMe,
+    isFetched: isFetchedMe,
   } = useQuery<ClientResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
+
+  const {
+    data: usersResponse,
+    isFetching: isFetchingUsers,
+    isFetched: areUsersFetched,
+    hasNextPage: hasMoreUsers,
+    fetchNextPage: loadMoreUsers,
+    isFetchingNextPage,
+  } = useInfiniteQuery<ClientResponse<GetUsersResponse>>({
+    queryKey: 'users',
+    getNextPageParam: (lastPage) => lastPage.data.id + 1 ?? false,
+  });
 
   return (
     <>
@@ -52,10 +64,28 @@ export const Home = () => {
             {isAuthenticating ? 'Logging in...' : 'Click to login'}
           </button>
         </div>
-        {isLoading && <p>Loading...</p>}
-        {isFetched && (
+        {isGettingMe && <p>Loading...</p>}
+        {isFetchedMe && (
           <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse?.data, null, 2)}</code>
         )}
+      </div>
+      <div>
+        <p>List of users &#129489;</p>
+        <div style={{ marginBottom: '2rem' }}>
+          <ul>
+            {areUsersFetched &&
+              usersResponse?.pages &&
+              usersResponse?.pages.map((page, index) => (
+                <Fragment key={index}>
+                  <li>{JSON.stringify(page.data)}</li>
+                </Fragment>
+              ))}
+          </ul>
+          {isFetchingNextPage && <p>Loading next user...</p>}
+          <button disabled={isFetchingNextPage || isFetchingUsers || !hasMoreUsers} onClick={() => loadMoreUsers()}>
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

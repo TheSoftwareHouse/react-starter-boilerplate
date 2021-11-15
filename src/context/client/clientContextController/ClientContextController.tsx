@@ -29,7 +29,8 @@ export const ClientContextController = ({ children }: ClientProviderProps) => {
   const queryFn: QueryFunction<ClientResponse> = useCallback(
     async ({ queryKey: [url] }) => {
       if (typeof url === 'string') {
-        return await axios.get<ClientResponse>(`${url.toLowerCase()}`);
+        const lowerCaseUrl = url.toLowerCase();
+        return await axios.get<ClientResponse>(lowerCaseUrl);
       }
       throw new Error('Invalid QueryKey');
     },

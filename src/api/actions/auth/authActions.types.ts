@@ -15,3 +15,8 @@ export type GetMeQueryResponse = {
   lastName: string;
   username: string;
 };
+
+export type GetUsersResponse = {
+  id: number;
+  name: string;
+};
