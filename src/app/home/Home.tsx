@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
+import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
-import { useAuth } from '../../hooks/useAuth/useAuth';
-import { ClientResponse } from '../../api/types/types';
-import { GetMeQueryResponse, GetUsersResponse } from '../../api/actions/auth/authActions.types';
+import { useAuth } from 'hooks/useAuth/useAuth';
+import { ClientResponse } from 'api/types/types';
+import { GetMeQueryResponse, GetUsersResponse } from 'api/actions/auth/authActions.types';
+import { getInfiniteUsersQuery } from '../../api/actions/auth/authActions';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -26,8 +28,7 @@ export const Home = () => {
     hasNextPage: hasMoreUsers,
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
-  } = useInfiniteQuery<ClientResponse<GetUsersResponse>>({
-    queryKey: 'users',
+  } = useInfiniteQuery('users', getInfiniteUsersQuery, {
     getNextPageParam: (lastPage) => lastPage.data.id + 1 ?? false,
   });
 

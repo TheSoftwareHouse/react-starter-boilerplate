@@ -1,7 +1,8 @@
 import { MutationFn } from '../../../hooks/useMutation/useMutation.types';
 import { ClientResponse } from '../../types/types';
+import { InfiniteQueryFn } from '../../../hooks/useInfiniteQuery/useInfiniteQuery.types';
 
-import { LoginMutationArguments, LoginMutationResponse } from './authActions.types';
+import { GetUsersResponse, LoginMutationArguments, LoginMutationResponse } from './authActions.types';
 
 export const loginMutation: MutationFn<LoginMutationArguments, ClientResponse<LoginMutationResponse>> = (body) => {
   return {
@@ -10,5 +11,12 @@ export const loginMutation: MutationFn<LoginMutationArguments, ClientResponse<Lo
     params: {
       ...body,
     },
+  };
+};
+
+export const getInfiniteUsersQuery: InfiniteQueryFn<unknown, ClientResponse<GetUsersResponse>> = (config) => {
+  return {
+    endpoint: `/users?${config?.pageKey}=${config?.pageParam}`,
+    params: config?.params,
   };
 };
