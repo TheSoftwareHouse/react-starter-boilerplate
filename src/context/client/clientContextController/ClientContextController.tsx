@@ -1,15 +1,12 @@
-import React from 'react';
-import Axios from 'axios';
-import { useMemo } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import React, { useCallback, useMemo } from 'react';
+import Axios, { AxiosResponse } from 'axios';
+import { QueryClient, QueryClientProvider, QueryFunction } from 'react-query';
 
 import { ClientContext } from '../clientContext/ClientContext';
 
 import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
-import { responseSuccessInterceptor, responseFailureInterceptor } from './interceptors/responseInterceptors';
+import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';
 import { ClientProviderProps } from './ClientContextController.types';
-
-const queryClient = new QueryClient();
 
 export const ClientContextController = ({ children }: ClientProviderProps) => {
   const axios = useMemo(() => {
@@ -25,6 +22,26 @@ export const ClientContextController = ({ children }: ClientProviderProps) => {
 
     return axios;
   }, []);
+
+  const queryFn: QueryFunction<AxiosResponse> = useCallback(
+    async ({ queryKey: [url] }) => {
+      if (typeof url === 'string') {
+        return await axios.get(`${url.toLowerCase()}`);
+      }
+      throw new Error('Invalid QueryKey');
+    },
+    [axios],
+  );
+
+  const queryClient = useMemo(() => {
+    return new QueryClient({
+      defaultOptions: {
+        queries: {
+          queryFn,
+        },
+      },
+    });
+  }, [queryFn]);
 
   return (
     <ClientContext.Provider value={axios}>

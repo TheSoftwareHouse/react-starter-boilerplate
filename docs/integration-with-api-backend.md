@@ -31,13 +31,12 @@ created in **ClientContextController** inside `src/context/client`.
 
 `react-query` library gives the possibility to call the API by specifying `query/mutation` function, which is responsible
 for calling the fetching utility e.g. `axios` or `fetch`. 
-This approach is fully correct, but in order to make it easier to develop and maintain we have decided to prepare set of hooks
+This approach is fully correct, but in order to make it easier to develop and maintain we have decided to prepare hooks
 that use already existing client in **ClientContextController**. 
 
-These hooks are placed in `src/hooks/useQuery` and `src/hooks/useMutation`
+The only hook that needed rewrite is `src/hooks/useMutation` hook.
 
-- `useQuery` - Allows to call the GET request with existing fetching client, also it has the very same functionalities as original [useQuery](https://react-query.tanstack.com/reference/useQuery) hook.
-- `useMutation` - Allows to call the POST/PUT/PATCH/DELETE request with existing fetching client, also it has the very same functionalities as original [useMutation](https://react-query.tanstack.com/reference/useMutation) hook.
+- `useMutation` - Allows to call the `POST/PUT/PATCH/DELETE` request with existing fetching client, also it has the very same functionalities as original [useMutation](https://react-query.tanstack.com/reference/useMutation) hook.
 - 
 ### Mocks
 

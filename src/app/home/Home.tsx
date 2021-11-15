@@ -1,18 +1,23 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
-import { useQuery } from '../../hooks/useQuery/useQuery';
-import { getMeQuery } from '../../api/actions/auth/authActions';
 import { useAuth } from '../../hooks/useAuth/useAuth';
+import { ClientResponse } from '../../api/types/types';
+import { GetMeQueryResponse } from '../../api/actions/auth/authActions.types';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
   const { login, isAuthenticated, isAuthenticating } = useAuth();
 
-  const { data: meResponse, isLoading, isFetched } = useQuery('me', getMeQuery, { enabled: isAuthenticated });
+  const {
+    data: meResponse,
+    isLoading,
+    isFetched,
+  } = useQuery<ClientResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
 
   return (
     <>
