@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import Axios, { AxiosResponse } from 'axios';
+import Axios from 'axios';
 import { QueryClient, QueryClientProvider, QueryFunction } from 'react-query';
 
 import { ClientContext } from '../clientContext/ClientContext';
+import { ClientResponse } from '../../../api/types/types';
 
 import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
 import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';
@@ -23,10 +24,12 @@ export const ClientContextController = ({ children }: ClientProviderProps) => {
     return axios;
   }, []);
 
-  const queryFn: QueryFunction<AxiosResponse> = useCallback(
+  // This function will be used to fetch the data with react-query useQuery, useInfiniteQuery, useQueries methods
+  // So the developers won't have to specify query function
+  const queryFn: QueryFunction<ClientResponse> = useCallback(
     async ({ queryKey: [url] }) => {
       if (typeof url === 'string') {
-        return await axios.get(`${url.toLowerCase()}`);
+        return await axios.get<ClientResponse>(`${url.toLowerCase()}`);
       }
       throw new Error('Invalid QueryKey');
     },

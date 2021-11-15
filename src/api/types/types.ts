@@ -4,4 +4,4 @@ export type HTTPMethod = 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' 
 
 export type MutationHTTPMethod = 'DELETE' | 'POST' | 'PUT' | 'PATCH';
 
-export type ClientResponse<TResponse> = AxiosResponse<TResponse>;
+export type ClientResponse<TResponse = unknown> = AxiosResponse<TResponse>;
