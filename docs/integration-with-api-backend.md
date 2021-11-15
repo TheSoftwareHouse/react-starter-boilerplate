@@ -33,6 +33,7 @@ created in **ClientContextController** inside `src/context/client`.
 for calling the fetching utility e.g. `axios` or `fetch`. 
 This approach is fully correct, but in order to make it easier to develop and maintain we have decided to prepare hooks
 that use already existing client in **ClientContextController**. 
+`useQuery, useInfiniteQuery, useQueries` hooks are extended by middleware called [default query function](https://react-query.tanstack.com/guides/default-query-function), which simply uses client declared in **ClientContextController**.
 
 The only hook that needed rewrite is `src/hooks/useMutation` hook.
 
