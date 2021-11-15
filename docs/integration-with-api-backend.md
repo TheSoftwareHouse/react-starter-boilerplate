@@ -45,18 +45,3 @@ If you are working on a new functionality and the backend is not ready yet, you 
 an endpoint and return given response instead of the real one. 
 
 All mocks should be added under `src/api/mocks` directory, and used in the 'src/api/mocks/mock-server' mock server, made with [mirage.js](https://github.com/miragejs/miragejs). The mock server is enabled when NODE_ENV is not `production`, or when REACT_APP_CI=1.
-
-### Types
-
-If you would like to modify default `react-query` types, you can do it inside `src/api/types` directory. This
-is perfect place for extending action with additional parameters:
-
-```typescript
-import { Query as BaseAction } from 'react-fetching-library';
-
-export type AdditionalProperties = {
-  skipAuthorization?: boolean;
-};
-
-export type Query<R> = BaseAction<R, AdditionalProperties>;
-```
