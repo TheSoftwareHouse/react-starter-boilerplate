@@ -3,10 +3,11 @@ import { AnyFactories, ModelDefinition, Registry } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
 
 type User = {
+  id: number;
   name: string;
 };
 
-const UserModel: ModelDefinition<User> = Model.extend({ name: 'user' });
+const UserModel: ModelDefinition<User> = Model.extend({ name: 'user', id: 0 });
 
 type AppRegistry = Registry<{ user: typeof UserModel }, AnyFactories>;
 
@@ -54,16 +55,19 @@ export const mockServer = () => {
       this.get('/users', (schema: Schema<AppRegistry>, request) => {
         const qp = request.queryParams;
         const page = qp.page ? parseInt(qp.page) : null;
+        const count = qp.count ? parseInt(qp.count) : null;
+        const allUsers = schema.all('user');
 
-        if (!page) {
-          const allUsers = schema.all('user');
-          return new MockResponse(200, {}, JSON.stringify(allUsers.models));
+        if (page === null || count === null) {
+          return new MockResponse(200, {}, JSON.stringify({ users: allUsers.models }));
         }
-        const start = page;
-        const end = start + 1;
 
-        const filtered = schema.all('user').models.slice(start, end);
-        return new MockResponse(200, {}, JSON.stringify(filtered));
+        const start = page * count;
+        const end = start + count;
+        const nextPageCursor = end >= allUsers?.models.length ? null : page + 1;
+
+        const paginatedUsers = allUsers.models.slice(start, end);
+        return new MockResponse(200, {}, JSON.stringify({ users: paginatedUsers, nextPage: nextPageCursor }));
       });
 
       this.passthrough(`${process.env.REACT_APP_API_URL}/**`);

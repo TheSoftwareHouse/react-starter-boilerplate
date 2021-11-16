@@ -17,6 +17,9 @@ export type GetMeQueryResponse = {
 };
 
 export type GetUsersResponse = {
-  id: number;
-  name: string;
+  users: {
+    id: string;
+    name: string;
+  }[];
+  nextPage: number | null;
 };

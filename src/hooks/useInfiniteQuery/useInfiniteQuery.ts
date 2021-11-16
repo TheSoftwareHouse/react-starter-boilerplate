@@ -28,7 +28,11 @@ export const useInfiniteQuery = <TParams = unknown, TError = unknown, TResponse 
 ): UseInfiniteQueryResult<TResponse, TError> => {
   const client = useClient();
 
-  const { endpoint } = query(options?.params);
+  const { endpoint } = query({
+    pageKey: options?.pageKey || 'page',
+    pageParam: options?.pageParam || 0,
+    params: options?.params,
+  });
 
   const queryFn: QueryFunction<UseInfiniteQueryConfigParameters<TParams>> = useCallback(() => {
     return client.get(getUrl(endpoint));

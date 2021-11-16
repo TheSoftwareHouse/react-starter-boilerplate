@@ -1,25 +1,42 @@
 import React, { Fragment } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
-import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
 import { ClientResponse } from 'api/types/types';
 import { GetMeQueryResponse, GetUsersResponse } from 'api/actions/auth/authActions.types';
-import { getInfiniteUsersQuery } from '../../api/actions/auth/authActions';
+import { useClient } from '../../hooks/useClient/useClient';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
   const { login, isAuthenticated, isAuthenticating } = useAuth();
+  const client = useClient();
 
   const {
     data: meResponse,
     isLoading: isGettingMe,
-    isFetched: isFetchedMe,
+    isFetched: isMeFetched,
   } = useQuery<ClientResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
+
+  // const {
+  //   data: usersResponse,
+  //   isFetching: isFetchingUsers,
+  //   isFetched: areUsersFetched,
+  //   hasNextPage: hasMoreUsers,
+  //   fetchNextPage: loadMoreUsers,
+  //   isFetchingNextPage,
+  // } = useInfiniteQuery('users', getInfiniteUsersQuery, {
+  //   pageParam: 0,
+  //   pageKey: 'page',
+  //   getNextPageParam: (lastPage, all) => {
+  //     console.log('last', lastPage);
+  //     console.log('all', all);
+  //     return 0;
+  //   },
+  // });
 
   const {
     data: usersResponse,
@@ -28,9 +45,18 @@ export const Home = () => {
     hasNextPage: hasMoreUsers,
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
-  } = useInfiniteQuery('users', getInfiniteUsersQuery, {
-    getNextPageParam: (lastPage) => lastPage.data.id + 1 ?? false,
-  });
+  } = useInfiniteQuery(
+    'users',
+    ({ pageParam = 0 }) => client.get<GetUsersResponse>(`/users?page=${pageParam}&count=5`),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.data.nextPage === null) {
+          return false;
+        }
+        return lastPage.data.nextPage;
+      },
+    },
+  );
 
   return (
     <>
@@ -55,7 +81,7 @@ export const Home = () => {
       <hr />
       <LocationInfo />
       <hr />
-      <div>
+      <div style={{ marginBottom: '2rem' }}>
         <p>User information &#129489;</p>
         <div style={{ marginBottom: '2rem' }}>
           <button
@@ -65,8 +91,8 @@ export const Home = () => {
             {isAuthenticating ? 'Logging in...' : 'Click to login'}
           </button>
         </div>
-        {isGettingMe && <p>Loading...</p>}
-        {isFetchedMe && (
+        {isGettingMe && <p>Loading data about you...</p>}
+        {isMeFetched && (
           <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse?.data, null, 2)}</code>
         )}
       </div>
@@ -78,13 +104,15 @@ export const Home = () => {
               usersResponse?.pages &&
               usersResponse?.pages.map((page, index) => (
                 <Fragment key={index}>
-                  <li>{JSON.stringify(page.data)}</li>
+                  {page.data.users.map((data) => (
+                    <li key={data.id}>{data.name}</li>
+                  ))}
                 </Fragment>
               ))}
           </ul>
-          {isFetchingNextPage && <p>Loading next user...</p>}
+          {isFetchingNextPage && <p>Loading more users...</p>}
           <button disabled={isFetchingNextPage || isFetchingUsers || !hasMoreUsers} onClick={() => loadMoreUsers()}>
-            Next
+            Load more
           </button>
         </div>
       </div>
