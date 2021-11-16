@@ -33,12 +33,13 @@ created in **ClientContextController** inside `src/context/client`.
 for calling the fetching utility e.g. `axios` or `fetch`. 
 This approach is fully correct, but in order to make it easier to develop and maintain we have decided to prepare hooks
 that use already existing client in **ClientContextController**. 
-`useQuery, useInfiniteQuery, useQueries` hooks are extended by middleware called [default query function](https://react-query.tanstack.com/guides/default-query-function), which simply uses client declared in **ClientContextController**.
+`useQuery, useQueries` hooks are extended by middleware called [default query function](https://react-query.tanstack.com/guides/default-query-function), which simply uses client declared in **ClientContextController**.
 
-The only hook that needed rewrite is `src/hooks/useMutation` hook.
+The hooks that needed rewrite are `src/hooks/useMutation` and `src/hooks/useInfiniteQuery` hook.
 
 - `useMutation` - Allows to call the `POST/PUT/PATCH/DELETE` request with existing fetching client, also it has the very same functionalities as original [useMutation](https://react-query.tanstack.com/reference/useMutation) hook.
-- 
+- `useInfiniteQuery` - Allows to the call `GET` request for pagination-like endpoints e.g. infinite loading, load more content. [useInfiniteQuery](https://react-query.tanstack.com/reference/useInfiniteQuery).
+
 ### Mocks
 
 If you are working on a new functionality and the backend is not ready yet, you can create a mock which will simulate
