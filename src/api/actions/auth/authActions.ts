@@ -14,9 +14,9 @@ export const loginMutation: MutationFn<LoginMutationArguments, ClientResponse<Lo
   };
 };
 
-export const getInfiniteUsersQuery: InfiniteQueryFn<unknown, ClientResponse<GetUsersResponse>> = (config) => {
+export const getInfiniteUsersQuery: InfiniteQueryFn<{ count: number }, ClientResponse<GetUsersResponse>> = (args) => {
   return {
-    endpoint: `/users?${config?.pageKey}=${config?.pageParam}`,
-    params: config?.params,
+    endpoint: `/users`,
+    args,
   };
 };
