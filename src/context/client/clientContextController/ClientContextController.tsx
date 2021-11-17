@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { QueryClient, QueryClientProvider, QueryFunction } from 'react-query';
 
 import { ClientContext } from '../clientContext/ClientContext';
-import { ClientResponse } from '../../../api/types/types';
+import { ClientResponse } from 'api/types/types';
 
 import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
 import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';

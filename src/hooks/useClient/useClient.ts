@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ClientContext } from '../../context/client/clientContext/ClientContext';
+import { ClientContext } from 'context/client/clientContext/ClientContext';
 
 export const useClient = () => {
   const context = useContext(ClientContext);

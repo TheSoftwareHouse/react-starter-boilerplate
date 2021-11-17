@@ -1,4 +1,4 @@
-import { MutationHTTPMethod } from '../../api/types/types';
+import { MutationHTTPMethod } from 'api/types/types';
 
 export type Mutation<TParams> = {
   endpoint: string;

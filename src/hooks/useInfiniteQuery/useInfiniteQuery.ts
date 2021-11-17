@@ -2,7 +2,7 @@ import { QueryFunction, QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInf
 import { useCallback } from 'react';
 import { stringify } from 'qs';
 
-import { useClient } from '../useClient/useClient';
+import { useClient } from 'hooks/useClient/useClient';
 
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.types';
 

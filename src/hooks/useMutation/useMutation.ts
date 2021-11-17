@@ -8,7 +8,7 @@ import {
 import { AxiosRequestConfig } from 'axios';
 import { useCallback } from 'react';
 
-import { useClient } from '../useClient/useClient';
+import { useClient } from 'hooks/useClient/useClient';
 
 import { MutationFn } from './useMutation.types';
 

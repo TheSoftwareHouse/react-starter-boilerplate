@@ -2,8 +2,8 @@ import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from 'react-test-renderer';
 
-import { mockServer } from '../../api/mocks/mock-server';
-import { AppProviders } from '../../providers/AppProviders';
+import { mockServer } from 'api/mocks/mock-server';
+import { AppProviders } from 'providers/AppProviders';
 
 import { useAuth } from './useAuth';
 

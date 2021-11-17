@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { mockServer } from '../../api/mocks/mock-server';
-import { ClientContextController } from '../../context/client/clientContextController/ClientContextController';
-import { authStorage } from '../../context/auth/authStorage/AuthStorage';
+import { mockServer } from 'api/mocks/mock-server';
+import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 import { useClient } from './useClient';
 

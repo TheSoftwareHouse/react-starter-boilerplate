@@ -3,7 +3,7 @@ import { IntlProvider } from 'react-intl';
 
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
-import { translations } from '../../../i18n/messages';
+import { translations } from 'i18n/messages';
 import { LocaleContext } from '../localeContext/LocaleContext';
 
 import { LocaleContextControllerProps } from './LocaleContextController.types';
