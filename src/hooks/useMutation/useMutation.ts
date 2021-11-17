@@ -21,7 +21,7 @@ import { MutationFn } from './useMutation.types';
 export const useMutation = <TData = unknown, TError = unknown, TParams = unknown, TContext = unknown>(
   mutationKey: MutationKey,
   mutation: MutationFn<TParams, TData>,
-  options: UseMutationOptions<TData, TError, TParams, TContext>,
+  options?: UseMutationOptions<TData, TError, TParams, TContext>,
 ): UseMutationResult<TData, TError, TParams, TContext> => {
   const client = useClient();
 

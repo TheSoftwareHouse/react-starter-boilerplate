@@ -30,7 +30,5 @@ export const useInfiniteQuery = <TArgs = unknown, TParams = unknown, TError = un
     [args, client, endpoint, options?.cursorKey],
   );
 
-  return useRQInfiniteQuery<TParams, TError, TResponse, QueryKey>(queryKey, queryFn, {
-    ...options,
-  });
+  return useRQInfiniteQuery<TParams, TError, TResponse, QueryKey>(queryKey, queryFn, options);
 };

@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { AuthContext } from '../authContext/AuthContext';
-import { loginMutation } from '../../../api/actions/auth/authActions';
+import { loginMutation } from 'api/actions/auth/authActions';
 import { authStorage } from '../authStorage/AuthStorage';
-import { useMutation } from '../../../hooks/useMutation/useMutation';
-import { LoginMutationArguments } from '../../../api/actions/auth/authActions.types';
+import { useMutation } from 'hooks/useMutation/useMutation';
+import { LoginMutationArguments } from 'api/actions/auth/authActions.types';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
