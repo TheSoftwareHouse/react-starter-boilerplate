@@ -5,7 +5,7 @@ import { watch } from 'chokidar';
 import config from './watcher.config';
 
 const CY_INTEGRATION_DIR = config.testsDir ?? process.env.PWD + `/cypress/integration`;
-const TEST_FILES_PATTERN = config.watchedFilesPattern ?? '.*?(?=\.test).*?\.ts';
+const TEST_FILES_PATTERN = config.watchedFilesPattern ?? 'e2e\\/.*\\/integration\\/.*?(?=.test).*?.ts';
 const BROWSER = config.browser ?? 'chrome';
 let isRunning = false;
 
