@@ -1,6 +1,9 @@
 import { Config } from './watcher.types';
 
-export default {
+const config: Config = {
+  e2eCatalogRelativeToGitRepo: 'e2e',
   testsDir: process.env.PWD + `/cypress/integration`,
-  watchedFilesPattern: '.*?(?=\.spec).*?\.ts',
-} as Config;
+  watchedFilesPattern: '.*?(?=\.test).*?\.ts',
+  browser: 'chrome'
+};
+export default config;

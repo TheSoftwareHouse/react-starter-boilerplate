@@ -5,10 +5,11 @@ import { watch } from 'chokidar';
 import config from './watcher.config';
 
 const CY_INTEGRATION_DIR = config.testsDir ?? process.env.PWD + `/cypress/integration`;
-const TEST_FILES_PATTERN = config.watchedFilesPattern ?? '.*?(?=\.spec).*?\.ts';
+const TEST_FILES_PATTERN = config.watchedFilesPattern ?? '.*?(?=\.test).*?\.ts';
+const BROWSER = config.browser ?? 'chrome';
 let isRunning = false;
 
-console.log(`Watching for: '${TEST_FILES_PATTERN}' changed since last commit. Triggers by changes in '${CY_INTEGRATION_DIR}'`)
+console.log(`Look for '${chalk.bgGrey(TEST_FILES_PATTERN)}' files that have changed since last commit. Trigger by changes in '${chalk.bgGrey(CY_INTEGRATION_DIR)}'`);
 
 const wrapTopLevelAwait = async (fn: (...args: unknown[]) => unknown, ...args: unknown[]) => {
   await fn(...args);
@@ -19,21 +20,22 @@ const runTests = async (_specs: string[]) => {
 
   isRunning = true;
   try {
-    await $`cypress run --headless --browser chrome --spec ${_specs.join(',')}`;
+    await $`cypress run --headless --browser ${BROWSER} --spec ${_specs.join(',')}`;
   } catch (e) {
+    console.warn(chalk.bgYellow('Something went wrong during Cypress run.'));
   }
   isRunning = false;
 };
 
 const getChangedSpecs = async () => {
-  console.log(`\nChecking for changed specs...`);
+  console.log(`\nLooking for changed test files...`);
   $.verbose = false;
   const changedFiles = await $`git diff --name-only HEAD`;
   $.verbose = true;
   const onlySpecFiles = changedFiles.stdout
     .split('\n')
     .filter(file => file.match(TEST_FILES_PATTERN))
-    .map(file => `./${file}`);
+    .map(file => file.replace(config.e2eCatalogRelativeToGitRepo, '.'));
   if (onlySpecFiles.length > 0) {
     return onlySpecFiles;
   } else {
