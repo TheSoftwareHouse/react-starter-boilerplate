@@ -39,7 +39,7 @@ const getChangedSpecs = async () => {
   if (onlySpecFiles.length > 0) {
     return onlySpecFiles;
   } else {
-    console.log(`\nNo changes was found since last commit`);
+    console.log(`\nNo changes were found since last commit`);
     return [];
   }
 };
