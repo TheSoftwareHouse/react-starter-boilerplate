@@ -8,6 +8,7 @@ const CY_INTEGRATION_DIR = config.testsDir ?? process.env.PWD + `/cypress/integr
 const TEST_FILES_PATTERN = config.watchedFilesPattern ?? 'e2e\\/.*\\/integration\\/.*?(?=.test).*?.ts';
 const BROWSER = config.browser ?? 'chrome';
 let isRunning = false;
+$.verbose = false;
 
 console.log(`Look for '${chalk.bgGrey(TEST_FILES_PATTERN)}' files that have changed since last commit. Trigger by changes in '${chalk.bgGrey(CY_INTEGRATION_DIR)}'`);
 
@@ -20,7 +21,7 @@ const runTests = async (_specs: string[]) => {
 
   isRunning = true;
   try {
-    await $`cypress run --headless --browser ${BROWSER} --spec ${_specs.join(',')}`;
+    await $`cypress run --headless --browser ${BROWSER} --spec ${_specs.join(',')}`.pipe(process.stdout);
   } catch (e) {
     console.warn(chalk.bgYellow('Something went wrong during Cypress run.'));
   }
@@ -29,9 +30,7 @@ const runTests = async (_specs: string[]) => {
 
 const getChangedSpecs = async () => {
   console.log(`\nLooking for changed test files...`);
-  $.verbose = false;
   const changedFiles = await $`git diff --name-only HEAD`;
-  $.verbose = true;
   const onlySpecFiles = changedFiles.stdout
     .split('\n')
     .filter(file => file.match(TEST_FILES_PATTERN))
