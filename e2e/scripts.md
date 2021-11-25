@@ -1,0 +1,60 @@
+# Cypress testing helpers
+
+## Watcher
+
+Script that reads test-files from git that have changed since last commit and runs headless test only for those files.
+
+### Usage
+
+- you have to be in `/e2e/` directory in terminal
+- `npm run cypress:watch:chrome` or `npm run cypress:watch:firefox`
+
+### Configuration
+
+You can change [default configuration](scripts/watcher/watcher.config.ts) by adding flags to script in [package.json](package.json)
+
+#### Browser
+
+```
+--browser chrome | firefox | egde | ...(any other cypress-compatible browser)
+```
+
+**Default:** `chrome`
+
+---
+
+#### Tests directory
+
+Directory where all test files are located. Changes in all files under this directory trigger test run. Directory is
+relative to [package.json](package.json) from which script is executed.
+
+```
+--integration-dir ./cypress/integration
+```
+
+**Default:** `./cypress/integration`
+
+---
+
+#### Test files pattern
+
+Script runs tests only for files that match that pattern.
+
+```
+--test-files-pattern 'e2e\/cypress\/integration\/.*?(?=.test).*?.ts'
+```
+
+**explanation**: each `*.test.ts` file that is located under `./e2e/cypress/integration/...` directory relative to git
+repo root
+
+---
+**Important**
+
+File names are taken from git, so those are paths relative to git root e.g.:
+
+```
+e2e/cypress/integration/navigation/navigation.test.ts
+```
+
+---
+**Default:** `e2e\/cypress\/integration\/.*?(?=.test).*?.ts`
