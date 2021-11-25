@@ -11,7 +11,8 @@ Script that reads test-files from git that have changed since last commit and ru
 
 ### Configuration
 
-You can change [default configuration](scripts/watcher/watcher.config.ts) by adding flags to script in [package.json](package.json)
+You can change [default configuration](scripts/watcher/watcher.config.ts) by adding flags to script
+in [package.json](package.json)
 
 #### Browser
 
@@ -44,17 +45,8 @@ Script runs tests only for files that match that pattern.
 --test-files-pattern 'e2e\/cypress\/integration\/.*?(?=.test).*?.ts'
 ```
 
-**explanation**: each `*.test.ts` file that is located under `./e2e/cypress/integration/...` directory relative to git
-repo root
+> **Explanation:** each `*.test.ts` file that is located under `./e2e/cypress/integration/...` directory relative to git repo root
 
----
-**Important**
+> **Important:** File names are taken from git, so those are paths relative to git root e.g.:<br/>`e2e/cypress/integration/navigation/navigation.test.ts`
 
-File names are taken from git, so those are paths relative to git root e.g.:
-
-```
-e2e/cypress/integration/navigation/navigation.test.ts
-```
-
----
 **Default:** `e2e\/cypress\/integration\/.*?(?=.test).*?.ts`
