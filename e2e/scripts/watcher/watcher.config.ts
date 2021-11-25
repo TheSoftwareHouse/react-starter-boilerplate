@@ -1,6 +1,6 @@
-import { Config } from '../scripts.types';
+import { WatcherConfig } from '../scripts.types';
 
-const config: Config = {
+const config: WatcherConfig = {
   pathFromGitToCurrentPackageJson: 'e2e/',
   testsDir: `./cypress/integration`,
   testFilesPattern: 'e2e\\/cypress\\/integration\\/.*?(?=.test).*?.ts',

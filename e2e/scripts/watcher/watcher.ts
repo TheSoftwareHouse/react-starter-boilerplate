@@ -3,18 +3,16 @@ import { $, argv, chalk } from 'zx';
 import { watch } from 'chokidar';
 
 import config from './watcher.config';
+import { Flag } from '../scripts.types';
+import { wrapTopLevelAwait } from '../scripts.utils';
 
-const CY_INTEGRATION_DIR = argv['integration-dir'] ?? config.testsDir;
-const TEST_FILES_PATTERN = argv['test-files-pattern'] ?? config.testFilesPattern;
-const BROWSER = argv['browser'] ?? config.browser;
+const CY_INTEGRATION_DIR = argv[Flag.integrationDir] ?? config.testsDir;
+const TEST_FILES_PATTERN = argv[Flag.testFilesPattern] ?? config.testFilesPattern;
+const BROWSER = argv[Flag.browser] ?? config.browser;
 let isRunning = false;
 $.verbose = false;
 
 console.log(`Look for '${chalk.bgGrey(TEST_FILES_PATTERN)}' files that have changed since last commit. Trigger by changes in '${chalk.bgGrey(CY_INTEGRATION_DIR)}'`);
-
-const wrapTopLevelAwait = async (fn: (...args: unknown[]) => unknown, ...args: unknown[]) => {
-  await fn(...args);
-};
 
 const runTests = async (_specs: string[]) => {
   if (isRunning) return;
