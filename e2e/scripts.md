@@ -50,3 +50,16 @@ Script runs tests only for files that match that pattern.
 > **Important:** File names are taken from git, so those are paths relative to git root e.g.:<br/>`e2e/cypress/integration/navigation/navigation.test.ts`
 
 **Default:** `e2e\/cypress\/integration\/.*?(?=.test).*?.ts`
+
+---
+
+#### Debug mode
+
+Just more console logs
+
+```
+--debug
+```
+**Default:** false
+
+---
