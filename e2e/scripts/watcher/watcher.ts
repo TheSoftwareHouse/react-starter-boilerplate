@@ -1,12 +1,12 @@
 #!/usr/bin/env zx
-import { $, chalk } from 'zx';
+import { $, argv, chalk } from 'zx';
 import { watch } from 'chokidar';
 
 import config from './watcher.config';
 
-const CY_INTEGRATION_DIR = config.testsDir ?? process.env.PWD + `/cypress/integration`;
-const TEST_FILES_PATTERN = config.watchedFilesPattern ?? 'e2e\\/.*\\/integration\\/.*?(?=.test).*?.ts';
-const BROWSER = config.browser ?? 'chrome';
+const CY_INTEGRATION_DIR = argv['integration-dir'] ?? config.testsDir;
+const TEST_FILES_PATTERN = argv['test-files-pattern'] ?? config.testFilesPattern;
+const BROWSER = argv['browser'] ?? config.browser;
 let isRunning = false;
 $.verbose = false;
 
@@ -34,7 +34,10 @@ const getChangedSpecs = async () => {
   const onlySpecFiles = changedFiles.stdout
     .split('\n')
     .filter(file => file.match(TEST_FILES_PATTERN))
-    .map(file => file.replace(config.e2eCatalogRelativeToGitRepo, '.'));
+    .map(file => {
+      console.log(file)
+      return file.replace(config.pathFromGitToCurrentPackageJson, './');
+    });
   if (onlySpecFiles.length > 0) {
     return onlySpecFiles;
   } else {

@@ -1,9 +1,9 @@
-import { Config } from './watcher.types';
+import { Config } from '../scripts.types';
 
 const config: Config = {
-  e2eCatalogRelativeToGitRepo: 'e2e',
-  testsDir: process.env.PWD + `/cypress/integration`,
-  watchedFilesPattern: 'e2e\\/.*\\/integration\\/.*?(?=.test).*?.ts',
-  browser: 'chrome'
+  pathFromGitToCurrentPackageJson: 'e2e/',
+  testsDir: `./cypress/integration`,
+  testFilesPattern: 'e2e\\/.*\\/integration\\/.*?(?=.test).*?.ts',
+  browser: 'chrome',
 };
 export default config;

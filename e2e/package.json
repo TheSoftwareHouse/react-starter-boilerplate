@@ -6,7 +6,8 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:run:changed:headless": "zx scripts/watcher/watcher.ts"
+    "cypress:watch:chrome": "zx scripts/watcher/watcher.ts --browser chrome",
+    "cypress:watch:firefox": "zx scripts/watcher/watcher.ts --browser firefox"
   },
   "keywords": [],
   "author": "",
