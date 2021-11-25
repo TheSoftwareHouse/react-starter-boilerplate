@@ -16,5 +16,6 @@ export enum Flag {
   integrationDir = 'integration-dir',
   testFilesPattern = 'test-files-pattern',
   browser = 'browser',
-  debug = 'debug'
+  debug = 'debug',
+  threads = 'threads'
 }

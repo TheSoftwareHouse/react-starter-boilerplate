@@ -8,13 +8,13 @@ import { debug, wrapTopLevelAwait } from '../scripts.utils';
 const CY_INTEGRATION_DIR = argv[Flag.integrationDir] ?? config.testsDir;
 const TEST_FILES_PATTERN = argv[Flag.testFilesPattern] ?? config.testFilesPattern;
 const BROWSER = argv[Flag.browser] ?? config.browser;
+const THREADS = argv[Flag.threads] ?? config.threads;
 const DEBUG = argv[Flag.debug];
-const THREADS = 2;
 $.verbose = false;
 
 debug(DEBUG, 'Integration dir:', CY_INTEGRATION_DIR);
-debug(DEBUG, 'Test files pattern', TEST_FILES_PATTERN);
-debug(DEBUG, 'Browser: ', BROWSER);
+debug(DEBUG, 'Test files pattern:', TEST_FILES_PATTERN);
+debug(DEBUG, 'Browser:', BROWSER);
 debug(DEBUG, 'Threads:', THREADS);
 
 const runTestsParallel = async () => {
@@ -48,11 +48,11 @@ const runTestsParallel = async () => {
 
   const dir = fs.readdirSync(`./`);
   if (dir.includes('testsResults')) {
-    debug(DEBUG, 'Removing old tests results...');
     await $`rm -rf testsResults/*`;
+    debug(DEBUG, 'Removed old tests results.');
   } else {
-    debug(DEBUG, 'Creating tests results directory...');
     await $`mkdir testsResults`;
+    debug(DEBUG, 'Created tests results directory.');
   }
 
   let threadsLeft = THREADS;
@@ -62,7 +62,7 @@ const runTestsParallel = async () => {
       .pipe(fs.createWriteStream(`./testsResults/cy-chunk-${index + 1}.txt`))
       .then(() => {
         threadsLeft--;
-        console.log(`Thread ${index + 1} finished job\n. Left ${threadsLeft} threads.`);
+        console.log(`Thread ${index + 1} finished job. Left ${threadsLeft} threads.\n`);
         if (!threadsLeft) {
           console.timeEnd(chalk.bgGray('Total execution time'));
           console.log(chalk.bgCyanBright(`Check results at: './testsResults/*'`));
