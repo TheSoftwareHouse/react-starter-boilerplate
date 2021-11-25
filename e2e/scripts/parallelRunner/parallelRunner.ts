@@ -60,7 +60,6 @@ const runTestsParallel = async () => {
   chunks.forEach((part, index) => {
     $`cypress run --headless --browser ${BROWSER} --spec ${part.join(',')} &`
       .pipe(fs.createWriteStream(`./testsResults/cy-chunk-${index + 1}.txt`))
-      // .pipe(process.stdout)
       .then(() => {
         threadsLeft--;
         console.log(`Thread ${index + 1} finished job\n. Left ${threadsLeft} threads.`);
