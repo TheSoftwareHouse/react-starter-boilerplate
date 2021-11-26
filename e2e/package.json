@@ -10,7 +10,7 @@
     "cypress:watch:chrome": "zx scripts/watcher/watcher.js --browser chrome",
     "cypress:watch:firefox": "zx scripts/watcher/watcher.js --browser firefox",
     "cypress:parallel:chrome": "zx scripts/parallelRunner/parallelRunner.js --browser chrome --threads 1",
-    "cypress:parallel:firefox": "zx scripts/parallelRunner/parallelRunner.js --browser firefox"
+    "cypress:parallel:firefox": "zx scripts/parallelRunner/parallelRunner.js --browser firefox --threads 1"
   },
   "keywords": [],
   "author": "",
