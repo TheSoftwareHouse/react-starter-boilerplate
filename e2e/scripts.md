@@ -1,7 +1,7 @@
 # Cypress testing helpers
 
 ### Before all
-Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~ +8s).<br/>
+Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~ +8s).  
 Just run:
 ```
 npm run transpile:scripts
@@ -54,7 +54,8 @@ Script runs tests only for files that match that pattern.
 
 > **Explanation:** each `*.test.ts` file that is located under `./e2e/cypress/integration/...` directory relative to git repo root
 
-> **Important:** File names are taken from git, so those are paths relative to git root e.g.:<br/>`e2e/cypress/integration/navigation/navigation.test.ts`
+> **Important:** File names are taken from git, so those are paths relative to git root e.g.:  
+> `e2e/cypress/integration/navigation/navigation.test.ts`
 
 **Default:** `e2e\/cypress\/integration\/.*?(?=.test).*?.ts`
 
