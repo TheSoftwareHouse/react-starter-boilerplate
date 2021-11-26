@@ -6,11 +6,11 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:watch:chrome": "zx scripts/watcher/watcher.ts --browser chrome",
-    "cypress:watch:firefox": "zx scripts/watcher/watcher.ts --browser firefox",
+    "transpile:scripts": "tsc scripts/parallelRunner/parallelRunner.ts & tsc scripts/watcher/watcher.ts &",
+    "cypress:watch:chrome": "zx scripts/watcher/watcher.js --browser chrome",
+    "cypress:watch:firefox": "zx scripts/watcher/watcher.js --browser firefox",
     "cypress:parallel:chrome": "zx scripts/parallelRunner/parallelRunner.js --browser chrome --threads 1",
-    "cypress:parallel:firefox": "zx scripts/parallelRunner/parallelRunner.js --browser firefox",
-    "build:scripts": "tsc scripts/parallelRunner/parallelRunner.ts & tsc scripts/watcher/watcher.ts &"
+    "cypress:parallel:firefox": "zx scripts/parallelRunner/parallelRunner.js --browser firefox"
   },
   "keywords": [],
   "author": "",

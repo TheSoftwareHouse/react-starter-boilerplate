@@ -1,5 +1,12 @@
 # Cypress testing helpers
 
+### Before all
+Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~ +8s).<br/>
+Just run:
+```
+npm run transpile:scripts
+```
+
 ## Watcher
 
 Script that reads test-files from git that have changed since last commit and runs headless test only for those files.
