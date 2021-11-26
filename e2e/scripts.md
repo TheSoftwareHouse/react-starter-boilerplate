@@ -2,7 +2,7 @@
 
 ### Before all
 Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~ +8s).  
-Just run:
+Just change directory to `./e2e` and run:
 ```
 npm run transpile:scripts
 ```
@@ -13,7 +13,7 @@ Script that reads test-files from git that have changed since last commit and ru
 
 ### Usage
 
-- you have to be in `/e2e/` directory in terminal
+- you have to be in `./e2e` directory in terminal
 - `npm run cypress:watch:chrome` or `npm run cypress:watch:firefox`
 
 ### Configuration
