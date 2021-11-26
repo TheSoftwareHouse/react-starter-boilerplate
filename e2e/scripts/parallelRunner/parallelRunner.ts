@@ -20,7 +20,7 @@ debug(DEBUG, 'Threads:', THREADS);
 const runTestsParallel = async () => {
   console.time(chalk.bgGray('Total execution time'));
   const filesFullPaths = await glob(`${CY_INTEGRATION_DIR}/**/${TEST_FILES_PATTERN}`);
-  debug(DEBUG, 'Full paths of found files: ', filesFullPaths);
+  debug(DEBUG, 'Full paths of found files: ', JSON.stringify(filesFullPaths, null, 2));
 
   if (!process.env.PWD) {
     debug(DEBUG, 'PWD not found');
@@ -29,7 +29,7 @@ const runTestsParallel = async () => {
 
   const files = filesFullPaths.map(filename => filename.replace(process.env.PWD!, '.'));
   const chunks: string[][] = [];
-  debug(DEBUG, 'Files after absolute dir replacement:', files);
+  debug(DEBUG, 'Files after absolute dir replacement:', JSON.stringify(files, null, 2));
 
   if (files.length / THREADS < 1) {
     console.log(chalk.bgRed(`Cannot create more threads than files amount. Requested threads: ${THREADS}. Files amount: ${files.length}.`));
