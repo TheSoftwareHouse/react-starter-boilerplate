@@ -1,17 +1,15 @@
-import React from 'react';
-import { useMutation } from 'react-query';
+import React, { useCallback, useMemo } from 'react';
 
 import { AuthContext } from '../authContext/AuthContext';
-import { loginAction } from '../../../api/actions/auth/authActions';
-import { useClient } from '../../../hooks/useClient/useClient';
+import { loginMutation } from 'api/actions/auth/authActions';
 import { authStorage } from '../authStorage/AuthStorage';
+import { useMutation } from 'hooks/useMutation/useMutation';
+import { LoginMutationArguments } from 'api/actions/auth/authActions.types';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const axios = useClient();
-
-  const loginQuery = useMutation(loginAction(axios), {
+  const { mutateAsync, isSuccess, isLoading } = useMutation('login', loginMutation, {
     onSuccess: (res) => {
       authStorage.accessToken = res.data.accessToken;
       authStorage.expires = res.data.expires;
@@ -20,12 +18,23 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     onError: () => {},
   });
 
-  const login = async ({ password, username }: { password: string; username: string }) => {
-    await loginQuery.mutateAsync({ password, username });
-  };
+  const login = useCallback(
+    async (params: LoginMutationArguments) => {
+      await mutateAsync(params);
+    },
+    [mutateAsync],
+  );
 
-  const isSuccess = loginQuery.isSuccess;
-  const isAuthenticated = isSuccess && !!authStorage.accessToken;
+  const isAuthenticated = useMemo(() => isSuccess && !!authStorage.accessToken, [isSuccess]);
 
-  return <AuthContext.Provider value={{ isAuthenticated, login }}>{children}</AuthContext.Provider>;
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      isAuthenticating: isLoading,
+      login,
+    }),
+    [isAuthenticated, isLoading, login],
+  );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

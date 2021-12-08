@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { mockServer } from '../../api/mocks/mock-server';
-import { ClientContextController } from '../../context/client/clientContextController/ClientContextController';
-import { authStorage } from '../../context/auth/authStorage/AuthStorage';
+import { mockServer } from 'api/mocks/mock-server';
+import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 import { useClient } from './useClient';
 
@@ -17,7 +17,7 @@ describe('useClient', () => {
       wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
-    const req = await result.current?.get('/users');
+    const req = await result.current?.get('/me');
     expect(req?.request.requestHeaders.Authorization).toBe('Bearer test');
   });
 
@@ -26,7 +26,7 @@ describe('useClient', () => {
       wrapper: ({ children }) => <ClientContextController>{children}</ClientContextController>,
     });
 
-    const req = await result.current?.get('/users');
+    const req = await result.current?.get('/me');
     expect(req?.request.requestHeaders.Authorization).toBe(undefined);
   });
 });
