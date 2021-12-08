@@ -1,4 +1,4 @@
-import { AppLocale } from '../context/locale/AppLocale.enum';
+import { AppLocale } from 'context/locale/AppLocale.enum';
 
 import enMessages from './data/en.json';
 import plMessages from './data/pl.json';
