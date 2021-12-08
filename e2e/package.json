@@ -5,17 +5,24 @@
   "main": "index.js",
   "scripts": {
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "transpile:scripts": "tsc scripts/parallelRunner/parallelRunner.ts & tsc scripts/watcher/watcher.ts &",
+    "cypress:watch:chrome": "zx scripts/watcher/watcher.js --browser chrome",
+    "cypress:watch:firefox": "zx scripts/watcher/watcher.js --browser firefox",
+    "cypress:parallel:chrome": "zx scripts/parallelRunner/parallelRunner.js --browser chrome --threads 1",
+    "cypress:parallel:firefox": "zx scripts/parallelRunner/parallelRunner.js --browser firefox --threads 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@cypress/webpack-preprocessor": "^5.9.1",
+    "chokidar": "^3.5.2",
     "cypress": "8.7.0",
     "dotenv-safe": "^8.2.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
-    "webpack": "^5.61.0"
+    "webpack": "^5.61.0",
+    "zx": "^4.2.0"
   }
 }
