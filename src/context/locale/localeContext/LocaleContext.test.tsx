@@ -7,7 +7,7 @@ import { LocaleContext } from './LocaleContext';
 describe('LocaleContext', () => {
   test('is undefined by default', () => {
     const { getByTitle } = render(
-      <LocaleContext.Consumer>{context => <div title="CONTEXT">{typeof context}</div>}</LocaleContext.Consumer>,
+      <LocaleContext.Consumer>{(context) => <div title="CONTEXT">{typeof context}</div>}</LocaleContext.Consumer>,
       {
         wrapper: ({ children }) => <>{children}</>,
       },

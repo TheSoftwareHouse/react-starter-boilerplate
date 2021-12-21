@@ -1,13 +1,14 @@
 pipelines:
   default:
     - step:
-        image: node:12.14.1
+        image: node:14.15.5-alpine3.10
         caches:
           - node
+          - npm
         name: Run linter and tests
         script:
           - cp .env.dist .env
-          - npm install
+          - npm ci
           - npm run lint
           - npm run coverage
 
@@ -15,14 +16,14 @@ pipelines:
     '**':
       - step: 
           name: build and install
-          image: tshio/e2e-runner:v4.0.2.2
+          image: cypress/included:8.7.0
           caches:
             - node
+            - npm
             - cypress
-            - cypress-node
           script:
             - cp .env.dist .env
-            - npm install
+            - npm ci
             - npm run build:ci
             - cd e2e && npm install && cd ..
           artifacts:
@@ -31,7 +32,7 @@ pipelines:
       - parallel:
         - step:
             name: e2e - firefox
-            image: tshio/e2e-runner:v4.0.2.2
+            image: cypress/included:8.7.0
             caches:
               - node
             script:
@@ -39,7 +40,7 @@ pipelines:
               - npm run e2e:ci:firefox
         - step:
             name: e2e - chrome
-            image: tshio/e2e-runner:v4.0.2.2
+            image: cypress/included:8.7.0
             caches:
               - node
             script:
@@ -49,4 +50,4 @@ pipelines:
 definitions:
   caches:
     cypress: $HOME/.cache/Cypress
-    cypress-node: ./e2e/node_modules
+    npm: $HOME/.npm

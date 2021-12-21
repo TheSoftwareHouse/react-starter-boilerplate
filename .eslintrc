@@ -1,15 +1,15 @@
 {
   "ignorePatterns": ["src/serviceWorker.ts"],
   "extends": [
-    "react-app",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react",
     "plugin:jest-dom/recommended",
-    "plugin:testing-library/recommended"
+    "plugin:jest/recommended",
+    "plugin:testing-library/react"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "import"],
   "rules": {
     "prettier/prettier": ["error", {
       "printWidth": 120,
@@ -18,10 +18,11 @@
       "trailingComma": "all",
       "proseWrap": "always"
     }],
-    "no-console": "error",
+    "no-console": "warn",
 
     "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/display-name": "off",
 
     "import/no-default-export": "error",
     "import/order": [
@@ -33,7 +34,8 @@
     ],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "import/resolver": {
@@ -42,6 +44,9 @@
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".ts", ".tsx"]
       }
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "overrides": [
@@ -55,6 +60,14 @@
             "allowExpressions": true
           }
         ]
+      }
+    },
+    {
+      "files": ["**/*.test.tsx"],
+      "rules": {
+        "testing-library/prefer-screen-queries": "off",
+        "react/react-in-jsx-scope": "off",
+        "testing-library/no-container": "off"
       }
     }
   ]

@@ -15,7 +15,7 @@ describe('Home', () => {
   test('changes locale when "here" button is clicked', () => {
     const { getByText } = render(
       <LocaleContext.Consumer>
-        {value => (
+        {(value) => (
           <>
             <span>LOCALE: {value?.locale}</span>
             <Home />

@@ -16,9 +16,15 @@
 .env.babelsheet
 .env
 
+# editor files
+.idea/
+.vscode/
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 e2e/cypress/screenshots
 e2e/cypress/videos
+e2e/node_modules
+e2e/scripts/**/*.js
+e2e/testsResults
