@@ -23,6 +23,7 @@
     "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
 
     "import/no-default-export": "error",
     "import/order": [
