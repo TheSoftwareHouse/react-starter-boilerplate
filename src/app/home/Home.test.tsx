@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { render } from 'tests';
 
