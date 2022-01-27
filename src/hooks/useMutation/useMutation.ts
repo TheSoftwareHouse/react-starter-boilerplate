@@ -13,7 +13,7 @@ import { MutationFn } from './useMutation.types';
  * */
 export const useMutation = <TData = unknown, TError = unknown, TParams = unknown, TContext = unknown>(
   mutationKey: MutationKey,
-  mutation: MutationFn<TParams, TData>,
+  mutation: MutationFn<TParams, TData, TError>,
   options?: UseMutationOptions<TData, TError, TParams, TContext>,
 ): UseMutationResult<TData, TError, TParams, TContext> => {
   const { mutationFn } = useApiClient();
