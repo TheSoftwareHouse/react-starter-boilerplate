@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
-import Axios from 'axios';
-import { QueryFunction } from 'react-query';
+import Axios, { AxiosRequestConfig } from 'axios';
+import { MutationFunction, QueryFunction } from 'react-query';
 
 import { requestSuccessInterceptor } from '../../context/client/clientContextController/interceptors/requestInterceptors';
 import {
@@ -9,6 +9,7 @@ import {
 } from '../../context/client/clientContextController/interceptors/responseInterceptors';
 import { ClientResponse } from '../../api/types/types';
 import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
+import { MutationFn } from '../useMutation/useMutation.types';
 
 export const useAxiosStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {
@@ -36,7 +37,24 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
     [client],
   );
 
+  const mutationFn = useCallback(
+    <TParams = unknown, TData = unknown>(mutation: MutationFn<TParams, TData>): MutationFunction<TData, TParams> =>
+      (variables) => {
+        const { endpoint, params, method } = mutation(variables);
+
+        const axiosConfig: AxiosRequestConfig = {
+          url: endpoint,
+          data: params ? JSON.stringify(params) : undefined,
+          method: method || 'POST',
+        };
+
+        return client.request(axiosConfig);
+      },
+    [client],
+  );
+
   return {
     queryFn,
+    mutationFn,
   };
 };
