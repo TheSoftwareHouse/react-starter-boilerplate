@@ -8,7 +8,7 @@ import { ApiClientContextValue } from '../apiClientContext/ApiClientContext.type
 import { ApiClientControllerProps } from './ApiClientContextController.types';
 
 export const ApiClientContextController = ({ children }: ApiClientControllerProps) => {
-  const { queryFn, mutationFn } = useAxiosStrategy();
+  const { queryFn, mutationFn, infiniteQueryFn } = useAxiosStrategy();
 
   const queryClient = useMemo(() => {
     return new QueryClient({
@@ -24,8 +24,9 @@ export const ApiClientContextController = ({ children }: ApiClientControllerProp
     () => ({
       queryFn,
       mutationFn,
+      infiniteQueryFn,
     }),
-    [queryFn, mutationFn],
+    [queryFn, mutationFn, infiniteQueryFn],
   );
 
   return (

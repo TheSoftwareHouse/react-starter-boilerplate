@@ -1,4 +1,5 @@
 import { UseMutationResult, useMutation as useRQMutation, UseMutationOptions, MutationKey } from 'react-query';
+import { useMemo } from 'react';
 
 import { useApiClient } from '../useApiClient/useApiClient';
 
@@ -16,5 +17,7 @@ export const useMutation = <TData = unknown, TError = unknown, TParams = unknown
   options?: UseMutationOptions<TData, TError, TParams, TContext>,
 ): UseMutationResult<TData, TError, TParams, TContext> => {
   const { mutationFn } = useApiClient();
-  return useRQMutation<TData, TError, TParams, TContext>(mutationKey, mutationFn<TParams, TData>(mutation), options);
+  const _mutationFn = useMemo(() => mutationFn<TParams, TData>(mutation), [mutationFn, mutation]);
+
+  return useRQMutation<TData, TError, TParams, TContext>(mutationKey, _mutationFn, options);
 };

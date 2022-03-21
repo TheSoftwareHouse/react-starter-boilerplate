@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import Axios, { AxiosRequestConfig } from 'axios';
 import { MutationFunction, QueryFunction } from 'react-query';
+import { stringify } from 'qs';
 
 import { requestSuccessInterceptor } from '../../context/client/clientContextController/interceptors/requestInterceptors';
 import {
@@ -10,6 +11,7 @@ import {
 import { ClientResponse } from '../../api/types/types';
 import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
 import { MutationFn } from '../useMutation/useMutation.types';
+import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
 
 export const useAxiosStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {
@@ -37,6 +39,20 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
     [client],
   );
 
+  const infiniteQueryFn = useCallback(
+    <TArgs, TParams, TResponse, TError>(
+        _query: InfiniteQueryFn<TArgs, TParams, TResponse>,
+        options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
+      ): QueryFunction<TParams> =>
+      ({ pageParam = 0 }) => {
+        const { endpoint, args } = _query(options?.args);
+        const cursorKey = options?.cursorKey;
+        // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
+        return client.get(`${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`);
+      },
+    [client],
+  );
+
   const mutationFn = useCallback(
     <TParams = unknown, TData = unknown>(mutation: MutationFn<TParams, TData>): MutationFunction<TData, TParams> =>
       (variables) => {
@@ -55,6 +71,7 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
 
   return {
     queryFn,
+    infiniteQueryFn,
     mutationFn,
   };
 };
