@@ -8,10 +8,10 @@ import {
   responseFailureInterceptor,
   responseSuccessInterceptor,
 } from '../../context/client/clientContextController/interceptors/responseInterceptors';
-import { ClientResponse } from '../../api/types/types';
 import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
 import { MutationFn } from '../useMutation/useMutation.types';
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
+import { ClientResponse } from '../../api/types/types';
 
 export const useAxiosStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {
@@ -29,10 +29,10 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
   }, []);
 
   const queryFn: QueryFunction<ClientResponse> = useCallback(
-    async ({ queryKey: [url] }) => {
+    ({ queryKey: [url] }) => {
       if (typeof url === 'string') {
         const lowerCaseUrl = url.toLowerCase();
-        return await client.get<ClientResponse>(lowerCaseUrl);
+        return client.get<ClientResponse>(lowerCaseUrl);
       }
       throw new Error('Invalid QueryKey');
     },
