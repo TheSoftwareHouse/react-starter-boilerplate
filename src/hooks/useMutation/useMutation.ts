@@ -1,7 +1,7 @@
 import { UseMutationResult, useMutation as useRQMutation, UseMutationOptions, MutationKey } from 'react-query';
 import { useMemo } from 'react';
 
-import { useApiClient } from '../useApiClient/useApiClient';
+import { useApiClient } from 'hooks/useApiClient/useApiClient';
 
 import { MutationFn } from './useMutation.types';
 

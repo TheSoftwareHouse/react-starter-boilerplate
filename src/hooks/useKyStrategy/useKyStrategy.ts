@@ -3,9 +3,9 @@ import Ky, { Options } from 'ky';
 import { MutationFunction, QueryFunction } from 'react-query';
 import { stringify } from 'qs';
 
-import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
-import { MutationFn } from '../useMutation/useMutation.types';
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
+import { ApiClientContextValue } from 'context/apiClient/apiClientContext/ApiClientContext.types';
+import { MutationFn } from 'hooks/useMutation/useMutation.types';
+import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
 
 import { requestSuccessHook } from './kyHooks/requestHooks';
 import { responseErrorHook } from './kyHooks/responseHooks';

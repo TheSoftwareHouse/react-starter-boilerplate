@@ -1,7 +1,7 @@
 import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryResult } from 'react-query';
 import { useMemo } from 'react';
 
-import { useApiClient } from '../useApiClient/useApiClient';
+import { useApiClient } from 'hooks/useApiClient/useApiClient';
 
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.types';
 

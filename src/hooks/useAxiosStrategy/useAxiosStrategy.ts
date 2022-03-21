@@ -3,10 +3,10 @@ import Axios, { AxiosRequestConfig } from 'axios';
 import { MutationFunction, QueryFunction } from 'react-query';
 import { stringify } from 'qs';
 
-import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
-import { MutationFn } from '../useMutation/useMutation.types';
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
-import { ClientResponse } from '../../api/types/types';
+import { ApiClientContextValue } from 'context/apiClient/apiClientContext/ApiClientContext.types';
+import { MutationFn } from 'hooks/useMutation/useMutation.types';
+import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
+import { ClientResponse } from 'api/types/types';
 
 import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';
 import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
