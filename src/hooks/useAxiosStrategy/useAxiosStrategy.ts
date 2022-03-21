@@ -3,15 +3,13 @@ import Axios, { AxiosRequestConfig } from 'axios';
 import { MutationFunction, QueryFunction } from 'react-query';
 import { stringify } from 'qs';
 
-import { requestSuccessInterceptor } from '../../context/client/clientContextController/interceptors/requestInterceptors';
-import {
-  responseFailureInterceptor,
-  responseSuccessInterceptor,
-} from '../../context/client/clientContextController/interceptors/responseInterceptors';
 import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
 import { MutationFn } from '../useMutation/useMutation.types';
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
 import { ClientResponse } from '../../api/types/types';
+
+import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';
+import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
 
 export const useAxiosStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {

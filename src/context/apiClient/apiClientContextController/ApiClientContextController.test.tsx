@@ -2,16 +2,16 @@ import React, { ReactNode } from 'react';
 
 import { render } from 'tests';
 
-import { ClientContextController } from './ClientContextController';
+import { ApiClientContextController } from './ApiClientContextController';
 
-describe('ClientContextController', () => {
+describe('ApiClientContextController', () => {
   const wrapper = ({ children }: { children?: ReactNode }) => <>{children}</>;
 
   test('renders its children', () => {
     const { getByText } = render(
-      <ClientContextController>
+      <ApiClientContextController>
         <span>TEST</span>
-      </ClientContextController>,
+      </ApiClientContextController>,
       { wrapper },
     );
 

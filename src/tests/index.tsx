@@ -9,13 +9,13 @@ import { AppLocale } from 'context/locale/AppLocale.enum';
 import { defaultLocale } from 'context/locale/defaultLocale';
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { AuthContext } from 'context/auth/authContext/AuthContext';
-import { ClientContextController } from 'context/client/clientContextController/ClientContextController';
+import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
 const Wrapper = ({ children }: { children?: ReactNode }) => {
   const [locale, setLocale] = React.useState<AppLocale>(defaultLocale);
 
   return (
-    <ClientContextController>
+    <ApiClientContextController>
       <AuthContext.Provider
         value={{
           isAuthenticating: false,
@@ -29,7 +29,7 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
           </LocaleContext.Provider>
         </IntlProvider>
       </AuthContext.Provider>
-    </ClientContextController>
+    </ApiClientContextController>
   );
 };
 
