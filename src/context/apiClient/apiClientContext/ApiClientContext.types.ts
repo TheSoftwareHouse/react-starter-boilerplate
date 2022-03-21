@@ -1,7 +1,7 @@
 import { MutationFunction, QueryFunction } from 'react-query';
 
 import { MutationFn } from 'hooks/useMutation/useMutation.types';
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../../../hooks/useInfiniteQuery/useInfiniteQuery.types';
+import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
 
 export type ApiClientContextValue = {
   queryFn: QueryFunction;
