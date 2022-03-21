@@ -5,9 +5,9 @@ import { useApiClient } from '../useApiClient/useApiClient';
 import { MutationFn } from './useMutation.types';
 
 /**
- * Mutating data via this hook doesn't require specifying mutation function like it is required in react-query
+ * Mutating data using this hook doesn't require specifying mutation function like it is required in react-query
  * @see https://react-query.tanstack.com/guides/mutations
- * This hook will automatically use proper mutating strategy consumed in ApiClientContext
+ * This hook uses proper mutating strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
 export const useMutation = <TData = unknown, TError = unknown, TParams = unknown, TContext = unknown>(
