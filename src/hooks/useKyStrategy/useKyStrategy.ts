@@ -1,36 +1,35 @@
 import { useCallback, useMemo } from 'react';
-import Axios, { AxiosRequestConfig } from 'axios';
+import Ky, { Options } from 'ky';
 import { MutationFunction, QueryFunction } from 'react-query';
 import { stringify } from 'qs';
 
 import { ApiClientContextValue } from '../../context/apiClient/apiClientContext/ApiClientContext.types';
 import { MutationFn } from '../useMutation/useMutation.types';
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../useInfiniteQuery/useInfiniteQuery.types';
-import { ClientResponse } from '../../api/types/types';
 
-import { responseFailureInterceptor, responseSuccessInterceptor } from './interceptors/responseInterceptors';
-import { requestSuccessInterceptor } from './interceptors/requestInterceptors';
+import { requestSuccessHook } from './kyHooks/requestHooks';
+import { responseErrorHook } from './kyHooks/responseHooks';
 
-export const useAxiosStrategy = (): ApiClientContextValue => {
+export const useKyStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {
-    const axios = Axios.create({
+    return Ky.create({
       headers: {
         'Content-Type': 'application/json',
       },
-      baseURL: `${process.env.REACT_APP_API_URL}`,
+      prefixUrl: `${process.env.REACT_APP_API_URL}`,
+      hooks: {
+        beforeRequest: [requestSuccessHook],
+        beforeError: [responseErrorHook],
+      },
+      retry: 1,
     });
-
-    axios.interceptors.request.use(requestSuccessInterceptor);
-    axios.interceptors.response.use(responseSuccessInterceptor, responseFailureInterceptor);
-
-    return axios;
   }, []);
 
-  const queryFn: QueryFunction<ClientResponse> = useCallback(
+  const queryFn: QueryFunction = useCallback(
     ({ queryKey: [url] }) => {
       if (typeof url === 'string') {
         const lowerCaseUrl = url.toLowerCase();
-        return client.get<ClientResponse>(lowerCaseUrl);
+        return client.get(lowerCaseUrl).json();
       }
       throw new Error('Invalid QueryKey');
     },
@@ -39,14 +38,16 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
 
   const infiniteQueryFn = useCallback(
     <TArgs, TParams, TResponse, TError>(
-        query: InfiniteQueryFn<TArgs, TParams, TResponse>,
+        _query: InfiniteQueryFn<TArgs, TParams, TResponse>,
         options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
       ): QueryFunction<TParams> =>
       ({ pageParam = 0 }) => {
-        const { endpoint, args } = query(options?.args);
+        const { endpoint, args } = _query(options?.args);
         const cursorKey = options?.cursorKey;
         // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
-        return client.get(`${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`);
+        return client
+          .get(`${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`)
+          .json<TParams>();
       },
     [client],
   );
@@ -56,13 +57,12 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
       (variables) => {
         const { endpoint, params, method } = mutation(variables);
 
-        const axiosConfig: AxiosRequestConfig = {
-          url: endpoint,
-          data: params ? JSON.stringify(params) : undefined,
+        const kyConfig: Options = {
+          json: params ?? undefined,
           method: method || 'POST',
         };
 
-        return client.request(axiosConfig);
+        return client(endpoint, kyConfig).json<TData>();
       },
     [client],
   );
