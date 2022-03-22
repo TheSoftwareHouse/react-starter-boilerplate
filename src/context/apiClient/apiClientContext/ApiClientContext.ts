@@ -2,24 +2,24 @@
 import { createContext } from 'react';
 import { QueryFunction } from 'react-query';
 
-import { MutationFn } from '../../../hooks/useMutation/useMutation.types';
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from '../../../hooks/useInfiniteQuery/useInfiniteQuery.types';
+import { MutationFn } from 'hooks/useMutation/useMutation.types';
+import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
 
-import { ApiClientContextValue } from './ApiClientContext.types';
+import { ApiClientContextValue, ApiResponse } from './ApiClientContext.types';
 
 const mockedInitialContextValue: ApiClientContextValue = {
-  queryFn: () => Promise.resolve(),
+  queryFn: () => Promise.resolve({ data: {}, config: null }),
   mutationFn:
-    <TParams, TData>(_mutation: MutationFn<TParams, TData>) =>
+    <TParams, TData>(_mutation: MutationFn<TParams, ApiResponse<TData>>) =>
     (_variables) =>
-      Promise.resolve({} as TData),
+      Promise.resolve({ data: {} as TData, config: null }),
   infiniteQueryFn:
     <TArgs, TParams, TResponse, TError>(
-      _query: InfiniteQueryFn<TArgs, TParams, TResponse>,
-      _options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
-    ): QueryFunction<TParams> =>
+      _query: InfiniteQueryFn<TArgs, ApiResponse<TParams>, TResponse>,
+      _options?: UseInfiniteQueryOptions<TArgs, ApiResponse<TParams>, TError, TResponse>,
+    ): QueryFunction<ApiResponse<TParams>> =>
     (_ctx) =>
-      Promise.resolve({} as TParams),
+      Promise.resolve({ data: {} as TParams, config: null }),
 };
 
 export const ApiClientContext = createContext<ApiClientContextValue>(mockedInitialContextValue);

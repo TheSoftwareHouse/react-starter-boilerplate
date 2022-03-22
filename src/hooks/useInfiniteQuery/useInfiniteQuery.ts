@@ -2,6 +2,7 @@ import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryResul
 import { useMemo } from 'react';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
+import { ApiResponse } from 'context/apiClient/apiClientContext/ApiClientContext.types';
 
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.types';
 
@@ -11,10 +12,15 @@ import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.typ
  * This hook uses proper querying strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
-export const useInfiniteQuery = <TArgs = unknown, TParams = unknown, TError = unknown, TResponse = TParams>(
+export const useInfiniteQuery = <
+  TArgs = unknown,
+  TParams = unknown,
+  TError = unknown,
+  TResponse = ApiResponse<TParams>,
+>(
   queryKey: QueryKey,
-  query: InfiniteQueryFn<TArgs, TParams, TResponse>,
-  options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
+  query: InfiniteQueryFn<TArgs, ApiResponse<TParams>, TResponse>,
+  options?: UseInfiniteQueryOptions<TArgs, ApiResponse<TParams>, TError, TResponse>,
 ): UseInfiniteQueryResult<TResponse, TError> => {
   const { infiniteQueryFn } = useApiClient();
   const _infiniteQueryFn = useMemo(
@@ -22,5 +28,5 @@ export const useInfiniteQuery = <TArgs = unknown, TParams = unknown, TError = un
     [infiniteQueryFn, query, options],
   );
 
-  return useRQInfiniteQuery<TParams, TError, TResponse, QueryKey>(queryKey, _infiniteQueryFn, options);
+  return useRQInfiniteQuery<ApiResponse<TParams>, TError, TResponse, QueryKey>(queryKey, _infiniteQueryFn, options);
 };

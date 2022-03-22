@@ -6,10 +6,11 @@ import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
-import { ClientResponse } from 'api/types/types';
 import { GetMeQueryResponse } from 'api/actions/auth/authActions.types';
 import { getInfiniteUsersQuery } from 'api/actions/auth/authActions';
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
+import { ApiResponse } from 'context/apiClient/apiClientContext/ApiClientContext.types';
+import { User } from '../../api/mocks/mock-server';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -19,7 +20,7 @@ export const Home = () => {
     data: meResponse,
     isLoading: isGettingMe,
     isFetched: isMeFetched,
-  } = useQuery<ClientResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
+  } = useQuery<ApiResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
 
   const {
     data: usersResponse,
@@ -28,7 +29,7 @@ export const Home = () => {
     hasNextPage: hasMoreUsers,
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
-  } = useInfiniteQuery('users', getInfiniteUsersQuery, {
+  } = useInfiniteQuery<{ count: number }, { users: User[]; nextPage: number | null }>('users', getInfiniteUsersQuery, {
     cursorKey: 'page',
     args: {
       count: 5,

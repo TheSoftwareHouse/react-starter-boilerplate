@@ -2,7 +2,7 @@ import { Server, Response as MockResponse, Model, Factory } from 'miragejs';
 import { AnyFactories, ModelDefinition, Registry } from 'miragejs/-types';
 import Schema from 'miragejs/orm/schema';
 
-type User = {
+export type User = {
   id: number;
   name: string;
 };

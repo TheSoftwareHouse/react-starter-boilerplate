@@ -4,19 +4,23 @@ import { AuthContext } from '../authContext/AuthContext';
 import { loginMutation } from 'api/actions/auth/authActions';
 import { authStorage } from '../authStorage/AuthStorage';
 import { useMutation } from 'hooks/useMutation/useMutation';
-import { LoginMutationArguments } from 'api/actions/auth/authActions.types';
+import { LoginMutationArguments, LoginMutationResponse } from 'api/actions/auth/authActions.types';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const { mutateAsync, isSuccess, isLoading } = useMutation('login', loginMutation, {
-    onSuccess: (res) => {
-      authStorage.accessToken = res.data.accessToken;
-      authStorage.expires = res.data.expires;
-      authStorage.refreshToken = res.data.refreshToken;
+  const { mutateAsync, isSuccess, isLoading } = useMutation<LoginMutationResponse, unknown, LoginMutationArguments>(
+    'login',
+    loginMutation,
+    {
+      onSuccess: (res) => {
+        authStorage.accessToken = res.data.accessToken;
+        authStorage.expires = res.data.expires;
+        authStorage.refreshToken = res.data.refreshToken;
+      },
+      onError: () => {},
     },
-    onError: () => {},
-  });
+  );
 
   const login = useCallback(
     async (params: LoginMutationArguments) => {
