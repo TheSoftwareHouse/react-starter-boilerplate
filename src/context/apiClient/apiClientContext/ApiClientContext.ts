@@ -8,7 +8,10 @@ import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery
 import { ApiClientContextValue, ApiResponse } from './ApiClientContext.types';
 
 const mockedInitialContextValue: ApiClientContextValue = {
-  queryFn: () => Promise.resolve({ data: {}, config: null }),
+  queryFn:
+    <TData>() =>
+    () =>
+      Promise.resolve({ data: {} as TData, config: null }),
   mutationFn:
     <TParams, TData>(_mutation: MutationFn<TParams, ApiResponse<TData>>) =>
     (_variables) =>

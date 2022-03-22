@@ -9,7 +9,7 @@ export type ApiResponse<TData = unknown, TConfig = unknown> = {
 };
 
 export type ApiClientContextValue = {
-  queryFn: QueryFunction<ApiResponse>;
+  queryFn: <TData>() => QueryFunction<ApiResponse<TData>>;
   mutationFn: <TParams, TData>(
     mutation: MutationFn<TParams, ApiResponse<TData>>,
   ) => MutationFunction<ApiResponse<TData>, TParams>;

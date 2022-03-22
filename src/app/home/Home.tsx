@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
@@ -8,9 +7,9 @@ import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
 import { GetMeQueryResponse } from 'api/actions/auth/authActions.types';
 import { getInfiniteUsersQuery } from 'api/actions/auth/authActions';
+import { User } from 'api/mocks/mock-server';
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
-import { ApiResponse } from 'context/apiClient/apiClientContext/ApiClientContext.types';
-import { User } from '../../api/mocks/mock-server';
+import { useQuery } from 'hooks/useQuery/useQuery';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -20,7 +19,7 @@ export const Home = () => {
     data: meResponse,
     isLoading: isGettingMe,
     isFetched: isMeFetched,
-  } = useQuery<ApiResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
+  } = useQuery<GetMeQueryResponse>('me', { enabled: isAuthenticated });
 
   const {
     data: usersResponse,

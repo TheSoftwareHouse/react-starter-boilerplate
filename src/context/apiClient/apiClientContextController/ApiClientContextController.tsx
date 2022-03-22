@@ -19,7 +19,7 @@ export const ApiClientContextController = ({ children }: ApiClientControllerProp
     return new QueryClient({
       defaultOptions: {
         queries: {
-          queryFn,
+          queryFn: queryFn(),
         },
       },
     });

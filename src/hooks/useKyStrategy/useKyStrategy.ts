@@ -25,18 +25,19 @@ export const useKyStrategy = (): ApiClientContextValue => {
     });
   }, []);
 
-  const queryFn: QueryFunction<ApiResponse> = useCallback(
-    async ({ queryKey: [url] }) => {
-      if (typeof url === 'string') {
-        const lowerCaseUrl = url.toLowerCase();
-        const res = await client.get(lowerCaseUrl).json();
-        return {
-          data: res,
-          config: null,
-        };
-      }
-      throw new Error('Invalid QueryKey');
-    },
+  const queryFn = useCallback(
+    <TData>(): QueryFunction<ApiResponse<TData>> =>
+      async ({ queryKey: [url] }) => {
+        if (typeof url === 'string') {
+          const lowerCaseUrl = url.toLowerCase();
+          const res = await client.get(lowerCaseUrl).json<TData>();
+          return {
+            data: res,
+            config: null,
+          };
+        }
+        throw new Error('Invalid QueryKey');
+      },
     [client],
   );
 

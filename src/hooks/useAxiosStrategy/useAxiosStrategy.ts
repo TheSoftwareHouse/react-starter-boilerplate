@@ -25,19 +25,20 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
     return axios;
   }, []);
 
-  const queryFn: QueryFunction<ApiResponse> = useCallback(
-    async ({ queryKey: [url] }) => {
-      if (typeof url === 'string') {
-        const lowerCaseUrl = url.toLowerCase();
-        const response = await client.get(`/${lowerCaseUrl}`);
-        const { data, ...config } = response;
-        return {
-          data,
-          config,
-        };
-      }
-      throw new Error('Invalid QueryKey');
-    },
+  const queryFn = useCallback(
+    <TData>(): QueryFunction<ApiResponse<TData>> =>
+      async ({ queryKey: [url] }) => {
+        if (typeof url === 'string') {
+          const lowerCaseUrl = url.toLowerCase();
+          const response = await client.get(`/${lowerCaseUrl}`);
+          const { data, ...config } = response;
+          return {
+            data,
+            config,
+          };
+        }
+        throw new Error('Invalid QueryKey');
+      },
     [client],
   );
 
