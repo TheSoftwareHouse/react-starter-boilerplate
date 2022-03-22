@@ -12,7 +12,7 @@ import { ApiClientControllerProps } from './ApiClientContextController.types';
 
 export const ApiClientContextController = ({ children }: ApiClientControllerProps) => {
   const { queryFn, mutationFn, infiniteQueryFn } = useAxiosStrategy();
-  /** example of usage of another strategy **/
+  /** example of usage of different strategy **/
   // const { queryFn, mutationFn, infiniteQueryFn } = useKyStrategy();
 
   const queryClient = useMemo(() => {
