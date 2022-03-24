@@ -2,9 +2,6 @@
 import { createContext } from 'react';
 import { QueryFunction } from 'react-query';
 
-import { MutationFn } from 'hooks/useMutation/useMutation.types';
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
-
 import { ApiClientContextValue, ApiResponse } from './ApiClientContext.types';
 
 const mockedInitialContextValue: ApiClientContextValue = {
@@ -13,15 +10,12 @@ const mockedInitialContextValue: ApiClientContextValue = {
     () =>
       Promise.resolve({ data: {} as TData, config: null }),
   mutationFn:
-    <TParams, TData>(_mutation: MutationFn<TParams, ApiResponse<TData>>) =>
-    (_variables) =>
+    <TParams, TData>() =>
+    () =>
       Promise.resolve({ data: {} as TData, config: null }),
   infiniteQueryFn:
-    <TArgs, TParams, TResponse, TError>(
-      _query: InfiniteQueryFn<TArgs, ApiResponse<TParams>, TResponse>,
-      _options?: UseInfiniteQueryOptions<TArgs, ApiResponse<TParams>, TError, TResponse>,
-    ): QueryFunction<ApiResponse<TParams>> =>
-    (_ctx) =>
+    <TArgs, TParams, TResponse, TError>(): QueryFunction<ApiResponse<TParams>> =>
+    () =>
       Promise.resolve({ data: {} as TParams, config: null }),
 };
 
