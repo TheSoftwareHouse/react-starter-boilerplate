@@ -34,10 +34,10 @@ export const Home = () => {
       count: 5,
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.data.nextPage === null) {
+      if (lastPage.nextPage === null) {
         return false;
       }
-      return lastPage.data.nextPage;
+      return lastPage.nextPage;
     },
   });
 
@@ -76,7 +76,7 @@ export const Home = () => {
         </div>
         {isGettingMe && <p>Loading data about you...</p>}
         {isMeFetched && (
-          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse?.data, null, 2)}</code>
+          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse, null, 2)}</code>
         )}
       </div>
       <div>
@@ -87,8 +87,8 @@ export const Home = () => {
               usersResponse?.pages &&
               usersResponse?.pages.map((page, index) => (
                 <Fragment key={index}>
-                  {page.data.users.map((data) => (
-                    <li key={data.id}>{data.name}</li>
+                  {page.users.map((user) => (
+                    <li key={user.id}>{user.name}</li>
                   ))}
                 </Fragment>
               ))}

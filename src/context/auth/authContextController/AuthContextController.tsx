@@ -14,9 +14,9 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     loginMutation,
     {
       onSuccess: (res) => {
-        authStorage.accessToken = res.data.accessToken;
-        authStorage.expires = res.data.expires;
-        authStorage.refreshToken = res.data.refreshToken;
+        authStorage.accessToken = res.accessToken;
+        authStorage.expires = res.expires;
+        authStorage.refreshToken = res.refreshToken;
       },
       onError: () => {},
     },

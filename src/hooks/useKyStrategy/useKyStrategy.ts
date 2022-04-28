@@ -3,7 +3,7 @@ import Ky, { Options } from 'ky';
 import { MutationFunction, QueryFunction } from 'react-query';
 import { stringify } from 'qs';
 
-import { ApiClientContextValue, ApiResponse } from 'context/apiClient/apiClientContext/ApiClientContext.types';
+import { ApiClientContextValue } from 'context/apiClient/apiClientContext/ApiClientContext.types';
 import { MutationFn } from 'hooks/useMutation/useMutation.types';
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
 
@@ -26,15 +26,11 @@ export const useKyStrategy = (): ApiClientContextValue => {
   }, []);
 
   const queryFn = useCallback(
-    <TData>(): QueryFunction<ApiResponse<TData>> =>
+    <TData>(): QueryFunction<TData> =>
       async ({ queryKey: [url] }) => {
         if (typeof url === 'string') {
           const lowerCaseUrl = url.toLowerCase();
-          const res = await client.get(lowerCaseUrl).json<TData>();
-          return {
-            data: res,
-            config: null,
-          };
+          return await client.get(lowerCaseUrl).json<TData>();
         }
         throw new Error('Invalid QueryKey');
       },
@@ -43,29 +39,22 @@ export const useKyStrategy = (): ApiClientContextValue => {
 
   const infiniteQueryFn = useCallback(
     <TArgs, TParams, TResponse, TError>(
-        _query: InfiniteQueryFn<TArgs, ApiResponse<TParams>, TResponse>,
-        options?: UseInfiniteQueryOptions<TArgs, ApiResponse<TParams>, TError, TResponse>,
-      ): QueryFunction<ApiResponse<TParams>> =>
+        _query: InfiniteQueryFn<TArgs, TParams, TResponse>,
+        options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
+      ): QueryFunction<TParams> =>
       async ({ pageParam = 0 }) => {
         const { endpoint, args } = _query(options?.args);
         const cursorKey = options?.cursorKey;
         // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
-        const res = await client
+        return await client
           .get(`${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`)
           .json<TParams>();
-
-        return {
-          data: res,
-          config: null,
-        };
       },
     [client],
   );
 
   const mutationFn = useCallback(
-    <TParams = unknown, TData = unknown>(
-        mutation: MutationFn<TParams, ApiResponse<TData>>,
-      ): MutationFunction<ApiResponse<TData>, TParams> =>
+    <TParams = unknown, TData = unknown>(mutation: MutationFn<TParams, TData>): MutationFunction<TData, TParams> =>
       async (variables) => {
         const { endpoint, params, method } = mutation(variables);
 
@@ -74,12 +63,7 @@ export const useKyStrategy = (): ApiClientContextValue => {
           method: method || 'POST',
         };
 
-        const res = await client(endpoint, kyConfig).json<TData>();
-
-        return {
-          data: res,
-          config: null,
-        };
+        return await client(endpoint, kyConfig).json<TData>();
       },
     [client],
   );

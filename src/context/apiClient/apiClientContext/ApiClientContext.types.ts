@@ -9,12 +9,10 @@ export type ApiResponse<TData = unknown, TConfig = unknown> = {
 };
 
 export type ApiClientContextValue = {
-  queryFn: <TData>() => QueryFunction<ApiResponse<TData>>;
-  mutationFn: <TParams, TData>(
-    mutation: MutationFn<TParams, ApiResponse<TData>>,
-  ) => MutationFunction<ApiResponse<TData>, TParams>;
+  queryFn: <TData>() => QueryFunction<TData>;
+  mutationFn: <TParams, TData>(mutation: MutationFn<TParams, TData>) => MutationFunction<TData, TParams>;
   infiniteQueryFn: <TArgs, TParams, TResponse, TError>(
-    query: InfiniteQueryFn<TArgs, ApiResponse<TParams>, TResponse>,
-    options?: UseInfiniteQueryOptions<TArgs, ApiResponse<TParams>, TError, TResponse>,
-  ) => QueryFunction<ApiResponse<TParams>>;
+    query: InfiniteQueryFn<TArgs, TParams, TResponse>,
+    options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
+  ) => QueryFunction<TParams>;
 };

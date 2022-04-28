@@ -2,21 +2,21 @@
 import { createContext } from 'react';
 import { QueryFunction } from 'react-query';
 
-import { ApiClientContextValue, ApiResponse } from './ApiClientContext.types';
+import { ApiClientContextValue } from './ApiClientContext.types';
 
 const mockedInitialContextValue: ApiClientContextValue = {
   queryFn:
     <TData>() =>
     () =>
-      Promise.resolve({ data: {} as TData, config: null }),
+      Promise.resolve({} as TData),
   mutationFn:
     <TParams, TData>() =>
     () =>
-      Promise.resolve({ data: {} as TData, config: null }),
+      Promise.resolve({} as TData),
   infiniteQueryFn:
-    <TArgs, TParams, TResponse, TError>(): QueryFunction<ApiResponse<TParams>> =>
+    <TArgs, TParams, TResponse, TError>(): QueryFunction<TParams> =>
     () =>
-      Promise.resolve({ data: {} as TParams, config: null }),
+      Promise.resolve({} as TParams),
 };
 
 export const ApiClientContext = createContext<ApiClientContextValue>(mockedInitialContextValue);
