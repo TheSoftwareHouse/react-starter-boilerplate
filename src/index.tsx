@@ -6,8 +6,8 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import 'assets/styles/main.css';
 
 import { AppProviders } from 'providers/AppProviders';
+import { AppRoutes } from 'routing/AppRoutes';
 
-import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
 import { mockServer } from './api/mocks/mock-server';
 
@@ -27,7 +27,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
 
 ReactDOM.render(
   <AppProviders>
-    <App />
+    <AppRoutes />
     {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
   </AppProviders>,
   document.getElementById('root'),
