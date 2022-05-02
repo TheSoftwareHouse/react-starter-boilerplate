@@ -26,6 +26,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
 }
 
 const container = document.getElementById('root');
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
 root.render(
   <AppProviders>
