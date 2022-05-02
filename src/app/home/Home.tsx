@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
-import { useQuery } from 'react-query';
 
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
-import { ClientResponse } from 'api/types/types';
 import { GetMeQueryResponse } from 'api/actions/auth/authActions.types';
 import { getInfiniteUsersQuery } from 'api/actions/auth/authActions';
+import { User } from 'api/mocks/mock-server';
 import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
+import { useQuery } from 'hooks/useQuery/useQuery';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -19,7 +19,7 @@ export const Home = () => {
     data: meResponse,
     isLoading: isGettingMe,
     isFetched: isMeFetched,
-  } = useQuery<ClientResponse<GetMeQueryResponse>>('me', { enabled: isAuthenticated });
+  } = useQuery<GetMeQueryResponse>('me', { enabled: isAuthenticated });
 
   const {
     data: usersResponse,
@@ -28,16 +28,16 @@ export const Home = () => {
     hasNextPage: hasMoreUsers,
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
-  } = useInfiniteQuery('users', getInfiniteUsersQuery, {
+  } = useInfiniteQuery<{ count: number }, { users: User[]; nextPage: number | null }>('users', getInfiniteUsersQuery, {
     cursorKey: 'page',
     args: {
       count: 5,
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.data.nextPage === null) {
+      if (lastPage.nextPage === null) {
         return false;
       }
-      return lastPage.data.nextPage;
+      return lastPage.nextPage;
     },
   });
 
@@ -76,7 +76,7 @@ export const Home = () => {
         </div>
         {isGettingMe && <p>Loading data about you...</p>}
         {isMeFetched && (
-          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse?.data, null, 2)}</code>
+          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse, null, 2)}</code>
         )}
       </div>
       <div>
@@ -87,8 +87,8 @@ export const Home = () => {
               usersResponse?.pages &&
               usersResponse?.pages.map((page, index) => (
                 <Fragment key={index}>
-                  {page.data.users.map((data) => (
-                    <li key={data.id}>{data.name}</li>
+                  {page.users.map((user) => (
+                    <li key={user.id}>{user.name}</li>
                   ))}
                 </Fragment>
               ))}
