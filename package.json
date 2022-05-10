@@ -79,7 +79,7 @@
     "react-intl": "5.21.0",
     "react-query": "3.31.0",
     "react-router-dom": "6.2.1",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "react-test-renderer": "18.1.0",
     "typescript": "4.4.4"
   },
@@ -104,7 +104,7 @@
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-jest-dom": "3.9.2",
     "eslint-plugin-prettier": "4.0.0",
-    "eslint-plugin-react": "7.26.1",
+    "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-testing-library": "5.0.0",
     "full-icu": "1.4.0",
