@@ -56,7 +56,7 @@ Runs the linter (and fixes fixable issues)
 
 Runs [Plop JS](https://plopjs.com/) used for generating custom hooks and react components. 
 
-### `e2e:run`
+### `e2e:run:firefox` or `e2e:run:chrome`
 
 Runs Cypress E2E tests in a headless mode (the browser window is not visible)
 
@@ -64,7 +64,7 @@ Runs Cypress E2E tests in a headless mode (the browser window is not visible)
 
 Opens the Cypress UI, allowing to run and watch E2E tests
 
-### `e2e:ci`
+### `e2e:ci:firefox` or `e2e:ci:chrome`
 
 Builds the app as a CI environment, sets up an html server with `npm run serve` and runs the E2E tests in a headless mode. Useful when investigating pipeline failures.
 
