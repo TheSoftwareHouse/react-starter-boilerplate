@@ -1,5 +1,5 @@
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
-import { render } from 'tests';
+import { render, act } from 'tests';
 
 import { Home } from './Home';
 
@@ -24,11 +24,11 @@ describe('Home', () => {
 
     const initialText = getByText(/LOCALE/).textContent as string;
 
-    getByText(/here/).click();
+    act(() => getByText(/here/).click());
 
     expect(getByText(/LOCALE/)).not.toHaveTextContent(initialText);
 
-    getByText(/here/).click();
+    act(() => getByText(/here/).click());
 
     expect(getByText(/LOCALE/)).toHaveTextContent(initialText);
   });
