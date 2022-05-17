@@ -1,0 +1,18 @@
+{
+  "cliVersion": "0.0.12",
+  "spreadsheetId": "example spreadsheetId",
+  "credentials": ".credentials.json",
+  "userInput": {
+    "credentials": ".credentials.json",
+    "title": "example title Translations",
+    "includeManual": true,
+    "maxLevels": 5,
+    "languages": "en, pl",
+    "example": true,
+    "email": "email@example.com",
+    "scriptTemplate": "Flat JSON per language (recommended for SPA apps)",
+    "outDir": "./src/i18n/data/",
+    "scriptPath": "./scripts/fetch-translations.ts",
+    "scriptName": "translations"
+  }
+}
