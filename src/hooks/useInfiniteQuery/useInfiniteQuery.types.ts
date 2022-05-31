@@ -14,6 +14,7 @@ export type InfiniteQueryFn<TArgs = unknown, TParams = unknown, TResponse = TPar
 
 export type UseInfiniteQueryConfigParameters<TArgs = unknown> = {
   cursorKey: string;
+  startPage?: number;
   args?: TArgs;
 };
 
