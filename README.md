@@ -49,6 +49,7 @@ For E2E testing we are using the [Cypress](https://www.cypress.io/) framework.
 The configuration is mostly isolated to the e2e folder, to allow for easy removal when not needed and to avoid conflicts with any other testing libraries, as they tend to pollute the global namespace. We believe that proper e2e testing is extremely valuable, but we also recognize that it's not for everyone and it will probably be one of the most removed or ignored features in the boilerplate versions.
 
 To get rid of e2e testing simply delete the e2e directory, the e2e.dist env file, anything beginning with "e2e" from package.json's scripts field and the step named "e2e" from the bitbucket pipelines configuration.
+#### [Cypress testing helpers](e2e/scripts.md)
 
 ## Environment
 
@@ -68,7 +69,7 @@ Runs the linter (and fixes fixable issues)
 
 Runs [Plop JS](https://plopjs.com/) used for generating custom hooks and react components.
 
-### `e2e:run`
+### `e2e:run:firefox` or `e2e:run:chrome`
 
 Runs Cypress E2E tests in a headless mode (the browser window is not visible)
 
@@ -76,7 +77,7 @@ Runs Cypress E2E tests in a headless mode (the browser window is not visible)
 
 Opens the Cypress UI, allowing to run and watch E2E tests
 
-### `e2e:ci`
+### `e2e:ci:firefox` or `e2e:ci:chrome`
 
 Builds the app as a CI environment, sets up an html server with `npm run serve` and runs the E2E tests in a headless mode. Useful when investigating pipeline failures.
 

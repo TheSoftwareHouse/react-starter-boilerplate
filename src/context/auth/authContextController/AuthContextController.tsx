@@ -1,30 +1,44 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
+import { AuthContext } from '../authContext/AuthContext';
+import { loginMutation } from 'api/actions/auth/authActions';
 import { authStorage } from '../authStorage/AuthStorage';
-import { AuthDispatchContext, AuthStateContext } from 'context/auth/authContext/AuthContext';
-import { authReducer } from 'context/auth/authReducer/authReducer';
+import { useMutation } from 'hooks/useMutation/useMutation';
+import { LoginMutationArguments, LoginMutationResponse } from 'api/actions/auth/authActions.types';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    isAuthorized: false,
-    isAuthorizing: false,
-    user: undefined,
-    accessToken: authStorage.accessToken,
-    refreshToken: authStorage.refreshToken,
-    expires: authStorage.expires,
-  });
-
-  useEffect(() => {
-    authStorage.accessToken = state.accessToken;
-    authStorage.refreshToken = state.refreshToken;
-    authStorage.expires = state.expires;
-  }, [state.accessToken, state.refreshToken, state.expires]);
-
-  return (
-    <AuthStateContext.Provider value={state}>
-      <AuthDispatchContext.Provider value={dispatch}>{children}</AuthDispatchContext.Provider>
-    </AuthStateContext.Provider>
+  const { mutateAsync, isSuccess, isLoading } = useMutation<LoginMutationResponse, unknown, LoginMutationArguments>(
+    'login',
+    loginMutation,
+    {
+      onSuccess: (res) => {
+        authStorage.accessToken = res.accessToken;
+        authStorage.expires = res.expires;
+        authStorage.refreshToken = res.refreshToken;
+      },
+      onError: () => {},
+    },
   );
+
+  const login = useCallback(
+    async (params: LoginMutationArguments) => {
+      await mutateAsync(params);
+    },
+    [mutateAsync],
+  );
+
+  const isAuthenticated = useMemo(() => isSuccess && !!authStorage.accessToken, [isSuccess]);
+
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      isAuthenticating: isLoading,
+      login,
+    }),
+    [isAuthenticated, isLoading, login],
+  );
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

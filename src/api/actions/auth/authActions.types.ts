@@ -1,18 +1,25 @@
-export type LoginPayload = {
-  username?: string;
-  password?: string;
+export type LoginMutationArguments = {
+  username: string;
+  password: string;
 };
 
-export type AuthorizeResponse = {
+export type LoginMutationResponse = {
   accessToken: string;
   tokenType: string;
   expires: number;
   refreshToken: string;
 };
 
-export type RefreshTokenResponse = {
-  accessToken: string;
-  tokenType: string;
-  refreshToken: string;
-  expires: number;
+export type GetMeQueryResponse = {
+  firstName: string;
+  lastName: string;
+  username: string;
+};
+
+export type GetUsersResponse = {
+  users: {
+    id: string;
+    name: string;
+  }[];
+  nextPage: number | null;
 };

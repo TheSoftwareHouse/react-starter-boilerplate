@@ -1,4 +1,4 @@
-import { AppLocale } from '../context/locale/AppLocale.enum';
+import { AppLocale } from 'context/locale/AppLocale.enum';
 
 import { translations } from './messages';
 

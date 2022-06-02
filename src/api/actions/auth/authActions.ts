@@ -1,21 +1,21 @@
-import { Action } from 'api/types';
+import { MutationFn } from 'hooks/useMutation/useMutation.types';
+import { InfiniteQueryFn } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';
 
-import { LoginPayload, AuthorizeResponse, RefreshTokenResponse } from './authActions.types';
+import { GetUsersResponse, LoginMutationArguments, LoginMutationResponse } from './authActions.types';
 
-export function loginAction(values: LoginPayload): Action<AuthorizeResponse> {
+export const loginMutation: MutationFn<LoginMutationArguments, LoginMutationResponse> = (body) => {
   return {
+    endpoint: 'authorize',
     method: 'POST',
-    endpoint: '/authorize',
-    body: values,
-  };
-}
-
-export function refreshTokenAction(refreshToken: string): Action<RefreshTokenResponse> {
-  return {
-    method: 'POST',
-    endpoint: '/refresh-token',
-    body: {
-      refreshToken,
+    params: {
+      ...body,
     },
   };
-}
+};
+
+export const getInfiniteUsersQuery: InfiniteQueryFn<{ count: number }, GetUsersResponse> = (args) => {
+  return {
+    endpoint: `users`,
+    args,
+  };
+};

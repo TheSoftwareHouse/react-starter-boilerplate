@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
 export const About = () => {

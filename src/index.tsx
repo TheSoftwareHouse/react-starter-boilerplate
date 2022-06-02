@@ -1,17 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import 'assets/styles/main.css';
+
 import { AppProviders } from 'providers/AppProviders';
-import { mockServer } from 'api/mocks/mock-server';
+import { AppRoutes } from 'routing/AppRoutes';
 
-import { App } from './app/App';
 import * as serviceWorker from './serviceWorker';
+import { mockServer } from './api/mocks/mock-server';
 
-if (+(process.env.REACT_APP_CI || 0) === 1 || process.env.NODE_ENV !== 'production') {
-  mockServer();
-}
+const openReactQueryDevtools = process.env.NODE_ENV === 'development';
+
+mockServer();
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -23,11 +25,13 @@ if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container as Element);
+root.render(
   <AppProviders>
-    <App />
+    <AppRoutes />
+    {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
   </AppProviders>,
-  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

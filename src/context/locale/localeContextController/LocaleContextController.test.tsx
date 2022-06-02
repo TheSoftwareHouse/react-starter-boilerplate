@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { LocaleContext } from '../localeContext/LocaleContext';
-import { render } from 'tests';
+import { render, act } from 'tests';
 
 import { LocaleContextController } from './LocaleContextController';
 
@@ -47,7 +47,7 @@ describe('LocaleContextController', () => {
       }),
     );
 
-    getByText(/SET LOCALE/).click();
+    act(() => getByText(/SET LOCALE/).click());
 
     expect(getByTitle(/CONTEXT/)).toHaveTextContent(
       JSON.stringify({
