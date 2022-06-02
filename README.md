@@ -1,15 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and modified by TSH team.
+<img src="/docs/images/react-starter.svg" />
+<p>
+This project was bootstrapped with [Create React App] (https://github.com/facebook/create-react-app) and modified by TSH team.
+
+![GitHub stars](https://img.shields.io/github/stars/TheSoftwareHouse/react-starter-boilerplate?style=social) ![GitHub watchers](https://img.shields.io/github/watchers/TheSoftwareHouse/react-starter-boilerplate?style=social) ![GitHub folloers](https://img.shields.io/github/followers/TheSoftwareHouse?style=social)
+
+
+![Version](https://img.shields.io/github/package-json/v/TheSoftwareHouse/react-starter-boilerplate) ![GitHub Release](https://img.shields.io/github/v/release/TheSoftwareHouse/react-starter-boilerplate) ![GitHub License](https://img.shields.io/github/license/TheSoftwareHouse/react-starter-boilerplate)
+
+
+</p>
+
 
 ## Quick Start
 
-To start the development, run: 
+To start the development, run:
+
 ```
-mkdir nowy-projekcik
-cd nowy-projekcik/
-git clone git@bitbucket.org:thesoftwarehouse/react-starter-boilerplate.git .
+mkdir new-project
+cd new-project/
+git clone https://github.com/TheSoftwareHouse/react-starter-boilerplate.git .
 sudo rm -r .git
 git init
-git remote add origin git@bitbucket.org:thesoftwarehouse/rss-test-1.git
+git remote add origin [your empty project repository]
 git remote -v
 git add .
 git commit -m 'initial commit'
@@ -24,8 +36,9 @@ npm run lint:fix
 npm run test
 npm run e2e:ci
 ```
-where `nowy-projekcik` is your desired folder and and `git@bitbucket.org:thesoftwarehouse/rss-test-1.git` is your empty project repository.
-This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
+
+where `new-project` is your desired folder. This should result in cloning the project, setting up your repository as origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything works properly.
+
 
 ## E2E
 
@@ -54,7 +67,7 @@ Runs the linter (and fixes fixable issues)
 
 ### `npm plop`
 
-Runs [Plop JS](https://plopjs.com/) used for generating custom hooks and react components. 
+Runs [Plop JS](https://plopjs.com/) used for generating custom hooks and react components.
 
 ### `e2e:run:firefox` or `e2e:run:chrome`
 

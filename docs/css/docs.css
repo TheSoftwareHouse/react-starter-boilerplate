@@ -1,0 +1,210 @@
+@import url('https://rsms.me/inter/inter.css');
+@import url('http://fonts.cdnfonts.com/css/fira-mono');
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #e7ecf6;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: normal;
+}
+
+a {
+  font-weight: 600;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: normal;
+}
+
+ul li::before {
+  content: "\2022";
+  color: #FFA631; 
+  width: 8px;
+  padding-right: 16px;
+  margin-left: 8px;
+}
+
+code {
+  padding: 3px;
+  background: #e7ecf6;
+  color: #000000;
+  font-size: 18px;
+  border-radius: 4px;
+  line-height: 32px;
+  font-family: 'Fira Mono', sans-serif;
+}
+
+.code-style {
+  background: #e7ecf6;
+  border-radius: 8px;
+  line-height: 32px;
+  font-family: 'Fira Mono', sans-serif;
+  overflow-y: scroll;
+}
+
+.indentation {
+  border-left: 1px solid #e7ecf6;
+  padding-left: 10px;
+  margin-bottom: 32px;
+}
+
+.warning {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 32px;
+  color: #ffa631;
+}
+
+.container {
+  margin: 69px 200px;
+  padding: 64px 100px;
+  background: #ffffff;
+  border: 1px solid rgba(70, 97, 158, 0.3);
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.logo {
+  width: 240px;
+  height: 80px;
+}
+
+.github-corner {
+  top: 0;
+  right: 0;
+  position: fixed;
+}
+
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-25deg);
+    }
+
+    40% {
+        transform: rotate(10deg);
+    }
+
+    60% {
+        transform: rotate(-25deg);
+    }
+
+    80% {
+        transform: rotate(10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@media (max-width: 500px) {
+    .github-corner:hover .octo-arm {
+        animation: none;
+    }
+
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+    }
+}
+
+
+@media (max-width: 1400px) and (min-width: 901px) {
+  .container {
+    margin: 58px 75px;
+    padding: 58px 68px;
+    background: #ffffff;
+    border: 1px solid rgba(70, 97, 158, 0.3);
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    margin: 25px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid rgba(70, 97, 158, 0.3);
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  
+  h2 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+  
+  h3 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: normal;
+  }
+
+  ul {
+    padding-left: 0;
+  }
+
+  ul li {
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: normal;
+  }
+
+  ul li::before {
+    content: "\2022";
+    color: #FFA631; 
+    width: 8px;
+    margin-left: 8px;
+  }
+}
