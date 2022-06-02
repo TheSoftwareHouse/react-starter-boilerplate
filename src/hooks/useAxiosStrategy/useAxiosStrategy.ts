@@ -43,7 +43,7 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
         query: InfiniteQueryFn<TArgs, TParams, TResponse>,
         options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
       ): QueryFunction<TParams> =>
-      async ({ pageParam = 0 }) => {
+      async ({ pageParam = options?.startPage ?? 0 }) => {
         const { endpoint, args } = query(options?.args);
         const cursorKey = options?.cursorKey;
         // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
