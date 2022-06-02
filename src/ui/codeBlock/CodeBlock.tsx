@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'clsx';
 
 import { CodeBlockProps } from './CodeBlock.types';

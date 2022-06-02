@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export type ClientProviderProps = {
+export type ApiClientControllerProps = {
   children: ReactNode;
 };

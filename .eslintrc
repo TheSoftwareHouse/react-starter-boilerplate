@@ -11,24 +11,32 @@
   ],
   "plugins": ["prettier", "import"],
   "rules": {
-    "prettier/prettier": ["error", {
-      "printWidth": 120,
-      "tabWidth": 2,
-      "singleQuote": true,
-      "trailingComma": "all",
-      "proseWrap": "always"
-    }],
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 120,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "proseWrap": "always"
+      }
+    ],
     "no-console": "warn",
 
     "react/jsx-props-no-spreading": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
 
     "import/no-default-export": "error",
     "import/order": [
       "error",
       {
-        "groups": [["external", "builtin"], ["parent","internal"], ["index", "sibling"]],
+        "groups": [
+          ["external", "builtin"],
+          ["parent", "internal"],
+          ["index", "sibling"]
+        ],
         "newlines-between": "always"
       }
     ],
