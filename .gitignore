@@ -28,3 +28,5 @@ e2e/cypress/videos
 e2e/node_modules
 e2e/scripts/**/*.js
 e2e/testsResults
+
+.credentials.json
