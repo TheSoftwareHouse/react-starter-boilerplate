@@ -1,3 +1,16 @@
+definitions:
+  caches:
+    cypress: $HOME/.cache/Cypress
+    npm: $HOME/.npm
+  steps:
+    - step: &deploy-s3
+        image: tshio/awscli-docker-compose-pipelines:0.0.3
+        script:
+          - npm ci
+          - npm run build
+          - aws s3 sync ./build s3://$S3_BUCKET --delete
+          - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION --paths "/*"
+
 pipelines:
   default:
     - step:
@@ -46,8 +59,14 @@ pipelines:
             script:
               - cp .env.e2e.dist ./e2e/.env
               - npm run e2e:ci:chrome
+        - step:
+            name: deploy to Staging
+            deployment: Staging
+            trigger: manual
+            <<: *deploy-s3
 
-definitions:
-  caches:
-    cypress: $HOME/.cache/Cypress
-    npm: $HOME/.npm
+  custom:
+    deploy-to-Staging:
+      - step: 
+          name: deploy to Staging
+          <<: *deploy-s3
