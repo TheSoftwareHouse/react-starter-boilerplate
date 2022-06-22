@@ -30,17 +30,14 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,md}": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
-    "src/**/*.{json}": [
-      "prettier --write",
-      "git add"
+    "src/**/*.json": [
+      "prettier --write"
     ],
     "src/**/*.{css,pcss,scss}": [
       "stylelint --fix",
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "browserslist": {
