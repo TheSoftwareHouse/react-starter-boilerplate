@@ -1,13 +1,14 @@
 default:
-  image: node:14.15.5-alpine3.10
+  image: cypress/base:14.16.0
 
 stages:
   - build
   - test
+  - deploy
 
 variables:
-  npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+  CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
 
 # cache using branch name
 # https://gitlab.com/help/ci/caching/index.md
@@ -38,19 +39,43 @@ e2e_build:
     paths:
       - build/**
       - e2e/node_modules/**
+  only:
+    - merge_requests
 
 e2e_chrome:
   stage: test
-  image: tshio/e2e-runner:v4.0.2.3
+  image:
+    name: cypress/included:8.7.0
+    entrypoint: ['']
   script:
     - cp .env.e2e.dist ./e2e/.env
     - npm install
     - npm run e2e:ci:chrome
+  only:
+    - merge_requests
 
 e2e_firefox:
   stage: test
-  image: tshio/e2e-runner:v4.0.2.3
+  image:
+    name: cypress/included:8.7.0
+    entrypoint: ['']
   script:
     - cp .env.e2e.dist ./e2e/.env
     - npm install
     - npm run e2e:ci:firefox
+  only:
+    - merge_requests
+
+deploy_to_staging:
+  stage: deploy
+  environment: staging
+  image:
+    name: tshio/awscli-docker-compose-pipelines:0.0.3
+    entrypoint: ['']
+  script:
+    - npm ci
+    - npm run build
+    - aws s3 sync ./build s3://"$S3_BUCKET" --delete
+    - aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_DISTRIBUTION" --paths "/*"
+  rules:
+    - when: manual
