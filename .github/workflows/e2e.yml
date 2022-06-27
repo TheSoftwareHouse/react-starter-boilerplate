@@ -4,12 +4,11 @@ on: pull_request
 jobs:
   prepare_app:
     runs-on: ubuntu-latest
+    container:
+      image: cypress/included:8.7.0
+      options: --user 1001
     steps:
       - uses: actions/checkout@master
-      - name: Use Node.js 14.17.0
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.17.0
       - name: Copy envs
         run: cp .env.dist .env
       - name: Install root dependencies
@@ -27,10 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Use Node.js 14.17.0
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.17.0
       - name: Copy e2e envs
         run: cp .env.e2e.dist ./e2e/.env
       - name: Download build
@@ -38,7 +33,7 @@ jobs:
         with:
           name: build
       - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           working-directory: e2e
           start: npx http-server ../build --port 1337
@@ -48,15 +43,8 @@ jobs:
   cypress_firefox:
     needs: prepare_app
     runs-on: ubuntu-latest
-    container:
-      image: cypress/included:8.7.0
-      options: --user 1001
     steps:
       - uses: actions/checkout@master
-      - name: Use Node.js 14.17.0
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.17.0
       - name: Copy e2e envs
         run: cp .env.e2e.dist ./e2e/.env
       - name: Download build
@@ -64,7 +52,7 @@ jobs:
         with:
           name: build
       - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v1
+        uses: cypress-io/github-action@v2
         with:
           working-directory: e2e
           start: npx http-server ../build --port 1337

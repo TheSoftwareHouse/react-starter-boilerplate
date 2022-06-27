@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
 import { act } from 'react-test-renderer';
 
+import { renderHook } from 'tests';
 import { mockServer } from 'api/mocks/mock-server';
 import { AppProviders } from 'providers/AppProviders';
 

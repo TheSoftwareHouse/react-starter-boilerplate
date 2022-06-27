@@ -75,7 +75,8 @@
       "rules": {
         "testing-library/prefer-screen-queries": "off",
         "react/react-in-jsx-scope": "off",
-        "testing-library/no-container": "off"
+        "testing-library/no-container": "off",
+        "jest/no-conditional-expect": "warn"
       }
     }
   ]
