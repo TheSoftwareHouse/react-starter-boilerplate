@@ -2,6 +2,12 @@ const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 const EXPIRES_KEY = 'expires';
 
+const storage = {
+  getItem: (key: string) => sessionStorage.getItem(key),
+  setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
+  removeItem: (key: string) => sessionStorage.removeItem(key),
+};
+
 class AuthStorage {
   private _accessToken: string | null = null;
   private _refreshToken: string | null = null;
@@ -9,9 +15,9 @@ class AuthStorage {
 
   constructor() {
     try {
-      this.accessToken = sessionStorage.getItem(ACCESS_TOKEN_KEY);
-      this.refreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
-      this.expires = Number(sessionStorage.getItem(EXPIRES_KEY));
+      this.accessToken = storage.getItem(ACCESS_TOKEN_KEY);
+      this.refreshToken = storage.getItem(REFRESH_TOKEN_KEY);
+      this.expires = Number(storage.getItem(EXPIRES_KEY));
     } catch (error) {
       this.accessToken = null;
       this.refreshToken = null;
@@ -28,9 +34,9 @@ class AuthStorage {
 
     try {
       if (typeof value === 'string') {
-        sessionStorage.setItem(ACCESS_TOKEN_KEY, value);
+        storage.setItem(ACCESS_TOKEN_KEY, value);
       } else {
-        sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+        storage.removeItem(ACCESS_TOKEN_KEY);
       }
     } catch (error) {}
   }
@@ -44,9 +50,9 @@ class AuthStorage {
 
     try {
       if (typeof value === 'string') {
-        sessionStorage.setItem(REFRESH_TOKEN_KEY, value);
+        storage.setItem(REFRESH_TOKEN_KEY, value);
       } else {
-        sessionStorage.removeItem(REFRESH_TOKEN_KEY);
+        storage.removeItem(REFRESH_TOKEN_KEY);
       }
     } catch (error) {}
   }
@@ -60,9 +66,9 @@ class AuthStorage {
 
     try {
       if (typeof value === 'number') {
-        sessionStorage.setItem(EXPIRES_KEY, value.toString());
+        storage.setItem(EXPIRES_KEY, value.toString());
       } else {
-        sessionStorage.removeItem(EXPIRES_KEY);
+        storage.removeItem(EXPIRES_KEY);
       }
     } catch (error) {}
   }
