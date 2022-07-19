@@ -18,9 +18,14 @@ const Wrapper = ({ children }: { children?: ReactNode }) => {
     <ApiClientContextController>
       <AuthContext.Provider
         value={{
+          accessToken: null,
+          refreshToken: null,
+          expires: null,
           isAuthenticating: false,
           isAuthenticated: false,
           login: jest.fn(),
+          logout: jest.fn(),
+          user: undefined,
         }}
       >
         <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
