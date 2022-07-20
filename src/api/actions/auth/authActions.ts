@@ -11,9 +11,7 @@ export const loginMutation: MutationFn<LoginMutationArguments, LoginMutationResp
   return {
     endpoint: 'authorize',
     method: 'POST',
-    params: {
-      ...body,
-    },
+    params: body,
   };
 };
 
