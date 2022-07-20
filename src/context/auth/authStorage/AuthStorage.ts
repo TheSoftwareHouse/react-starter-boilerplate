@@ -6,6 +6,7 @@ const storage = {
   getItem: (key: string) => sessionStorage.getItem(key),
   setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
   removeItem: (key: string) => sessionStorage.removeItem(key),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onError: (error: unknown) => {
     // handle errors here
   },
