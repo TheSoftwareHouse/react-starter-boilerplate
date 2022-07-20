@@ -6,6 +6,9 @@ const storage = {
   getItem: (key: string) => sessionStorage.getItem(key),
   setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
   removeItem: (key: string) => sessionStorage.removeItem(key),
+  onError: (error: unknown) => {
+    // handle errors here
+  },
 };
 
 class AuthStorage {
@@ -38,7 +41,9 @@ class AuthStorage {
       } else {
         storage.removeItem(ACCESS_TOKEN_KEY);
       }
-    } catch (error) {}
+    } catch (error) {
+      storage.onError(error);
+    }
   }
 
   get refreshToken(): string | null {
@@ -54,7 +59,9 @@ class AuthStorage {
       } else {
         storage.removeItem(REFRESH_TOKEN_KEY);
       }
-    } catch (error) {}
+    } catch (error) {
+      storage.onError(error);
+    }
   }
 
   get expires(): number | null {
@@ -70,7 +77,9 @@ class AuthStorage {
       } else {
         storage.removeItem(EXPIRES_KEY);
       }
-    } catch (error) {}
+    } catch (error) {
+      storage.onError(error);
+    }
   }
 }
 
