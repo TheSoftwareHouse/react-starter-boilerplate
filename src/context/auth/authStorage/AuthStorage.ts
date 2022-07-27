@@ -1,12 +1,13 @@
+import { Storage } from './AuthStorage.types';
+
 const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 const EXPIRES_KEY = 'expires';
 
-const storage = {
+const storage: Storage = {
   getItem: (key: string) => sessionStorage.getItem(key),
   setItem: (key: string, value: string) => sessionStorage.setItem(key, value),
   removeItem: (key: string) => sessionStorage.removeItem(key),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onError: (error: unknown) => {
     // handle errors here
   },
