@@ -1,4 +1,7 @@
-import { User } from '../../api/mocks/mock-server';
+export type User = {
+  id: string;
+  name: string;
+};
 
 export type UsersInfiniteQueryResponse = {
   users: User[];

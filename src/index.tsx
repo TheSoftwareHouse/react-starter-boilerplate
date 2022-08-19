@@ -7,18 +7,17 @@ import 'assets/styles/main.css';
 
 import { AppProviders } from 'providers/AppProviders';
 import { AppRoutes } from 'routing/AppRoutes';
+import { worker } from 'api/mocks/mock-worker';
 
 import * as serviceWorker from './serviceWorker';
-import { mockServer } from './api/mocks/mock-server';
 
 const openReactQueryDevtools = process.env.NODE_ENV === 'development';
-
-mockServer();
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const whyDidYouRender = require('@welldone-software/why-did-you-render');
   whyDidYouRender(React);
+  worker.start({ onUnhandledRequest: 'bypass' });
 }
 
 if (process.env.REACT_APP_SENTRY_DSN) {
