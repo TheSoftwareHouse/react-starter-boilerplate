@@ -29,8 +29,7 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
     <TData>(): QueryFunction<TData> =>
       async ({ queryKey: [url] }) => {
         if (typeof url === 'string') {
-          const lowerCaseUrl = url.toLowerCase();
-          const { data } = await client.get(`/${lowerCaseUrl}`);
+          const { data } = await client.get(url);
           return data;
         }
         throw new Error('Invalid QueryKey');
@@ -46,10 +45,16 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
       async ({ pageParam = options?.startPage ?? 0 }) => {
         const { endpoint, args } = query(options?.args);
         const cursorKey = options?.cursorKey;
-        // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
-        const { data } = await client.get(
-          `/${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`,
+        const qs = stringify(
+          {
+            ...args,
+            ...(cursorKey && {
+              [cursorKey]: pageParam,
+            }),
+          },
+          { addQueryPrefix: true },
         );
+        const { data } = await client.get(endpoint + qs);
         return data;
       },
     [client],
@@ -61,7 +66,7 @@ export const useAxiosStrategy = (): ApiClientContextValue => {
         const { endpoint, params, method } = mutation(variables);
 
         const axiosConfig: AxiosRequestConfig = {
-          url: `/${endpoint}`,
+          url: endpoint,
           data: params ? JSON.stringify(params) : undefined,
           method: method || 'POST',
         };

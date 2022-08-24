@@ -2,7 +2,7 @@ import { QueryKey, UseInfiniteQueryOptions as UseRQInfiniteQueryOptions } from '
 
 export type InfiniteQuery<TArgs> = {
   endpoint: string;
-  args?: TArgs;
+  args?: Partial<TArgs>;
 };
 /**
  * TResponse is being used in order to properly infer type in useMutation from function returning mutation parameters

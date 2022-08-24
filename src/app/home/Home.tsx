@@ -5,21 +5,11 @@ import { AppLocale } from 'context/locale/AppLocale.enum';
 import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
-import { GetMeQueryResponse } from 'api/actions/auth/authActions.types';
-import { getInfiniteUsersQuery } from 'api/actions/auth/authActions';
-import { User } from 'api/mocks/mock-server';
-import { useInfiniteQuery } from 'hooks/useInfiniteQuery/useInfiniteQuery';
-import { useQuery } from 'hooks/useQuery/useQuery';
+import { useUsers } from '../../hooks/useUsers/useUsers';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
-  const { login, isAuthenticated, isAuthenticating } = useAuth();
-
-  const {
-    data: meResponse,
-    isLoading: isGettingMe,
-    isFetched: isMeFetched,
-  } = useQuery<GetMeQueryResponse>('me', { enabled: isAuthenticated });
+  const { user, login, logout, isAuthenticated, isAuthenticating } = useAuth();
 
   const {
     data: usersResponse,
@@ -28,18 +18,7 @@ export const Home = () => {
     hasNextPage: hasMoreUsers,
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
-  } = useInfiniteQuery<{ count: number }, { users: User[]; nextPage: number | null }>('users', getInfiniteUsersQuery, {
-    cursorKey: 'page',
-    args: {
-      count: 5,
-    },
-    getNextPageParam: (lastPage) => {
-      if (lastPage.nextPage === null) {
-        return false;
-      }
-      return lastPage.nextPage;
-    },
-  });
+  } = useUsers();
 
   return (
     <>
@@ -66,17 +45,20 @@ export const Home = () => {
       <hr />
       <div style={{ marginBottom: '2rem' }}>
         <p>User information &#129489;</p>
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '2rem', display: 'flex', gap: '16px' }}>
           <button
             disabled={isAuthenticating || isAuthenticated}
             onClick={() => login({ password: 'tsh-react-starter', username: 'tsh' })}
           >
             {isAuthenticating ? 'Logging in...' : 'Click to login'}
           </button>
+          <button disabled={!isAuthenticated} onClick={logout}>
+            Click to logout
+          </button>
         </div>
-        {isGettingMe && <p>Loading data about you...</p>}
-        {isMeFetched && (
-          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(meResponse, null, 2)}</code>
+        {isAuthenticating && <p>Loading data about you...</p>}
+        {isAuthenticated && (
+          <code style={{ background: '#BADA55', padding: '1rem' }}>{JSON.stringify(user, null, 2)}</code>
         )}
       </div>
       <div>
@@ -84,8 +66,7 @@ export const Home = () => {
         <div style={{ marginBottom: '2rem' }}>
           <ul>
             {areUsersFetched &&
-              usersResponse?.pages &&
-              usersResponse?.pages.map((page, index) => (
+              usersResponse?.pages?.map((page, index) => (
                 <Fragment key={index}>
                   {page.users.map((user) => (
                     <li key={user.id}>{user.name}</li>

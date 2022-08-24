@@ -2,7 +2,7 @@ import { MutationHTTPMethod } from 'api/types/types';
 
 export type Mutation<TParams> = {
   endpoint: string;
-  params: TParams;
+  params: Partial<TParams>;
   method: MutationHTTPMethod;
 };
 /**

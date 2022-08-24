@@ -1,5 +1,5 @@
 export enum AppRoute {
-  home = '/',
+  home = '',
   about = 'about',
   help = 'help',
 }

@@ -10,6 +10,8 @@ import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery
 import { requestSuccessHook } from './kyHooks/requestHooks';
 import { responseErrorHook } from './kyHooks/responseHooks';
 
+const removeStartingSlashIfNeeded = (url: string) => (url[0] === '/' ? url.substring(1) : url);
+
 export const useKyStrategy = (): ApiClientContextValue => {
   const client = useMemo(() => {
     return Ky.create({
@@ -29,8 +31,7 @@ export const useKyStrategy = (): ApiClientContextValue => {
     <TData>(): QueryFunction<TData> =>
       async ({ queryKey: [url] }) => {
         if (typeof url === 'string') {
-          const lowerCaseUrl = url.toLowerCase();
-          return await client.get(lowerCaseUrl).json<TData>();
+          return await client.get(removeStartingSlashIfNeeded(url)).json<TData>();
         }
         throw new Error('Invalid QueryKey');
       },
@@ -42,13 +43,19 @@ export const useKyStrategy = (): ApiClientContextValue => {
         _query: InfiniteQueryFn<TArgs, TParams, TResponse>,
         options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
       ): QueryFunction<TParams> =>
-      async ({ pageParam = 0 }) => {
+      async ({ pageParam = options?.startPage ?? 0 }) => {
         const { endpoint, args } = _query(options?.args);
         const cursorKey = options?.cursorKey;
-        // End format of url is e.g /users?page=2&sortOrder=ASC&limit=5&sortBy=name
-        return await client
-          .get(`${endpoint}?${cursorKey}=${pageParam}&${stringify(args, { addQueryPrefix: false })}`)
-          .json<TParams>();
+        const qs = stringify(
+          {
+            ...args,
+            ...(cursorKey && {
+              [cursorKey]: pageParam,
+            }),
+          },
+          { addQueryPrefix: true },
+        );
+        return await client.get(removeStartingSlashIfNeeded(endpoint) + qs).json<TParams>();
       },
     [client],
   );
@@ -63,7 +70,7 @@ export const useKyStrategy = (): ApiClientContextValue => {
           method: method || 'POST',
         };
 
-        return await client(endpoint, kyConfig).json<TData>();
+        return await client(removeStartingSlashIfNeeded(endpoint), kyConfig).json<TData>();
       },
     [client],
   );
