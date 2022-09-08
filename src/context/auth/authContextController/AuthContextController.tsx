@@ -65,7 +65,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const value: AuthContextValue = useMemo(
     () => ({
       ...state,
-      isAuthenticating: isAuthenticating || isLoadingUser,
+      isAuthenticating: isAuthenticating || (isLoadingUser && !!state.accessToken),
       isAuthenticated: isUserSuccess,
       login,
       logout,
