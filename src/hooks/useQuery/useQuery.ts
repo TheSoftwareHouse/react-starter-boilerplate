@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { QueryKey, UseQueryResult, useQuery as useRqQuery } from 'react-query';
-import { UseQueryOptions } from 'react-query/types/react/types';
+import { QueryKey, UseQueryResult, UseQueryOptions, useQuery as useRqQuery } from '@tanstack/react-query';
 
 import { useApiClient } from '../useApiClient/useApiClient';
 

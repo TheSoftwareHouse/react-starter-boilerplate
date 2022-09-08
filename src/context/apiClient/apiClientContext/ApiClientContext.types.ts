@@ -1,4 +1,4 @@
-import { MutationFunction, QueryFunction } from 'react-query';
+import { MutationFunction, QueryFunction } from '@tanstack/react-query';
 
 import { MutationFn } from 'hooks/useMutation/useMutation.types';
 import { InfiniteQueryFn, UseInfiniteQueryOptions } from 'hooks/useInfiniteQuery/useInfiniteQuery.types';

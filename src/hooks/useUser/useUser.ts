@@ -1,8 +1,8 @@
-import { UseQueryOptions } from 'react-query/types/react/types';
+import { UseQueryOptions } from '@tanstack/react-query';
 
-import { useQuery } from '../useQuery/useQuery';
-import { GetMeQueryResponse } from '../../api/actions/auth/authActions.types';
 import { meQueryKey } from '../../api/actions/auth/authActions';
+import { GetMeQueryResponse } from '../../api/actions/auth/authActions.types';
+import { useQuery } from '../useQuery/useQuery';
 
 export const useUser = (options?: UseQueryOptions<GetMeQueryResponse>) =>
   useQuery<GetMeQueryResponse>(meQueryKey, options);
