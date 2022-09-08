@@ -1,4 +1,4 @@
-import { QueryKey, UseInfiniteQueryOptions as UseRQInfiniteQueryOptions } from 'react-query';
+import { QueryKey, UseInfiniteQueryOptions as UseRQInfiniteQueryOptions } from '@tanstack/react-query';
 
 export type InfiniteQuery<TArgs> = {
   endpoint: string;

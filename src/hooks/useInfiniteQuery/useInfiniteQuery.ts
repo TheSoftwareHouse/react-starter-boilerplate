@@ -1,4 +1,4 @@
-import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryResult } from 'react-query';
+import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
