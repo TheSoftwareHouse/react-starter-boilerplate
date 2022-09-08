@@ -6,7 +6,8 @@ import { useLocale } from './useLocale';
 
 describe('useLocale', () => {
   test('throws when locale context is unavailable', () => {
-    try {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    const renderFn = () =>
       renderHook(() => useLocale(), {
         wrapper: ({ children }) => (
           <IntlProvider onError={() => {}} locale="">
@@ -14,8 +15,6 @@ describe('useLocale', () => {
           </IntlProvider>
         ),
       });
-    } catch (error) {
-      expect(error).toEqual(Error('LocaleContext is unavailable, make sure you are using LocaleContextController'));
-    }
+    expect(() => renderFn()).toThrow();
   });
 });
