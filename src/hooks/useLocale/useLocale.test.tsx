@@ -14,6 +14,8 @@ describe('useLocale', () => {
           </IntlProvider>
         ),
       });
-    expect(() => renderFn()).toThrow();
+    expect(() => renderFn()).toThrowError(
+      'LocaleContext is unavailable, make sure you are using LocaleContextController',
+    );
   });
 });
