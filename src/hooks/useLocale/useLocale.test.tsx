@@ -6,7 +6,6 @@ import { useLocale } from './useLocale';
 
 describe('useLocale', () => {
   test('throws when locale context is unavailable', () => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
     const renderFn = () =>
       renderHook(() => useLocale(), {
         wrapper: ({ children }) => (
