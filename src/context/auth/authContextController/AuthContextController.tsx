@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useReducer } from 'react';
 
-import { AuthContext } from '../authContext/AuthContext';
 import { loginMutation, loginQueryKey } from 'api/actions/auth/authActions';
-import { authStorage } from '../authStorage/AuthStorage';
-import { useMutation } from 'hooks/useMutation/useMutation';
 import { LoginMutationArguments, LoginMutationResponse } from 'api/actions/auth/authActions.types';
-import { authReducer } from '../authReducer/authReducer';
-import { resetTokens, setTokens } from '../authActionCreators/authActionCreators';
-import { AuthContextValue } from '../authContext/AuthContext.types';
+import { useMutation } from 'hooks/useMutation/useMutation';
 import { useUser } from '../../../hooks/useUser/useUser';
+import { resetTokens, setTokens } from '../authActionCreators/authActionCreators';
+import { AuthContext } from '../authContext/AuthContext';
+import { AuthContextValue } from '../authContext/AuthContext.types';
+import { authReducer } from '../authReducer/authReducer';
+import { authStorage } from '../authStorage/AuthStorage';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
@@ -42,6 +42,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const {
     data: user,
     isLoading: isLoadingUser,
+    fetchStatus,
     isSuccess: isUserSuccess,
     remove: resetUser,
   } = useUser({
@@ -65,13 +66,13 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const value: AuthContextValue = useMemo(
     () => ({
       ...state,
-      isAuthenticating: isAuthenticating || (isLoadingUser && !!state.accessToken),
+      isAuthenticating: isAuthenticating || (isLoadingUser && fetchStatus !== 'idle'),
       isAuthenticated: isUserSuccess,
       login,
       logout,
       user,
     }),
-    [state, isAuthenticating, isLoadingUser, isUserSuccess, login, logout, user],
+    [state, isAuthenticating, isLoadingUser, fetchStatus, isUserSuccess, login, logout, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
