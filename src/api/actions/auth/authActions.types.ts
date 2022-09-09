@@ -16,10 +16,12 @@ export type GetMeQueryResponse = {
   username: string;
 };
 
+export type User = {
+  id: string;
+  name: string;
+};
+
 export type GetUsersResponse = {
-  users: {
-    id: string;
-    name: string;
-  }[];
+  users: User[];
   nextPage: number | null;
 };

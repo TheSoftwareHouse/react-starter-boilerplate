@@ -1,14 +1,12 @@
 import { act } from 'react-test-renderer';
 
 import { renderHook } from 'tests';
-import { mockServer } from 'api/mocks/mock-server';
 import { AppProviders } from 'providers/AppProviders';
 
 import { useAuth } from './useAuth';
 
 describe('useAuth', () => {
   test('adds token to session storage', async () => {
-    mockServer();
     const { result } = renderHook(() => useAuth(), {
       wrapper: ({ children }) => (
         <AppProviders>
