@@ -42,7 +42,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const {
     data: user,
     isLoading: isLoadingUser,
-    fetchStatus,
+    fetchStatus: userFetchStatus,
     isSuccess: isUserSuccess,
     remove: resetUser,
   } = useUser({
@@ -66,13 +66,13 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   const value: AuthContextValue = useMemo(
     () => ({
       ...state,
-      isAuthenticating: isAuthenticating || (isLoadingUser && fetchStatus !== 'idle'),
+      isAuthenticating: isAuthenticating || (isLoadingUser && userFetchStatus !== 'idle'),
       isAuthenticated: isUserSuccess,
       login,
       logout,
       user,
     }),
-    [state, isAuthenticating, isLoadingUser, fetchStatus, isUserSuccess, login, logout, user],
+    [state, isAuthenticating, isLoadingUser, userFetchStatus, isUserSuccess, login, logout, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
