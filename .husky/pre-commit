@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run validate-branch-name
+npx validate-branch-name
 npx lint-staged

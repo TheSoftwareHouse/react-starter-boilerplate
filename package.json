@@ -7,7 +7,6 @@
     "build:ci": "cross-env REACT_APP_CI=1 react-scripts build",
     "coverage": "cross-env NODE_ICU_DATA=node_modules/full-icu react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "validate-branch-name": "chmod 755 ./scripts/validate-branch-name.sh && bash ./scripts/validate-branch-name.sh",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" && stylelint \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\" && stylelint --fix \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",
     "start": "react-scripts start",
