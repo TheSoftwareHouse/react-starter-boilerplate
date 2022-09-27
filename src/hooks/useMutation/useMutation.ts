@@ -1,4 +1,9 @@
-import { UseMutationResult, useMutation as useRQMutation, UseMutationOptions, MutationKey } from 'react-query';
+import {
+  UseMutationResult,
+  useMutation as useRQMutation,
+  UseMutationOptions,
+  MutationKey,
+} from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';

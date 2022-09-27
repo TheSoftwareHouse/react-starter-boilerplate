@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { useAxiosStrategy } from 'hooks/useAxiosStrategy/useAxiosStrategy';
 import { ApiClientContext } from 'context/apiClient/apiClientContext/ApiClientContext';

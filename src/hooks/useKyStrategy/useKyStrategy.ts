@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import Ky, { Options } from 'ky';
-import { MutationFunction, QueryFunction } from 'react-query';
+import { MutationFunction, QueryFunction } from '@tanstack/react-query';
 import { stringify } from 'qs';
 
 import { ApiClientContextValue } from 'context/apiClient/apiClientContext/ApiClientContext.types';
