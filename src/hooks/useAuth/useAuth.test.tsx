@@ -1,6 +1,4 @@
-import { act } from 'react-test-renderer';
-
-import { renderHook } from 'tests';
+import { act, renderHook } from 'tests';
 import { AppProviders } from 'providers/AppProviders';
 
 import { useAuth } from './useAuth';

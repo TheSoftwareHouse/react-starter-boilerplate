@@ -1,13 +1,15 @@
 import { MemoryRouter as Router } from 'react-router';
 
-import { render } from 'tests';
+import { render, screen } from 'tests';
 
 import { LocationInfo } from './LocationInfo';
 
-test('renders current location data', () => {
-  const { getByText } = render(<LocationInfo />, {
-    wrapper: ({ children }) => <Router initialEntries={['/foo']}>{children}</Router>,
+describe('Location info', () => {
+  test('renders current location data', () => {
+    render(<LocationInfo />, {
+      wrapper: ({ children }) => <Router initialEntries={['/foo']}>{children}</Router>,
+    });
+    const element = screen.getByText(/\/foo/);
+    expect(element).toBeInTheDocument();
   });
-  const element = getByText(/\/foo/);
-  expect(element).toBeInTheDocument();
 });

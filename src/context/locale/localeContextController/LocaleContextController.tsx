@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AppLocale } from '../AppLocale.enum';

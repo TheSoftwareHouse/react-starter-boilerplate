@@ -1,14 +1,18 @@
-import { render } from 'tests';
+import { render, screen } from 'tests';
 
 import { CodeBlock } from './CodeBlock';
 
-test('renders its children', () => {
-  const { getByText } = render(<CodeBlock>TEST</CodeBlock>);
-  const element = getByText(/TEST/);
-  expect(element).toBeInTheDocument();
-});
+describe('CodeBlock', () => {
+  test('renders its children', () => {
+    render(<CodeBlock>TEST</CodeBlock>);
+    const element = screen.getByText(/TEST/);
+    expect(element).toBeInTheDocument();
+  });
 
-test('passes down given className to the first child element', () => {
-  const { container } = render(<CodeBlock className="foo" />);
-  expect(container.firstElementChild?.classList?.contains('foo')).toBe(true);
+  test('passes down given className to the paragraph', () => {
+    render(<CodeBlock className="foo">TEST</CodeBlock>);
+    const element = screen.getByText(/TEST/);
+    const parent = element.parentElement;
+    expect(parent).toHaveClass('foo');
+  });
 });

@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { render } from 'tests';
+import { render, screen } from 'tests';
 
 import { ApiClientContextController } from './ApiClientContextController';
 
@@ -8,13 +8,13 @@ describe('ApiClientContextController', () => {
   const wrapper = ({ children }: { children?: ReactNode }) => <>{children}</>;
 
   test('renders its children', () => {
-    const { getByText } = render(
+    render(
       <ApiClientContextController>
         <span>TEST</span>
       </ApiClientContextController>,
       { wrapper },
     );
 
-    expect(getByText(/TEST/)).toBeInTheDocument();
+    expect(screen.getByText(/TEST/)).toBeInTheDocument();
   });
 });
