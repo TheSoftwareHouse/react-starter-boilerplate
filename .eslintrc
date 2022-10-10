@@ -57,7 +57,11 @@
         "jest/prefer-to-contain": "error",
         "jest/prefer-to-have-length": "error",
         "jest/require-top-level-describe": "error",
-        "testing-library/prefer-user-event": "error"
+        "testing-library/prefer-user-event": "error",
+        "jest/consistent-test-it": ["error", { "fn": "test" }],
+        "jest/prefer-called-with": "error",
+        "jest/prefer-expect-resolves": "error",
+        "jest/prefer-spy-on": "error"
       }
     }
   ]
