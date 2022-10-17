@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 
+import { act, render, screen } from 'tests';
 import { AppLocale } from '../AppLocale.enum';
 import { defaultLocale } from '../defaultLocale';
 import { LocaleContext } from '../localeContext/LocaleContext';
-import { render, act } from 'tests';
 
 import { LocaleContextController } from './LocaleContextController';
 
@@ -11,7 +11,7 @@ describe('LocaleContextController', () => {
   const wrapper = ({ children }: { children?: ReactNode }) => <>{children}</>;
 
   const TestComponent = () => {
-    const context = React.useContext(LocaleContext);
+    const context = useContext(LocaleContext);
 
     return (
       <>
@@ -22,34 +22,34 @@ describe('LocaleContextController', () => {
   };
 
   test('renders its children', () => {
-    const { getByText } = render(
+    render(
       <LocaleContextController>
         <span>TEST</span>
       </LocaleContextController>,
       { wrapper },
     );
 
-    expect(getByText(/TEST/)).toBeInTheDocument();
+    expect(screen.getByText(/TEST/)).toBeInTheDocument();
   });
 
   test('provides functioning locale context', () => {
-    const { getByTitle, getByText } = render(
+    render(
       <LocaleContextController>
         <TestComponent />
       </LocaleContextController>,
       { wrapper },
     );
 
-    expect(getByTitle(/CONTEXT/)).toHaveTextContent(
+    expect(screen.getByTitle(/CONTEXT/)).toHaveTextContent(
       JSON.stringify({
         defaultLocale,
         locale: defaultLocale,
       }),
     );
 
-    act(() => getByText(/SET LOCALE/).click());
+    act(() => screen.getByText(/SET LOCALE/).click());
 
-    expect(getByTitle(/CONTEXT/)).toHaveTextContent(
+    expect(screen.getByTitle(/CONTEXT/)).toHaveTextContent(
       JSON.stringify({
         defaultLocale,
         locale: AppLocale.pl,

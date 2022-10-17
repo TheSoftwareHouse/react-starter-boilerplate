@@ -1,17 +1,17 @@
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
-import { render, act } from 'tests';
+import { render, act, screen } from 'tests';
 
 import { Home } from './Home';
 
 describe('Home', () => {
   test('renders heading', () => {
-    const { getByText } = render(<Home />);
-    const element = getByText(/Home/);
+    render(<Home />);
+    const element = screen.getByText(/Home/);
     expect(element).toBeInTheDocument();
   });
 
   test('changes locale when "here" button is clicked', () => {
-    const { getByText } = render(
+    render(
       <LocaleContext.Consumer>
         {(value) => (
           <>
@@ -22,14 +22,14 @@ describe('Home', () => {
       </LocaleContext.Consumer>,
     );
 
-    const initialText = getByText(/LOCALE/).textContent as string;
+    const initialText = screen.getByText(/LOCALE/).textContent as string;
 
-    act(() => getByText(/here/).click());
+    act(() => screen.getByText(/here/).click());
 
-    expect(getByText(/LOCALE/)).not.toHaveTextContent(initialText);
+    expect(screen.getByText(/LOCALE/)).not.toHaveTextContent(initialText);
 
-    act(() => getByText(/here/).click());
+    act(() => screen.getByText(/here/).click());
 
-    expect(getByText(/LOCALE/)).toHaveTextContent(initialText);
+    expect(screen.getByText(/LOCALE/)).toHaveTextContent(initialText);
   });
 });

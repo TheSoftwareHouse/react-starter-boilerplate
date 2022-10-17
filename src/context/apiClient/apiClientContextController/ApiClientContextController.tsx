@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { useAxiosStrategy } from 'hooks/useAxiosStrategy/useAxiosStrategy';

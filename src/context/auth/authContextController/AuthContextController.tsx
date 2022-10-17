@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useMemo, useReducer } from 'react';
 
 import { loginMutation, loginQueryKey } from 'api/actions/auth/authActions';
 import { LoginMutationArguments, LoginMutationResponse } from 'api/actions/auth/authActions.types';
