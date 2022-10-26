@@ -12,9 +12,6 @@ export const useUsers = (options?: UseInfiniteQueryOptions<UsersInfiniteQueryArg
       count: 5,
     },
     getNextPageParam: (lastPage) => {
-      if (lastPage.nextPage === null) {
-        return false;
-      }
-      return lastPage.nextPage;
+      return lastPage.nextPage ?? undefined;
     },
   });
