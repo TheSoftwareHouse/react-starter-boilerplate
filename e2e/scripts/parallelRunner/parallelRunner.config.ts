@@ -2,8 +2,8 @@ import { ParallelRunnerConfig } from '../scripts.types';
 
 export const config: ParallelRunnerConfig = {
   threads: 2,
-  testFilesPattern: '*.test.ts',
-  testsDir: './cypress/integration',
+  testFilesPattern: '*.cy.ts',
+  testsDir: './cypress/e2e',
   browser: 'chrome',
 };
 export default config;
