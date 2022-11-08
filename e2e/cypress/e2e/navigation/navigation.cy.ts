@@ -4,7 +4,7 @@ import { NavigationMenu } from '../../pages/Navigation';
 
 context('HomePage should', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env().baseUrl);
+    cy.visit('/');
   });
 
   it('navigate to about on clicking about', () => {
