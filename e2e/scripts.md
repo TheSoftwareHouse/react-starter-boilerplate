@@ -1,8 +1,11 @@
 # Cypress testing helpers
 
 ### Before all
-Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~ +8s).  
+
+Firstly, you should transpile scripts to JS so that script doesn't have to transpile those files before each run (~
++8s).  
 Just change directory to `./e2e` and run:
+
 ```
 npm run transpile:scripts
 ```
@@ -18,8 +21,8 @@ Script that reads test-files from git that have changed since last commit and ru
 
 ### Configuration
 
-You can change [default configuration](scripts/watcher/watcher.config.ts) by adding flags to script
-in [package.json](package.json)
+You can change [default configuration](scripts/watcher/watcher.config.ts) by adding flags to script in
+[package.json](package.json)
 
 #### Browser
 
@@ -37,10 +40,10 @@ Directory where all test files are located. Changes in all files under this dire
 relative to [package.json](package.json) from which script is executed.
 
 ```
---integration-dir ./cypress/integration
+--integration-dir ./cypress/e2e
 ```
 
-**Default:** `./cypress/integration`
+**Default:** `./cypress/e2e`
 
 ---
 
@@ -49,15 +52,15 @@ relative to [package.json](package.json) from which script is executed.
 Script runs tests only for files that match that pattern.
 
 ```
---test-files-pattern 'e2e\/cypress\/integration\/.*?(?=.test).*?.ts'
+--test-files-pattern 'e2e\/cypress\/e2e\/.*?(?=.cy).*?.ts'
 ```
 
-> **Explanation:** each `*.test.ts` file that is located under `./e2e/cypress/integration/...` directory relative to git repo root
+> **Explanation:** each `*.cy.ts` file that is located under `./e2e/cypress/e2e/...` directory relative to git repo root
 
 > **Important:** File names are taken from git, so those are paths relative to git root e.g.:  
-> `e2e/cypress/integration/navigation/navigation.test.ts`
+> `e2e/cypress/e2e/navigation/navigation.cy.ts`
 
-**Default:** `e2e\/cypress\/integration\/.*?(?=.test).*?.ts`
+**Default:** `e2e\/cypress\/e2e\/.*?(?=.cy).*?.ts`
 
 ---
 
@@ -68,12 +71,15 @@ Just more console logs
 ```
 --debug
 ```
+
 **Default:** `false`
 
 ---
 
 ## Parallel runner
-Script that reads all tests files, splits them into multiple chunks and runs separate tests for each chunk at the same time.
+
+Script that reads all tests files, splits them into multiple chunks and runs separate tests for each chunk at the same
+time.
 
 ### Usage
 
@@ -82,8 +88,8 @@ Script that reads all tests files, splits them into multiple chunks and runs sep
 
 ### Configuration
 
-You can change [default configuration](scripts/parallelRunner/parallelRunner.config.ts) by adding flags to script
-in [package.json](package.json)
+You can change [default configuration](scripts/parallelRunner/parallelRunner.config.ts) by adding flags to script in
+[package.json](package.json)
 
 #### Browser
 
@@ -101,10 +107,10 @@ Directory where all test files are located. Changes in all files under this dire
 relative to [package.json](package.json) from which script is executed.
 
 ```
---integration-dir ./cypress/integration
+--integration-dir ./cypress/e2e
 ```
 
-**Default:** `./cypress/integration`
+**Default:** `./cypress/e2e`
 
 ---
 
@@ -113,12 +119,13 @@ relative to [package.json](package.json) from which script is executed.
 Script runs tests only for files that match that pattern.
 
 ```
---test-files-pattern '*.test.ts'
+--test-files-pattern '*.cy.ts'
 ```
 
-> **Important:** In this case, unlike in the watcher script, we just use wildcard for filename. It's because under the hood it uses different approach to read files.
+> **Important:** In this case, unlike in the watcher script, we just use wildcard for filename. It's because under the
+> hood it uses different approach to read files.
 
-**Default:** `*.test.ts`
+**Default:** `*.cy.ts`
 
 ---
 
@@ -132,7 +139,6 @@ Amount of chunks all tests files to be split on.
 
 **Default:** `2`
 
-
 #### Debug mode
 
 Just more console logs
@@ -140,4 +146,5 @@ Just more console logs
 ```
 --debug
 ```
+
 **Default:** `false`

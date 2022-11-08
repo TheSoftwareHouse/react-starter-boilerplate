@@ -1,1 +1,1 @@
-FROM cypress/included:8.7.0
+FROM cypress/included:10.11.0
