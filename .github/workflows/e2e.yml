@@ -33,7 +33,7 @@ jobs:
         with:
           name: build
       - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           working-directory: e2e
           start: npx http-server ../build --port 1337
@@ -52,7 +52,7 @@ jobs:
         with:
           name: build
       - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
           working-directory: e2e
           start: npx http-server ../build --port 1337
