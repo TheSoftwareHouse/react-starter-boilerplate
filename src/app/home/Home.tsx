@@ -6,6 +6,8 @@ import { AppMessages } from 'i18n/messages';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 import { useAuth } from 'hooks/useAuth/useAuth';
 import { useUsers } from '../../hooks/useUsers/useUsers';
+import { AppRoute } from 'routing/AppRoute.enum';
+import { useNavigate } from 'hooks/useNavigate/useNavigate';
 
 export const Home = () => {
   const { formatMessage, locale, setLocale } = useLocale();
@@ -19,6 +21,8 @@ export const Home = () => {
     fetchNextPage: loadMoreUsers,
     isFetchingNextPage,
   } = useUsers();
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -69,7 +73,15 @@ export const Home = () => {
               usersResponse?.pages?.map((page, index) => (
                 <Fragment key={index}>
                   {page.users.map((user) => (
-                    <li key={user.id}>{user.name}</li>
+                    <li key={user.id}>
+                      <button
+                        onClick={() => {
+                          navigate(AppRoute.user, { params: { id: user.id } });
+                        }}
+                      >
+                        User {user.id}
+                      </button>
+                    </li>
                   ))}
                 </Fragment>
               ))}
