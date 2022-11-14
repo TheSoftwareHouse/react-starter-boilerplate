@@ -10,13 +10,14 @@ export const useNavigate = () => {
       ? [path: Path, options: NavigateOptions<PathParams<Path>>]
       : [path: Path, options?: ReactNavigateOptions]
   ) => {
-    let parsedPath: string = path;
     if (options && 'params' in options) {
-      Object.entries(options.params).forEach(([key, value]) => {
-        parsedPath = parsedPath.replace(`:${key}`, value as string);
-      });
+      const parsedPath = Object.entries(options.params).reduce((acc, [key, value]) => {
+        return acc.replace(`:${key}`, value as string);
+      }, path as string);
+
+      return navigate(parsedPath);
     }
 
-    navigate(parsedPath);
+    navigate(path);
   };
 };
