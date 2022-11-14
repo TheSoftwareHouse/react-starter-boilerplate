@@ -74,9 +74,10 @@ function customRender<Q extends Queries>(
   ui: React.ReactElement,
   options?: (RenderOptions<Q> | Omit<RenderOptions, 'queries'>) & ExtraRenderOptions,
 ): RenderResult<Q> | RenderResult {
-  function Wrapper({ children }: Pick<WrapperProps, 'children'>) {
-    return <_Wrapper routerConfig={options?.routerConfig}>{children}</_Wrapper>;
-  }
+  const Wrapper = ({ children }: Pick<WrapperProps, 'children'>) => (
+    <_Wrapper routerConfig={options?.routerConfig}>{children}</_Wrapper>
+  );
+
   return render<Q>(ui, { wrapper: options?.wrapper ?? Wrapper, ...options });
 }
 
