@@ -1,33 +1,17 @@
 // see https://testing-library.com/docs/react-testing-library/setup#custom-render
-import { ReactNode, useState } from 'react';
-import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
-import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { Queries } from '@testing-library/dom';
+import { render, RenderOptions, RenderResult } from '@testing-library/react';
+import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
+import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
 
+import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
+import { AuthContext } from 'context/auth/authContext/AuthContext';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { defaultLocale } from 'context/locale/defaultLocale';
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
-import { AuthContext } from 'context/auth/authContext/AuthContext';
-import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
-import { AppRoute } from 'routing/AppRoute.enum';
 
-type RouterConfig =
-  | {
-      withRouter: true;
-      routerHistory: string[];
-      path: AppRoute;
-    }
-  | { withRouter: false };
-
-type ExtraRenderOptions = {
-  routerConfig?: RouterConfig;
-};
-
-type WrapperProps = {
-  children: ReactNode;
-  routerConfig?: RouterConfig;
-};
+import { ExtraRenderOptions, WrapperProps } from './types';
 
 const RouterForTests = ({ children, routerConfig }: WrapperProps) => {
   if (routerConfig?.withRouter) {
@@ -98,6 +82,5 @@ function customRender<Q extends Queries>(
 
 // re-export everything
 export * from '@testing-library/react';
-
 // override render method
 export { customRender as render };
