@@ -25,3 +25,8 @@ export type GetUsersResponse = {
   users: User[];
   nextPage: number | null;
 };
+
+export type GetUsersInfiniteArgs = {
+  pageParam?: string;
+  count?: string;
+};
