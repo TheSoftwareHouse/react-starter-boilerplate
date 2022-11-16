@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
 
-import { loginMutation, loginQueryKey } from 'api/actions/auth/authActions';
-import { LoginMutationArguments, LoginMutationResponse } from 'api/actions/auth/authActions.types';
 import { useMutation } from 'hooks/useMutation/useMutation';
 import { useUser } from '../../../hooks/useUser/useUser';
 import { resetTokens, setTokens } from '../authActionCreators/authActionCreators';
@@ -19,11 +17,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     expires: authStorage.expires,
   });
 
-  const { mutateAsync: login, isLoading: isAuthenticating } = useMutation<
-    LoginMutationResponse,
-    unknown,
-    LoginMutationArguments
-  >(loginQueryKey, loginMutation, {
+  const { mutateAsync: login, isLoading: isAuthenticating } = useMutation('loginMutation', {
     onSuccess: (res) => {
       dispatch(
         setTokens({

@@ -1,14 +1,16 @@
-import { MutationHTTPMethod } from 'api/types/types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type Mutation<TParams> = {
-  endpoint: string;
-  params: Partial<TParams>;
-  method: MutationHTTPMethod;
-};
-/**
- * TResponse is being used in order to properly infer type in useMutation from function returning mutation parameters
- * */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type MutationFn<TParams = unknown, TResponse = unknown, TError = unknown> = (
-  params: TParams,
-) => Mutation<TParams>;
+import { AxiosMutationsType } from 'api/actions';
+import { Unwrap } from 'api/types/types';
+
+export type DataForMutation<TMutationKey extends keyof AxiosMutationsType> = Unwrap<
+  ReturnType<ReturnType<AxiosMutationsType[TMutationKey]>>
+>;
+
+export type GetMutationParams<Key extends keyof AxiosMutationsType> = ReturnType<AxiosMutationsType[Key]> extends (
+  value: infer Params,
+) => any
+  ? Params extends Parameters<ReturnType<AxiosMutationsType[keyof AxiosMutationsType]>>[0]
+    ? Params
+    : any
+  : never;

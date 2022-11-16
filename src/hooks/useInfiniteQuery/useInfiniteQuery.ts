@@ -1,9 +1,15 @@
-import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { useMemo } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import {
+  QueryKey,
+  useInfiniteQuery as useRQInfiniteQuery,
+  UseInfiniteQueryOptions,
+  UseInfiniteQueryResult,
+} from '@tanstack/react-query';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
-
-import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.types';
+import { AxiosQueriesType, queries } from 'api/actions';
+import { DataForQuery, GetQueryParams } from 'api/types/types';
 
 /**
  * Fetching data using this hook doesn't require specifying query function like it's required in react-query
@@ -11,16 +17,18 @@ import { InfiniteQueryFn, UseInfiniteQueryOptions } from './useInfiniteQuery.typ
  * This hook uses proper querying strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
-export const useInfiniteQuery = <TArgs = unknown, TParams = unknown, TError = unknown, TResponse = TParams>(
-  queryKey: QueryKey,
-  query: InfiniteQueryFn<TArgs, TParams, TResponse>,
-  options?: UseInfiniteQueryOptions<TArgs, TParams, TError, TResponse>,
-): UseInfiniteQueryResult<TResponse, TError> => {
-  const { infiniteQueryFn } = useApiClient();
-  const _infiniteQueryFn = useMemo(
-    () => infiniteQueryFn<TArgs, TParams, TResponse, TError>(query, options),
-    [infiniteQueryFn, query, options],
-  );
+export const useInfiniteQuery = <Key extends keyof AxiosQueriesType, TError = unknown>(
+  query: Key,
+  args?: GetQueryParams<Key>,
+  options?: UseInfiniteQueryOptions<DataForQuery<Key>, TError>,
+) => {
+  const { client } = useApiClient();
+  const queryFn = queries[query](client);
+  const queryKey: QueryKey = [query];
 
-  return useRQInfiniteQuery<TParams, TError, TResponse, QueryKey>(queryKey, _infiniteQueryFn, options);
+  return useRQInfiniteQuery(
+    queryKey,
+    async ({ pageParam }: { pageParam?: string }) => await queryFn({ pageParam, ...(args || {}) }),
+    options as any,
+  ) as UseInfiniteQueryResult<DataForQuery<Key>, TError>;
 };
