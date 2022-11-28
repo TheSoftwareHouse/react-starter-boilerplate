@@ -8,7 +8,7 @@ const createRestHandler = <MethodType extends keyof typeof baseRest>(
   const wrapperFn = ((...params: Parameters<typeof baseRest[MethodType]>) => {
     const [path, resolver] = params;
 
-    const url = new RegExp('^(?:[a-z+]+:)?//', 'i').test(path.toString()) ? path : `/${BASE_URL}${path}`;
+    const url = new RegExp('^(?:[a-z+]+:)?//', 'i').test(path.toString()) ? path : `${BASE_URL}${path}`;
 
     return baseRest[method](url, resolver);
   }) as typeof baseRest[MethodType];
