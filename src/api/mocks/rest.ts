@@ -1,6 +1,6 @@
 import { rest as baseRest } from 'msw';
 
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const createRestHandler = <MethodType extends keyof typeof baseRest>(
   method: MethodType,

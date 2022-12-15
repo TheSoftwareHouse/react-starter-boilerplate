@@ -2,7 +2,7 @@ import { Link, Outlet } from 'react-router-dom';
 
 import logo from 'assets/images/logo.svg';
 import { AppRoute } from 'routing/AppRoute.enum';
-
+import { ReactComponent as ViteLogo } from 'assets/images/vite-logo.svg';
 import './Layout.css';
 
 export const Layout = () => {
@@ -16,6 +16,11 @@ export const Layout = () => {
         <a className="app__link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
+        <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <a className="app__link" href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
+            <ViteLogo />
+          </a>
+        </p>
       </header>
       <nav className="app__navigation">
         <ul className="app__menu">

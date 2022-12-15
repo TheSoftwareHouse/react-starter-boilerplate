@@ -195,7 +195,7 @@
     <p> All mocks should be added under <code>src/api/mocks</code> directory, and used in the
       <code>src/api/mocks/mock-server</code> mock server,
       made with <a href="https://mswjs.io/" target="_blank">Mock Service Worker</a>. The mock server is enabled when <strong>NODE_ENV</strong> is not production , or when
-      <strong>REACT_APP_CI=1</strong>.
+      <strong>VITE_CI=1</strong>.
     </p>
     <h2>Types</h2>
     <p>If you would like to modify default <code>react-fetching-library</code> types, you can do it inside <code>src/api/types</code> directory.
@@ -207,7 +207,7 @@
     export type AdditionalProperties = {
       skipAuthorization?: boolean;
     };
-    
+
     export type Action<R> = BaseAction<R, AdditionalProperties>;
         </div>
       </pre>

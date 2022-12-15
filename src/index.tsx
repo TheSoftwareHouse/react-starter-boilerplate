@@ -11,17 +11,18 @@ import { worker } from 'api/mocks/mock-worker';
 
 import * as serviceWorker from './serviceWorker';
 
-const openReactQueryDevtools = process.env.NODE_ENV === 'development';
+const openReactQueryDevtools = import.meta.env.DEV;
 
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.DEV) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  whyDidYouRender(React);
+  // TODO: Uncomment, transform require to import
+  // const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  // whyDidYouRender(React);
   worker.start({ onUnhandledRequest: 'bypass' });
 }
 
-if (process.env.REACT_APP_SENTRY_DSN) {
-  Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
+if (import.meta.env.VITE_SENTRY_DSN) {
+  Sentry.init({ dsn: import.meta.env.VITE_SENTRY_DSN });
 }
 
 const container = document.getElementById('root');
