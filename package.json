@@ -5,7 +5,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
+    "build:ci": "cross-env REACT_APP_CI=1 vite build",
+    "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" && stylelint \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",

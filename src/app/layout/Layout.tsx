@@ -3,6 +3,7 @@ import { Link, Outlet } from 'react-router-dom';
 import logo from 'assets/images/logo.svg';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ReactComponent as ViteLogo } from 'assets/images/vite-logo.svg';
+import { ReactComponent as VitestLogo } from 'assets/images/vitest-logo.svg';
 import './Layout.css';
 
 export const Layout = () => {
@@ -19,6 +20,9 @@ export const Layout = () => {
         <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <a className="app__link" href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">
             <ViteLogo />
+          </a>
+          <a className="app__link" href="https://vitest.dev/" target="_blank" rel="noopener noreferrer">
+            <VitestLogo />
           </a>
         </p>
       </header>
