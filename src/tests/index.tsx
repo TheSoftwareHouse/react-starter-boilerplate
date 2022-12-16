@@ -47,8 +47,8 @@ const _Wrapper = ({ children, routerConfig = { withRouter: false } }: WrapperPro
           expires: null,
           isAuthenticating: false,
           isAuthenticated: false,
-          login: jest.fn(),
-          logout: jest.fn(),
+          login: vi.fn(),
+          logout: vi.fn(),
           user: undefined,
         }}
       >

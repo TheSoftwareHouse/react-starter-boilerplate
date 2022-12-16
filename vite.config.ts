@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
+import { configDefaults } from 'vitest/config';
 
 /* eslint-disable import/no-default-export */
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
-  }
-
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: 'src/setupTests.ts',
+    exclude: [...configDefaults.exclude, 'e2e/**/*'],
+  },
 });
