@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "build:ci": "cross-env REACT_APP_CI=1 vite build",
+    "build:ci": "vite build --define VITE_CI=1",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
