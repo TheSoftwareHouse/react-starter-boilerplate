@@ -5,8 +5,7 @@ export const Help = () => {
     <>
       <h2>Help</h2>
       <p>
-        This project was bootstrapped with <a href="https://github.com/facebook/create-react-app">Create React App</a>{' '}
-        and modified by TSH team.
+        This project was bootstrapped with <a href="https://github.com/vitejs/vite">Vite</a> and modified by TSH team.
       </p>
       <h3 id="available-scripts">Available Scripts</h3>
       <p>In the project directory, you can run:</p>
@@ -60,32 +59,9 @@ export const Help = () => {
         See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for
         more information.
       </p>
-      <h4 id="-npm-run-eject-">
-        <code>npm run eject</code>
-      </h4>
-      <p>
-        <strong>
-          Note: this is a one-way operation. Once you <code>eject</code>, you can’t go back!
-        </strong>
-      </p>
-      <p>
-        If you aren’t satisfied with the build tool and configuration choices, you can <code>eject</code> at any time.
-        This command will remove the single build dependency from your project.
-      </p>
-      <p>
-        Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc)
-        right into your project so you have full control over them. All of the commands except <code>eject</code> will
-        still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-      </p>
-      <p>
-        You don’t have to ever use <code>eject</code>. The curated feature set is suitable for small and middle
-        deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t
-        be useful if you couldn’t customize it when you are ready for it.
-      </p>
       <h3 id="learn-more">Learn More</h3>
       <p>
-        You can learn more in the{' '}
-        <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.
+        You can learn more in the <a href="https://vitejs.dev/guide/">Vite documentation</a>.
       </p>
       <p>
         To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.

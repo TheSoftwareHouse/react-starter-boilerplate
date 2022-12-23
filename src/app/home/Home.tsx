@@ -72,7 +72,7 @@ export const Home = () => {
             {areUsersFetched &&
               usersResponse?.pages?.map((page, index) => (
                 <Fragment key={index}>
-                  {page.users.map((user) => (
+                  {page.users?.map((user) => (
                     <li key={user.id}>
                       <button
                         onClick={() => {
