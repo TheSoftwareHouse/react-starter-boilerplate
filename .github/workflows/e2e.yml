@@ -1,60 +1,180 @@
 name: E2E
 on: pull_request
 
+# START PLAYWRIGHT SPECIFIC CONFIG
 jobs:
   prepare_app:
     runs-on: ubuntu-latest
     container:
-      image: cypress/included:10.11.0
-      options: --user 1001
+      image: mcr.microsoft.com/playwright:v1.28.0-focal
     steps:
       - uses: actions/checkout@master
       - name: Copy envs
         run: cp .env.dist .env
       - name: Install root dependencies
-        uses: bahmutov/npm-install@v1
+        run: npm ci
       - name: Build ci
         run: npm run build:ci
       - name: Upload build
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: build
           path: build
 
-  cypress_chrome:
+  e2e_chrome:
     needs: prepare_app
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.28.0-focal
+    defaults:
+      run:
+        working-directory: e2e-playwright
     steps:
-      - uses: actions/checkout@master
-      - name: Copy e2e envs
-        run: cp .env.e2e.dist ./e2e/.env
-      - name: Download build
-        uses: actions/download-artifact@v1
-        with:
-          name: build
-      - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: e2e
-          start: npx http-server ../build --port 1337
-          wait-on: 'http://localhost:1337'
-          browser: chrome
+    - uses: actions/checkout@master
+    - name: Download build
+      uses: actions/download-artifact@v3
+      with:
+        name: build
+        path: build
+    - name: Copy e2e envs
+      run: cp .env.dist .env
+    - name: Install e2e dependencies
+      run: npm install
+    - name: Run build and tests
+      run: npm run test:chrome
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-chrome-artifacts
+        path: |
+          e2e-playwright/test-report/
+          e2e-playwright/test-results/
+        retention-days: 30
 
-  cypress_firefox:
+  e2e_firefox:
     needs: prepare_app
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.28.0-focal
+      options: --user 1001
+    defaults:
+      run:
+        working-directory: e2e-playwright
     steps:
-      - uses: actions/checkout@master
-      - name: Copy e2e envs
-        run: cp .env.e2e.dist ./e2e/.env
-      - name: Download build
-        uses: actions/download-artifact@v1
-        with:
-          name: build
-      - name: Install Cypress and run tests
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: e2e
-          start: npx http-server ../build --port 1337
-          wait-on: 'http://localhost:1337'
-          browser: firefox
+    - uses: actions/checkout@master
+    - name: Download build
+      uses: actions/download-artifact@v3
+      with:
+        name: build
+        path: build
+    - name: Copy e2e envs
+      run: cp .env.dist .env
+    - name: Install e2e dependencies
+      run: npm install
+    - name: Run build and tests
+      run: npm run test:firefox
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-firefox-artifacts
+        path: |
+          e2e-playwright/test-report/
+          e2e-playwright/test-results/
+        retention-days: 30
+
+  e2e_safari:
+    needs: prepare_app
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.28.0-focal
+    defaults:
+      run:
+        working-directory: e2e-playwright
+    steps:
+    - uses: actions/checkout@master
+    - name: Download build
+      uses: actions/download-artifact@v3
+      with:
+        name: build
+        path: build
+    - name: Copy e2e envs
+      run: cp .env.dist .env
+    - name: Install e2e dependencies
+      run: npm install
+    - name: Run build and tests
+      run: npm run test:safari
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-safari-artifacts
+        path: |
+          e2e-playwright/test-report/
+          e2e-playwright/test-results/
+        retention-days: 30
+# END PLAYWRIGHT SPECIFIC CONFIG
+
+
+# START CYPRESS SPECIFIC CONFIG
+# jobs:
+#   prepare_app:
+#     runs-on: ubuntu-latest
+#     container:
+#       image: cypress/included:10.11.0
+#       options: --user 1001
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Copy envs
+#         run: cp .env.dist .env
+#       - name: Install root dependencies
+#         uses: bahmutov/npm-install@v1
+#       - name: Build ci
+#         run: npm run build:ci
+#       - name: Upload build
+#         uses: actions/upload-artifact@v1
+#         with:
+#           name: build
+#           path: build
+
+#   cypress_chrome:
+#     needs: prepare_app
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Copy e2e envs
+#         run: cp .env.e2e.dist ./e2e/.env
+#       - name: Download build
+#         uses: actions/download-artifact@v1
+#         with:
+#           name: build
+#       - name: Install npm
+#         run: npm install
+#       - name: Install Cypress and run tests
+#         uses: cypress-io/github-action@v4
+#         with:
+#           working-directory: e2e
+#           start: npx http-server ../build --port 1337
+#           wait-on: 'http://localhost:1337'
+#           browser: chrome
+
+#   cypress_firefox:
+#     needs: prepare_app
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Copy e2e envs
+#         run: cp .env.e2e.dist ./e2e/.env
+#       - name: Download build
+#         uses: actions/download-artifact@v1
+#         with:
+#           name: build
+#       - name: Install Cypress and run tests
+#         uses: cypress-io/github-action@v4
+#         with:
+#           working-directory: e2e
+#           start: npx http-server ../build --port 1337
+#           wait-on: 'http://localhost:1337'
+#           browser: firefox
+# END CYPRESS SPECIFIC CONFIG

@@ -18,11 +18,11 @@ class Navigation {
   }
 
   get aboutLink(): string {
-    return `${Cypress.env().baseUrl}/${AppRoute.about}`;
+    return `${Cypress.env().baseUrl}${AppRoute.about}`;
   }
 
   get helpLink(): string {
-    return `${Cypress.env().baseUrl}/${AppRoute.help}`;
+    return `${Cypress.env().baseUrl}${AppRoute.help}`;
   }
 }
 
