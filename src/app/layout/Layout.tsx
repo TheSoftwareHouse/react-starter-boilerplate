@@ -30,6 +30,11 @@ export const Layout = () => {
             </Link>
           </li>
           <li className="app__menu-item">
+            <Link className="app__menu-link" to={'/' + AppRoute.users}>
+              Users
+            </Link>
+          </li>
+          <li className="app__menu-item">
             <Link className="app__menu-link" to={'/' + AppRoute.help}>
               Help
             </Link>
