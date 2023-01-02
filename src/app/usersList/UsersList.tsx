@@ -3,14 +3,15 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useUsers } from 'hooks/useUsers/useUsers';
 import { CodeBlock } from 'ui/codeBlock/CodeBlock';
+import { SortType } from 'hooks/useUsers/useUsers.types';
 
 export const UsersList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: usersResponse, isFetched: areUsersFetched } = useUsers({
-    sort: searchParams.get('sort') as 'DESC' | 'ASC',
+    sort: searchParams.get('sort') as SortType,
   });
 
-  const sort = (type: 'DESC' | 'ASC') => {
+  const sort = (type: SortType) => {
     setSearchParams({ sort: type });
   };
 

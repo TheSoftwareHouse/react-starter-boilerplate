@@ -1,8 +1,8 @@
 import { useInfiniteQuery } from '../useInfiniteQuery/useInfiniteQuery';
 
-import { Filters } from './useUsers.types';
+import { Filters, SortType } from './useUsers.types';
 
-const sortFn = (a: string, b: string, sort?: 'ASC' | 'DESC') => {
+const sortFn = (a: string, b: string, sort?: SortType) => {
   return sort === 'DESC' ? b.localeCompare(a) : a.localeCompare(b);
 };
 
