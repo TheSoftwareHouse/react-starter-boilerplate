@@ -30,7 +30,7 @@ pipelines:
     '**':
       - step:
           name: build and install
-          image: mcr.microsoft.com/playwright:v1.28.0-focal
+          image: mcr.microsoft.com/playwright:v1.29.1-focal
           caches:
             - node
             - npm
@@ -45,7 +45,7 @@ pipelines:
       - parallel:
         - step:
             name: e2e - chrome
-            image: mcr.microsoft.com/playwright:v1.28.0-focal
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
             caches:
               - node
             script:
@@ -53,7 +53,7 @@ pipelines:
               - cd e2e-playwright && npm run test:chrome cd ..
         - step:
             name: e2e - firefox
-            image: mcr.microsoft.com/playwright:v1.28.0-focal
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
             caches:
               - node
             script:
@@ -61,7 +61,7 @@ pipelines:
               - cd e2e-playwright && npm run test:firefox cd ..
         - step:
             name: e2e - safari
-            image: mcr.microsoft.com/playwright:v1.28.0-focal
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
             caches:
               - node
             script:

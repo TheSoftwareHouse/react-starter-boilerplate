@@ -6,7 +6,7 @@ jobs:
   prepare_app:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.28.0-focal
+      image: mcr.microsoft.com/playwright:v1.29.1-focal
     steps:
       - uses: actions/checkout@master
       - name: Copy envs
@@ -25,7 +25,7 @@ jobs:
     needs: prepare_app
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.28.0-focal
+      image: mcr.microsoft.com/playwright:v1.29.1-focal
     defaults:
       run:
         working-directory: e2e-playwright
@@ -56,7 +56,7 @@ jobs:
     needs: prepare_app
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.28.0-focal
+      image: mcr.microsoft.com/playwright:v1.29.1-focal
       options: --user 1001
     defaults:
       run:
@@ -88,7 +88,7 @@ jobs:
     needs: prepare_app
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.28.0-focal
+      image: mcr.microsoft.com/playwright:v1.29.1-focal
     defaults:
       run:
         working-directory: e2e-playwright

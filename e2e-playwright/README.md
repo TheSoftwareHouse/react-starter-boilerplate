@@ -37,7 +37,8 @@ In the project directory, you can run:
 
 ### `npm run install:browsers`
 
-Will install default browsers dependencies to your computer
+Will install default browsers dependencies to your computer. Helpful, when updating the playwright package and version
+of browsers.
 
 ### `npm run test`
 
