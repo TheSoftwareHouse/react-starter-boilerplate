@@ -30,3 +30,7 @@ export type GetUsersInfiniteArgs = {
   pageParam?: string;
   count?: string;
 };
+
+export type GetUsersListArgs = {
+  page?: string;
+};
