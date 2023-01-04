@@ -8,10 +8,6 @@ npm run install:browsers (only for the first time)
 npm run test (or npm run test:chrome for browser specific)
 ```
 
-where `new-project` is your desired folder. This should result in cloning the project, setting up your repository as
-origin and pushing the starter as your initial commit. The linter and tests will be run, to confirm that everything
-works properly.
-
 ## E2E Playwright guide
 
 ### How to test locally?
@@ -26,7 +22,7 @@ automatic test did (what it see and what it clicked).
 
 ### How to debug test from CI?
 
-1. Go to the **Pipelines** page of the MR
+1. Go to the **Pipelines** page of the PR
 2. Downloads the artifacts
 3. Extract the `test-report` folder locally in the repository in `e2e-playwright/test-report` folder
 4. Run `npx playwright show-report test-report` and analyze the traces (check "Retry #1" tab to see traces)

@@ -1,34 +1,4 @@
 {
   "root": true,
-  "extends": [
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:playwright/playwright-test"
-  ],
-  "plugins": ["prettier", "import"],
-  "rules": {
-    "no-console": "warn",
-    "import/no-default-export": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          ["external", "builtin"],
-          ["parent", "internal"],
-          ["index", "sibling"]
-        ],
-        "newlines-between": "always"
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 120,
-        "tabWidth": 2,
-        "singleQuote": true,
-        "trailingComma": "all",
-        "proseWrap": "always"
-      }
-    ]
-  }
+  "extends": ["plugin:playwright/playwright-test", "../.eslintrc"]
 }

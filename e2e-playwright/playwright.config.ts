@@ -9,7 +9,7 @@ const BASE_URL = process.env.CI ? process.env.PLAYWRIGHT_HOST : 'http://localhos
 const config: PlaywrightTestConfig = {
   testDir: 'tests',
   testMatch: '**/*.test.ts',
-  timeout: 0.5 * 60 * 1000, // timeout half a minute
+  timeout: 30000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
