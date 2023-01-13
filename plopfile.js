@@ -102,7 +102,6 @@ const reactComponentGenerator = () => ({
           if (data.baseDir !== 'ui') {
             return 'Skipped adding export to src/ui/index.ts';
           }
-          return;
         },
       },
     ];
