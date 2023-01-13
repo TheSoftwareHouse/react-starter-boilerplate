@@ -20,22 +20,22 @@ export const Layout = () => {
       <nav className="app__navigation">
         <ul className="app__menu">
           <li className="app__menu-item">
-            <Link className="app__menu-link" to={'/' + AppRoute.home}>
+            <Link className="app__menu-link" to={AppRoute.home}>
               Home
             </Link>
           </li>
           <li className="app__menu-item">
-            <Link className="app__menu-link" to={'/' + AppRoute.about}>
+            <Link className="app__menu-link" to={AppRoute.about}>
               About
             </Link>
           </li>
           <li className="app__menu-item">
-            <Link className="app__menu-link" to={'/' + AppRoute.users}>
+            <Link className="app__menu-link" to={AppRoute.users}>
               Users
             </Link>
           </li>
           <li className="app__menu-item">
-            <Link className="app__menu-link" to={'/' + AppRoute.help}>
+            <Link className="app__menu-link" to={AppRoute.help}>
               Help
             </Link>
           </li>

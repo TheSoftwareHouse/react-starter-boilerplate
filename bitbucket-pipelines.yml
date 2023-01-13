@@ -1,6 +1,6 @@
 definitions:
   caches:
-    cypress: $HOME/.cache/Cypress
+    # cypress: $HOME/.cache/Cypress # can be removed for PLAYWRIGHT
     npm: $HOME/.npm
   steps:
     - step: &deploy-s3
@@ -25,48 +25,99 @@ pipelines:
           - npm run lint
           - npm run coverage
 
+# START PLAYWRIGHT SPECIFIC CONFIG
   pull-requests:
     '**':
-      - step: 
+      - step:
           name: build and install
-          image: cypress/included:8.7.0
+          image: mcr.microsoft.com/playwright:v1.29.1-focal
           caches:
             - node
             - npm
-            - cypress
           script:
             - cp .env.dist .env
             - npm ci
             - npm run build:ci
-            - cd e2e && npm install && cd ..
+            - cd e2e-playwright && npm install && cd ..
           artifacts:
             - build/**
-            - e2e/node_modules/**
+            - e2e-playwright/node_modules/**
       - parallel:
         - step:
-            name: e2e - firefox
-            image: cypress/included:8.7.0
-            caches:
-              - node
-            script:
-              - cp .env.e2e.dist ./e2e/.env
-              - npm run e2e:ci:firefox
-        - step:
             name: e2e - chrome
-            image: cypress/included:8.7.0
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
             caches:
               - node
             script:
-              - cp .env.e2e.dist ./e2e/.env
-              - npm run e2e:ci:chrome
+              - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+              - cd e2e-playwright && npm run test:chrome cd ..
+        - step:
+            name: e2e - firefox
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
+            caches:
+              - node
+            script:
+              - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+              - cd e2e-playwright && npm run test:firefox cd ..
+        - step:
+            name: e2e - safari
+            image: mcr.microsoft.com/playwright:v1.29.1-focal
+            caches:
+              - node
+            script:
+              - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+              - cd e2e-playwright && npm run test:safari cd ..
         - step:
             name: deploy to Staging
             deployment: Staging
             trigger: manual
             <<: *deploy-s3
+# END PLAYWRIGHT SPECIFIC CONFIG
+
+  # START CYPRESS SPECIFIC CONFIG
+  # pull-requests:
+  #   '**':
+  #     - step:
+  #         name: build and install
+  #         image: cypress/included:8.7.0
+  #         caches:
+  #           - node
+  #           - npm
+  #           - cypress
+  #         script:
+  #           - cp .env.dist .env
+  #           - npm ci
+  #           - npm run build:ci
+  #           - cd e2e && npm install && cd ..
+  #         artifacts:
+  #           - build/**
+  #           - e2e/node_modules/**
+  #     - parallel:
+  #       - step:
+  #           name: e2e - firefox
+  #           image: cypress/included:8.7.0
+  #           caches:
+  #             - node
+  #           script:
+  #             - cp .env.e2e.dist ./e2e/.env
+  #             - npm run e2e:ci:firefox
+  #       - step:
+  #           name: e2e - chrome
+  #           image: cypress/included:8.7.0
+  #           caches:
+  #             - node
+  #           script:
+  #             - cp .env.e2e.dist ./e2e/.env
+  #             - npm run e2e:ci:chrome
+  #       - step:
+  #           name: deploy to Staging
+  #           deployment: Staging
+  #           trigger: manual
+  #           <<: *deploy-s3
+  # END CYPRESS SPECIFIC CONFIG
 
   custom:
     deploy-to-Staging:
-      - step: 
+      - step:
           name: deploy to Staging
           <<: *deploy-s3
