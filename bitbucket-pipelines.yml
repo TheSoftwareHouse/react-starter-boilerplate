@@ -130,12 +130,7 @@ pipelines:
     deploy-to-staging:
       - step: *test
       - step:
-          name: Build & deploy to [STAGING]
+          name: Build and deploy to Staging
           deployment: staging
           <<: *build-and-deploy
-    deploy-to-production:
-      - step: *test
-      - step:
-          name: Build & deploy to [PROD]
-          deployment: production
-          <<: *build-and-deploy
+
