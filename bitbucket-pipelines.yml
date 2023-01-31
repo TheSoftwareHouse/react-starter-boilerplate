@@ -6,16 +6,16 @@ definitions:
     npm: $HOME/.npm
   steps:
     - step: &test
-        name: Test
+        name: test
         caches:
           - node
           - npm
         script:
           - npm ci
           - npm run lint
-          - npm run test:coverage
+          - npm run coverage
     - step: &build-and-deploy
-        name: Build and deploy
+        name: build and deploy
         trigger: manual
         caches:
           - node
@@ -35,11 +35,19 @@ pipelines:
   default:
     - step: *test
 
-# START PLAYWRIGHT SPECIFIC CONFIG
+  custom:
+    deploy-to-staging:
+      - step: *test
+      - step:
+          name: build and deploy to staging
+          deployment: staging
+          <<: *build-and-deploy
+
+  # START PLAYWRIGHT SPECIFIC CONFIG
   pull-requests:
     '**':
       - step:
-          name: Build and install
+          name: e2e - build and install
           image: mcr.microsoft.com/playwright:v1.29.1-focal
           caches:
             - node
@@ -78,17 +86,16 @@ pipelines:
               - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
               - cd e2e-playwright && npm run test:safari cd ..
         - step:
-            name: Build and deploy to Staging
+            name: build and deploy to staging
             deployment: staging
             <<: *build-and-deploy
-
-# END PLAYWRIGHT SPECIFIC CONFIG
+  # END PLAYWRIGHT SPECIFIC CONFIG
 
   # START CYPRESS SPECIFIC CONFIG
   # pull-requests:
   #   '**':
   #     - step:
-  #         name: Build and install
+  #         name: e2e - build and install
   #         image: cypress/included:10.11.0
   #         caches:
   #           - node
@@ -120,17 +127,8 @@ pipelines:
   #             - cp .env.e2e.dist ./e2e/.env
   #             - npm run e2e:ci:chrome
   #       - step:
-  #           name: Build and deploy to Staging
+  #           name: build and deploy to staging
   #           deployment: staging
   #           trigger: manual
   #           <<: *build-and-deploy
   # END CYPRESS SPECIFIC CONFIG
-
-  custom:
-    deploy-to-staging:
-      - step: *test
-      - step:
-          name: Build and deploy to Staging
-          deployment: staging
-          <<: *build-and-deploy
-
