@@ -79,7 +79,7 @@ pipelines:
   #   '**':
   #     - step:
   #         name: build and install
-  #         image: cypress/included:8.7.0
+  #         image: cypress/included:10.11.0
   #         caches:
   #           - node
   #           - npm
@@ -95,7 +95,7 @@ pipelines:
   #     - parallel:
   #       - step:
   #           name: e2e - firefox
-  #           image: cypress/included:8.7.0
+  #           image: cypress/included:10.11.0
   #           caches:
   #             - node
   #           script:
@@ -103,7 +103,7 @@ pipelines:
   #             - npm run e2e:ci:firefox
   #       - step:
   #           name: e2e - chrome
-  #           image: cypress/included:8.7.0
+  #           image: cypress/included:10.11.0
   #           caches:
   #             - node
   #           script:

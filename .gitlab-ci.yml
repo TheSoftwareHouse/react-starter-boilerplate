@@ -90,7 +90,7 @@ e2e_safari:
 
 # START CYPRESS SPECIFIC CONFIG
 # default:
-#   image: cypress/base:14.16.0
+#   image: cypress/included:10.11.0
 
 # stages:
 #   - build
@@ -136,7 +136,7 @@ e2e_safari:
 # e2e_chrome:
 #   stage: test
 #   image:
-#     name: cypress/included:8.7.0
+#     name: cypress/included:10.11.0
 #     entrypoint: ['']
 #   script:
 #     - cp .env.e2e.dist ./e2e/.env
@@ -148,7 +148,7 @@ e2e_safari:
 # e2e_firefox:
 #   stage: test
 #   image:
-#     name: cypress/included:8.7.0
+#     name: cypress/included:10.11.0
 #     entrypoint: ['']
 #   script:
 #     - cp .env.e2e.dist ./e2e/.env
