@@ -1,35 +1,53 @@
+image: node:16-alpine
+
 definitions:
   caches:
     # cypress: $HOME/.cache/Cypress # can be removed for PLAYWRIGHT
     npm: $HOME/.npm
   steps:
-    - step: &deploy-s3
-        image: tshio/awscli-docker-compose-pipelines:0.0.3
-        script:
-          - npm ci
-          - npm run build
-          - aws s3 sync ./build s3://$S3_BUCKET --delete
-          - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION --paths "/*"
-
-pipelines:
-  default:
-    - step:
-        image: node:14.15.5-alpine3.10
+    - step: &test
+        name: test
         caches:
           - node
           - npm
-        name: Run linter and tests
         script:
-          - cp .env.dist .env
           - npm ci
           - npm run lint
           - npm run coverage
+    - step: &build-and-deploy
+        name: build and deploy
+        trigger: manual
+        caches:
+          - node
+          - npm
+        script:
+          - npm ci
+          - npm run build
+          - pipe: atlassian/aws-s3-deploy:1.1.0
+            variables:
+              S3_BUCKET: $S3_BUCKET
+              LOCAL_PATH: 'build'
+          - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
+            variables:
+              DISTRIBUTION_ID: $CLOUDFRONT_DISTRIBUTION
 
-# START PLAYWRIGHT SPECIFIC CONFIG
+pipelines:
+  default:
+    - step: *test
+
+  custom:
+    deploy-to-staging:
+      - step: *test
+      - step:
+          name: build and deploy to staging
+          deployment: staging
+          <<: *build-and-deploy
+
+  # START PLAYWRIGHT SPECIFIC CONFIG
   pull-requests:
     '**':
       - step:
-          name: build and install
+          name: e2e - build and install
           image: mcr.microsoft.com/playwright:v1.29.1-focal
           caches:
             - node
@@ -68,18 +86,17 @@ pipelines:
               - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
               - cd e2e-playwright && npm run test:safari cd ..
         - step:
-            name: deploy to Staging
-            deployment: Staging
-            trigger: manual
-            <<: *deploy-s3
-# END PLAYWRIGHT SPECIFIC CONFIG
+            name: build and deploy to staging
+            deployment: staging
+            <<: *build-and-deploy
+  # END PLAYWRIGHT SPECIFIC CONFIG
 
   # START CYPRESS SPECIFIC CONFIG
   # pull-requests:
   #   '**':
   #     - step:
-  #         name: build and install
-  #         image: cypress/included:8.7.0
+  #         name: e2e - build and install
+  #         image: cypress/included:10.11.0
   #         caches:
   #           - node
   #           - npm
@@ -95,7 +112,7 @@ pipelines:
   #     - parallel:
   #       - step:
   #           name: e2e - firefox
-  #           image: cypress/included:8.7.0
+  #           image: cypress/included:10.11.0
   #           caches:
   #             - node
   #           script:
@@ -103,21 +120,15 @@ pipelines:
   #             - npm run e2e:ci:firefox
   #       - step:
   #           name: e2e - chrome
-  #           image: cypress/included:8.7.0
+  #           image: cypress/included:10.11.0
   #           caches:
   #             - node
   #           script:
   #             - cp .env.e2e.dist ./e2e/.env
   #             - npm run e2e:ci:chrome
   #       - step:
-  #           name: deploy to Staging
-  #           deployment: Staging
+  #           name: build and deploy to staging
+  #           deployment: staging
   #           trigger: manual
-  #           <<: *deploy-s3
+  #           <<: *build-and-deploy
   # END CYPRESS SPECIFIC CONFIG
-
-  custom:
-    deploy-to-Staging:
-      - step:
-          name: deploy to Staging
-          <<: *deploy-s3
