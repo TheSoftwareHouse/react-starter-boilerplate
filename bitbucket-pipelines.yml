@@ -26,7 +26,7 @@ definitions:
           - pipe: atlassian/aws-s3-deploy:1.1.0
             variables:
               S3_BUCKET: $S3_BUCKET
-              LOCAL_PATH: 'dist'
+              LOCAL_PATH: 'build'
           - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
             variables:
               DISTRIBUTION_ID: $CLOUDFRONT_DISTRIBUTION
