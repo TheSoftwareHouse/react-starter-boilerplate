@@ -11,10 +11,9 @@ import { worker } from 'api/mocks/mock-worker';
 const openReactQueryDevtools = import.meta.env.DEV;
 
 if (import.meta.env.DEV) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // TODO: Uncomment, transform require to import
-  // const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  // whyDidYouRender(React);
+  const { default: wdyr } = await import('@welldone-software/why-did-you-render');
+  wdyr(React);
+
   worker.start({ onUnhandledRequest: 'bypass' });
 }
 
@@ -30,8 +29,3 @@ root.render(
     {openReactQueryDevtools && <ReactQueryDevtools initialIsOpen={false} />}
   </AppProviders>,
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
