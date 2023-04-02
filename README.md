@@ -1,6 +1,6 @@
 <img src="/docs/images/react-starter.svg" />
 <p>
-This project was bootstrapped with [Create React App] (https://github.com/facebook/create-react-app) and modified by TSH team.
+This project was bootstrapped with [Vite] (https://github.com/vitejs/vite) and modified by TSH team.
 
 ![GitHub stars](https://img.shields.io/github/stars/TheSoftwareHouse/react-starter-boilerplate?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/TheSoftwareHouse/react-starter-boilerplate?style=social)

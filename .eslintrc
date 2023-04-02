@@ -1,5 +1,4 @@
 {
-  "ignorePatterns": ["src/serviceWorker.ts"],
   "extends": [
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",

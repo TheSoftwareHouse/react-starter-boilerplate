@@ -2,14 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
 import 'assets/styles/main.css';
 
 import { AppProviders } from 'providers/AppProviders';
 import { AppRoutes } from 'routing/AppRoutes';
 import { worker } from 'api/mocks/mock-worker';
-
-import * as serviceWorker from './serviceWorker';
 
 const openReactQueryDevtools = import.meta.env.DEV;
 
