@@ -28,10 +28,7 @@ export const Help = () => {
       <p>
         Launches the test runner in the interactive watch mode.
         <br />
-        See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests">
-          running tests
-        </a>{' '}
-        for more information.
+        See the section about <a href="https://vitest.dev/guide/cli.html">running tests</a> for more information.
       </p>
       <h4 id="-npm-run-coverage-">
         <code>npm run coverage</code>
@@ -39,8 +36,7 @@ export const Help = () => {
       <p>
         Launches the test runner in the coverage report generation mode.
         <br />
-        See <a href="https://create-react-app.dev/docs/running-tests/#coverage-reporting">this</a> section for more
-        information.
+        See <a href="https://vitest.dev/guide/coverage.html">this</a> section for more information.
       </p>
       <h4 id="-npm-run-build-">
         <code>npm run build</code>
@@ -56,8 +52,7 @@ export const Help = () => {
         Your app is ready to be deployed!
       </p>
       <p>
-        See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment">deployment</a> for
-        more information.
+        See the section about <a href="https://vitejs.dev/guide/static-deploy.html">deployment</a> for more information.
       </p>
       <h3 id="learn-more">Learn More</h3>
       <p>

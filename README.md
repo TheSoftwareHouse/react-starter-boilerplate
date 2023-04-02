@@ -118,12 +118,12 @@ The page will reload if you make edits.<br /> You will also see any lint errors 
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.<br /> See the section about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[running tests](https://vitest.dev/guide/cli.html#vitest) for more information.
 
 ### `npm run coverage`
 
 Launches the test runner in the coverage report generation mode.<br /> See
-[this](https://create-react-app.dev/docs/running-tests/#coverage-reporting) section for more information.
+[this](https://vitest.dev/guide/coverage.html) section for more information.
 
 ### `npm run build`
 
@@ -132,4 +132,4 @@ the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br /> Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
