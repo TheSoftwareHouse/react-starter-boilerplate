@@ -2,16 +2,15 @@ import { rest as baseRest } from 'msw';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const createRestHandler = <MethodType extends keyof typeof baseRest>(
-  method: MethodType,
-): typeof baseRest[MethodType] => {
-  const wrapperFn = ((...params: Parameters<typeof baseRest[MethodType]>) => {
+type BaseRest = typeof baseRest;
+const createRestHandler = <MethodType extends keyof BaseRest>(method: MethodType): BaseRest[MethodType] => {
+  const wrapperFn = ((...params: Parameters<BaseRest[MethodType]>) => {
     const [path, resolver] = params;
 
     const url = new RegExp('^(?:[a-z+]+:)?//', 'i').test(path.toString()) ? path : `${BASE_URL}${path}`;
 
     return baseRest[method](url, resolver);
-  }) as typeof baseRest[MethodType];
+  }) as BaseRest[MethodType];
 
   return wrapperFn;
 };
