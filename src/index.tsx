@@ -12,8 +12,6 @@ const openReactQueryDevtools = import.meta.env.DEV;
 if (import.meta.env.DEV) {
   const { default: wdyr } = await import('@welldone-software/why-did-you-render');
   wdyr(React);
-
-  worker.start({ onUnhandledRequest: 'bypass' });
 }
 
 if (import.meta.env.VITE_SENTRY_DSN) {
