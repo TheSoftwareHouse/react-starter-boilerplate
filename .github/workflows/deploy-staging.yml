@@ -14,10 +14,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: Use Node.js 14.20.1
-        uses: actions/setup-node@v1
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.20.1
+          node-version: 16
       - name: Install dependencies
         run: npm ci
       - name: Build
