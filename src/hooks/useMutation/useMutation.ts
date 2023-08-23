@@ -7,8 +7,11 @@ import {
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosMutationsType, mutations } from 'api/actions';
+import { APIErrorOutput } from 'api/types/types';
 
 import { DataForMutation, GetMutationParams } from './useMutation.types';
+
+const metaConfig = { error: { showGlobalError: true, excludedCodes: [] } };
 
 /**
  * Mutating data using this hook doesn't require specifying mutation function like it is required in react-query
@@ -17,7 +20,7 @@ import { DataForMutation, GetMutationParams } from './useMutation.types';
  * @see ApiClientContextController.ts
  * */
 
-export const useMutation = <Key extends keyof AxiosMutationsType, TError = unknown>(
+export const useMutation = <Key extends keyof AxiosMutationsType, TError = APIErrorOutput>(
   mutation: Key,
   options?: UseMutationOptions<DataForMutation<Key>, TError>,
 ) => {
@@ -29,6 +32,6 @@ export const useMutation = <Key extends keyof AxiosMutationsType, TError = unkno
     mutationKey,
     async (args) => await mutationFn(args),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    options as any,
+    (options = { meta: metaConfig, ...options } as any),
   ) as UseMutationResult<DataForMutation<Key>, TError, GetMutationParams<Key>>;
 };
