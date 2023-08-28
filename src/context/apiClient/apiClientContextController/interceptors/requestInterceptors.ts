@@ -4,7 +4,8 @@ import decode from 'jwt-decode';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { RefreshMutationResponse } from 'api/actions/auth/authActions.types';
 
-export const requestSuccessInterceptor = async (config: InternalAxiosRequestConfig) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const requestSuccessInterceptor = async (config: InternalAxiosRequestConfig): Promise<any> => {
   if (authStorage.accessToken && authStorage.expires !== null) {
     const secondsSinceEpoch = Math.round(new Date().getTime() / 1000);
     const isTokenExpired = secondsSinceEpoch >= authStorage.expires;
