@@ -5,22 +5,21 @@ export const useHandleQueryErrors = () => {
   const handleErrors = (error: ClientErrorResponse) => {
     if (isServerError(error.response?.status)) {
       // show translated error message in toast/snackbar
+      // handle logger method from useLogger hook
     }
 
     if (isClientError(error.response?.status)) {
       // show translated error message in toast/snackbar
+      // handle logger method from useLogger hook
     }
   };
 
-  const shouldHandleGlobalError = (
-    { showGlobalError, excludedCodes }: ExtendedQueryMeta['error'],
-    errorCode?: string,
-  ) => {
-    if (!errorCode) {
+  const shouldHandleGlobalError = (metaError?: ExtendedQueryMeta['error'], errorCode?: string) => {
+    if (!errorCode || !metaError) {
       return false;
     }
 
-    return !showGlobalError || excludedCodes.includes(errorCode);
+    return !metaError.showGlobalError || metaError.excludedCodes.includes(errorCode);
   };
 
   return { handleErrors, shouldHandleGlobalError };
