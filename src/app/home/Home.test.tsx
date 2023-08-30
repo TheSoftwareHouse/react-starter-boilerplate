@@ -1,7 +1,11 @@
+import axiosClient from 'api/axios';
 import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { render, act, screen } from 'tests';
 
 import { Home } from './Home';
+
+const response = { status: 200, data: {} };
+jest.spyOn(axiosClient, 'get').mockResolvedValue(response);
 
 describe('Home', () => {
   test('renders heading', () => {
