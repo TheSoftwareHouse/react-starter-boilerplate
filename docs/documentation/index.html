@@ -191,6 +191,12 @@
     <h2>Mocks</h2>
     <p>If you are working on a new functionality and the backend is not ready yet, you can create a mock which will
       simulate an endpoint and return given response instead of the real one.</p>
+
+    <p> All mocks should be added under <code>src/api/mocks</code> directory, and used in the
+      <code>src/api/mocks/mock-server</code> mock server,
+      made with <a href="https://mswjs.io/" target="_blank">Mock Service Worker</a>. The mock server is enabled when <strong>NODE_ENV</strong> is not production , or when
+      <strong>VITE_CI=1</strong>.
+    </p>
     <h2>Types</h2>
     <p>If you would like to modify default <code>react-fetching-library</code> types, you can do it inside <code>src/api/types</code> directory.
       This is perfect place for extending action with additional parameters:</p>
