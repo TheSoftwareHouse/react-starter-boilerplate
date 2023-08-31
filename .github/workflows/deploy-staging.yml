@@ -14,15 +14,15 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: Use Node.js 14.15.5
-        uses: actions/setup-node@v1
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.15.5
+          node-version: 16
       - name: Install dependencies
         run: npm ci
       - name: Build
         run: npm run build
       - name: Deploy
         run: aws s3 sync ./build s3://${{ secrets.S3_BUCKET }} --delete
-      - name: Invalidate Cloudfront    
+      - name: Invalidate Cloudfront
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION }} --paths "/*"

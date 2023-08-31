@@ -1,12 +1,13 @@
 {
-  "ignorePatterns": ["src/serviceWorker.ts"],
   "extends": [
     "plugin:react-hooks/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["prettier", "import"],
+  "plugins": ["prettier", "import", "vitest", "jsx-a11y"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "warn",
@@ -48,20 +49,9 @@
   "overrides": [
     {
       "files": ["src/**/*.test.tsx"],
-      "extends": ["plugin:jest-dom/recommended", "plugin:jest/recommended", "plugin:testing-library/react"],
+      "extends": ["plugin:testing-library/react"],
       "rules": {
-        "jest/prefer-comparison-matcher": "error",
-        "jest/prefer-each": "error",
-        "jest/prefer-equality-matcher": "error",
-        "jest/prefer-to-be": "error",
-        "jest/prefer-to-contain": "error",
-        "jest/prefer-to-have-length": "error",
-        "jest/require-top-level-describe": "error",
-        "testing-library/prefer-user-event": "error",
-        "jest/consistent-test-it": ["error", { "fn": "test" }],
-        "jest/prefer-called-with": "error",
-        "jest/prefer-expect-resolves": "error",
-        "jest/prefer-spy-on": "error"
+        "testing-library/prefer-user-event": "error"
       }
     }
   ]

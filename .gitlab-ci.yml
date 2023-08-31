@@ -1,5 +1,6 @@
+# START PLAYWRIGHT SPECIFIC CONFIG
 default:
-  image: cypress/base:14.16.0
+  image: mcr.microsoft.com/playwright:v1.29.1-focal
 
 stages:
   - build
@@ -8,7 +9,6 @@ stages:
 
 variables:
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
 # cache using branch name
 # https://gitlab.com/help/ci/caching/index.md
@@ -16,9 +16,8 @@ cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .npm
-    - cache/Cypress
     - node_modules
-    - e2e/node_modules
+    - e2e-playwright/node_modules
 
 spa_test:
   stage: test
@@ -32,45 +31,138 @@ e2e_build:
   stage: build
   script:
     - cp .env.dist .env
-    - npm install
+    - npm ci
     - npm run build:ci
-    - cd e2e && npm install && cd ..
+    - cd e2e-playwright && npm install && cd ..
   artifacts:
     paths:
       - build/**
-      - e2e/node_modules/**
+      - e2e-playwright/node_modules/**
   only:
     - merge_requests
 
 e2e_chrome:
   stage: test
-  image:
-    name: cypress/included:8.7.0
-    entrypoint: ['']
+  before_script:
+    - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+    - cd e2e-playwright
   script:
-    - cp .env.e2e.dist ./e2e/.env
-    - npm install
-    - npm run e2e:ci:chrome
+    - npm run test:chrome
+  artifacts:
+    when: always
+    paths:
+      - e2e-playwright/test-report/
+      - e2e-playwright/test-results/
   only:
     - merge_requests
 
 e2e_firefox:
   stage: test
-  image:
-    name: cypress/included:8.7.0
-    entrypoint: ['']
+  before_script:
+    - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+    - cd e2e-playwright
   script:
-    - cp .env.e2e.dist ./e2e/.env
-    - npm install
-    - npm run e2e:ci:firefox
+    - npm run test:firefox
+  artifacts:
+    when: always
+    paths:
+      - e2e-playwright/test-report/
+      - e2e-playwright/test-results/
   only:
     - merge_requests
+
+e2e_safari:
+  stage: test
+  before_script:
+    - cp ./e2e-playwright/.env.dist ./e2e-playwright/.env
+    - cd e2e-playwright
+  script:
+    - npm run test:safari
+  artifacts:
+    when: always
+    paths:
+      - e2e-playwright/test-report/
+      - e2e-playwright/test-results/
+  only:
+    - merge_requests
+# END PLAYWRIGHT SPECIFIC CONFIG
+
+
+# START CYPRESS SPECIFIC CONFIG
+# default:
+#   image: cypress/base:14.16.0
+
+# stages:
+#   - build
+#   - test
+#   - deploy
+
+# variables:
+#   npm_config_cache: "$CI_PROJECT_DIR/.npm"
+#   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+# # cache using branch name
+# # https://gitlab.com/help/ci/caching/index.md
+# cache:
+#   key: ${CI_COMMIT_REF_SLUG}
+#   paths:
+#     - .npm
+#     - cache/Cypress
+#     - node_modules
+#     - e2e/node_modules
+
+# spa_test:
+#   stage: test
+#   script:
+#     - cp .env.dist .env
+#     - npm install
+#     - npm run lint
+#     - npm run coverage
+
+# e2e_build:
+#   stage: build
+#   script:
+#     - cp .env.dist .env
+#     - npm install
+#     - npm run build:ci
+#     - cd e2e && npm install && cd ..
+#   artifacts:
+#     paths:
+#       - build/**
+#       - e2e/node_modules/**
+#   only:
+#     - merge_requests
+
+# e2e_chrome:
+#   stage: test
+#   image:
+#     name: cypress/included:8.7.0
+#     entrypoint: ['']
+#   script:
+#     - cp .env.e2e.dist ./e2e/.env
+#     - npm install
+#     - npm run e2e:ci:chrome
+#   only:
+#     - merge_requests
+
+# e2e_firefox:
+#   stage: test
+#   image:
+#     name: cypress/included:8.7.0
+#     entrypoint: ['']
+#   script:
+#     - cp .env.e2e.dist ./e2e/.env
+#     - npm install
+#     - npm run e2e:ci:firefox
+#   only:
+#     - merge_requests
+# END CYPRESS SPECIFIC CONFIG
 
 deploy_to_staging:
   stage: deploy
   environment: staging
   image:
-    name: tshio/awscli-docker-compose-pipelines:0.0.3
+    name: tshio/awscli-docker-compose-pipelines:0.0.5
     entrypoint: ['']
   script:
     - npm ci

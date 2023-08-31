@@ -23,8 +23,8 @@
   <div class="container">
     <img class="logo" src="../images/react-starter-logo.png" />
     <p>
-      This project was bootstrapped with [Create React App] </br>
-      (<a href="https://github.com/facebook/create-react-app" target="_blank">https://github.com/facebook/create-react-app</a>) and
+      This project was bootstrapped with [Vite] </br>
+      (<a href="https://github.com/vitejs/vite" target="_blank">https://github.com/vitejs/vite</a>) and
       modified by TSH team.
     <p><img src="https://img.shields.io/github/stars/TheSoftwareHouse/react-starter-boilerplate?style=social"
         alt="GitHub stars"> <img
@@ -119,12 +119,12 @@
     <code>npm test</code>
     <div class="indentation">
       <p>Launches the test runner in the interactive watch mode.</br>
-        See the section about <a href="https://facebook.github.io/create-react-app/docs/running-tests" target="_blank">running tests</a> for more information.</p>
+        See the section about <a href="https://vitest.dev/guide/cli.html#vitest" target="_blank">running tests</a> for more information.</p>
     </div>
     <code>npm run coverage</code>
     <div class="indentation">
       <p>Launches the test runner in the coverage report generation mode.</br>
-        See <a href="https://create-react-app.dev/docs/running-tests/#coverage-reporting" target="_blank">this</a> section for more information.</p>
+        See <a href="https://vitest.dev/guide/coverage.html" target="_blank">this</a> section for more information.</p>
     </div>
     <code>npm run build</code>
     <div class="indentation">
@@ -134,7 +134,7 @@
       <p>The build is minified and the filenames include the hashes.</br>
         Your app is ready to be deployed!</p>
       <p>
-        See the section about <a href="https://facebook.github.io/create-react-app/docs/deployment" target="_blank">deployment</a> for more information.</p>
+        See the section about <a href="https://vitejs.dev/guide/static-deploy.html" target="_blank">deployment</a> for more information.</p>
     </div>
     <code>npm run eject</code>
     <p class="warning">Note: this is a one-way operation. Once you <code>eject</code>, you can’t go back!</p>
@@ -195,7 +195,7 @@
     <p> All mocks should be added under <code>src/api/mocks</code> directory, and used in the
       <code>src/api/mocks/mock-server</code> mock server,
       made with <a href="https://mswjs.io/" target="_blank">Mock Service Worker</a>. The mock server is enabled when <strong>NODE_ENV</strong> is not production , or when
-      <strong>REACT_APP_CI=1</strong>.
+      <strong>VITE_CI=1</strong>.
     </p>
     <h2>Types</h2>
     <p>If you would like to modify default <code>react-fetching-library</code> types, you can do it inside <code>src/api/types</code> directory.
@@ -207,14 +207,14 @@
     export type AdditionalProperties = {
       skipAuthorization?: boolean;
     };
-    
+
     export type Action<R> = BaseAction<R, AdditionalProperties>;
         </div>
       </pre>
 
     <h2>Learn More</h2>
     <p>
-      You can learn more in the <a href="https://facebook.github.io/create-react-app/docs/getting-started">Create React App documentation</a>.</br>
+      You can learn more in the <a href="https://vitejs.dev/guide/">Vite documentation</a>.</br>
       To learn React, check out the <a href="https://reactjs.org/">React documentation</a>.
     </p>
 
