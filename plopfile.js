@@ -1,12 +1,27 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const promptDirectory = require('inquirer-directory');
+const { readdirSync, lstatSync } = require('fs');
+const path = require('path');
 
 const componentTypes = {
   REACT_COMPONENT: 'React component',
   CUSTOM_HOOK: 'Custom hook',
   API_ACTIONS: 'API actions collection',
+  API_QUERY: 'API query',
   REACT_CONTEXT: 'React Context',
 };
+
+const isDirectory = (source) => lstatSync(source).isDirectory();
+
+const getDirectories = (source) =>
+  readdirSync(source)
+    .map((name) => path.join(source, name))
+    .filter(isDirectory);
+
+const NAME_REGEX = /[^\/]+$/;
+
+const apiActionCollections = getDirectories(`./src/api/actions`)
+  .map(collection => NAME_REGEX.exec(collection)[0].trimStart().trimEnd());
 
 const getPlaceholderPattern = (pattern) => new RegExp(`(\/\/ ${pattern})`, 's');
 
@@ -162,6 +177,51 @@ const apiActionsGenerator = () => ({
   },
 });
 
+const apiQueryGenerator = () => ({
+  description: componentTypes.API_QUERY,
+  prompts: [
+    {
+      type: "list",
+      name: "collection",
+      message: "API actions collection name?",
+      default: apiActionCollections[0],
+      choices: apiActionCollections.map((collection) => ({ name: collection, value: collection })),
+    },
+    {
+      type: 'input',
+      name: 'name',
+      message: 'API query action name?',
+    },
+    {
+      type: 'input',
+      name: 'path',
+      message: 'API query action path?',
+    },
+  ],
+  actions: function() {
+    return [
+      {
+        type: 'modify',
+        path: 'src/api/actions/{{collection}}/{{collection}}.types.ts',
+        pattern: getPlaceholderPattern('API_ACTION_TYPES'),
+        templateFile: 'plop-templates/apiQuery/apiQuery.types.hbs',
+      },
+      {
+        type: 'modify',
+        path: 'src/api/actions/{{collection}}/{{collection}}.queries.ts',
+        pattern: getPlaceholderPattern('QUERY_TYPE_IMPORTS'),
+        template: '{{pascalCase name}}Payload,\n\t{{pascalCase name}}Response,\n\t$1',
+      },
+      {
+        type: 'modify',
+        path: 'src/api/actions/{{collection}}/{{collection}}.queries.ts',
+        pattern: getPlaceholderPattern('QUERY_FUNCTIONS_SETUP'),
+        templateFile: 'plop-templates/apiQuery/apiQuery.hbs',
+      }
+    ]
+  }
+});
+
 const reactContextGenerator = () => ({
   description: componentTypes.REACT_CONTEXT,
   prompts: [
@@ -209,7 +269,7 @@ const reactContextGenerator = () => ({
         templateFile: 'plop-templates/context/useContext.test.hbs',
       },
     ];
-  }
+  },
 });
 
 module.exports = function(plop) {
@@ -217,5 +277,6 @@ module.exports = function(plop) {
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
   plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
+  plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator());
   plop.setGenerator(componentTypes.REACT_CONTEXT, reactContextGenerator());
 };

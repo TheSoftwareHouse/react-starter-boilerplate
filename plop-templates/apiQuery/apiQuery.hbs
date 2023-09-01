@@ -1,0 +1,4 @@
+{{camelCase name}}: (client: AxiosInstance) => async ({}: {{pascalCase name}}Payload) => {
+    return (await client.get<{{pascalCase name}}Response>(`{{path}}`)).data;
+  },
+  $1
