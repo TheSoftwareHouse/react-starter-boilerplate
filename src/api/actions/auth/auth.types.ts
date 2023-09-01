@@ -34,3 +34,5 @@ export type GetUsersInfiniteArgs = {
 export type GetUsersListArgs = {
   page?: string;
 };
+
+// API_ACTION_TYPES

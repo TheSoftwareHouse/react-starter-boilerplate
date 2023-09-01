@@ -1,4 +1,4 @@
-import { GetMeQueryResponse, LoginMutationArguments } from 'api/actions/auth/authActions.types';
+import { GetMeQueryResponse, LoginMutationArguments } from 'api/actions/auth/auth.types';
 import { AuthState } from '../authReducer/authReducer.types';
 
 export type AuthContextValue = AuthState & {
