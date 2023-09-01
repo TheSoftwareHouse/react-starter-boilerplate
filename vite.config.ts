@@ -6,7 +6,13 @@ import { configDefaults } from 'vitest/config';
 
 /* eslint-disable import/no-default-export */
 export default defineConfig({
-  plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
+  plugins: [
+    react({
+      jsxImportSource: '@welldone-software/why-did-you-render',
+    }),
+    viteTsconfigPaths(),
+    svgrPlugin(),
+  ],
   server: {
     open: true,
     port: 3000,

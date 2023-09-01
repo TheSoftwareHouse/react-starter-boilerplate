@@ -1,3 +1,4 @@
+import './wdyr';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
@@ -8,11 +9,6 @@ import { AppProviders } from 'providers/AppProviders';
 import { AppRoutes } from 'routing/AppRoutes';
 
 const openReactQueryDevtools = import.meta.env.DEV;
-
-if (import.meta.env.DEV) {
-  const { default: wdyr } = await import('@welldone-software/why-did-you-render');
-  wdyr(React);
-}
 
 if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({ dsn: import.meta.env.VITE_SENTRY_DSN });
