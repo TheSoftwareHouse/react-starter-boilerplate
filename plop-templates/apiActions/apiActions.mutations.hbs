@@ -1,0 +1,9 @@
+import { AxiosInstance } from 'axios';
+
+import { {{pascalCase name}}MutationArguments, {{pascalCase name}}MutationResponse } from './{{camelCase name}}.types';
+
+export const {{camelCase name}}Mutations = {
+  {{camelCase name}}Mutation: (client: AxiosInstance) => async (body: {{pascalCase name}}MutationArguments) => {
+    return (await client.post<{{pascalCase name}}MutationResponse>('/{{dashCase name}}', body)).data;
+  },
+};
