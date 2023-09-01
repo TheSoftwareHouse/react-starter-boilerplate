@@ -4,9 +4,11 @@ const promptDirectory = require('inquirer-directory');
 const componentTypes = {
   REACT_COMPONENT: 'React component',
   CUSTOM_HOOK: 'Custom hook',
-  API_ACTIONS: 'API actions',
+  API_ACTIONS: 'API actions collection',
   REACT_CONTEXT: 'React Context',
 };
+
+const getPlaceholderPattern = (pattern) => new RegExp(`(\/\/ ${pattern})`, 's');
 
 const customHookGenerator = () => ({
   description: componentTypes.CUSTOM_HOOK,
@@ -117,11 +119,11 @@ const apiActionsGenerator = () => ({
     {
       type: 'input',
       name: 'name',
-      message: 'action name',
+      message: 'actions collection name',
     },
   ],
   actions: function() {
-    const actions = [
+    return [
       {
         type: 'add',
         path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.mutations.ts',
@@ -140,24 +142,23 @@ const apiActionsGenerator = () => ({
       {
         type: 'modify',
         path: 'src/api/actions/index.ts',
-        pattern: 'export const queries = {',
-        templateFile: 'plop-templates/apiActions/apiActions.index.queries.hbs',
+        pattern: getPlaceholderPattern('API_COLLECTION_IMPORTS'),
+        template:
+          'import { {{camelCase name}}Mutations } from \'./{{camelCase name}}/{{camelCase name}}.mutations\';\nimport { {{camelCase name}}Queries } from \'./{{camelCase name}}/{{camelCase name}}.queries\';\n$1',
       },
       {
         type: 'modify',
         path: 'src/api/actions/index.ts',
-        pattern: 'export const mutations = {',
-        templateFile: 'plop-templates/apiActions/apiActions.index.mutations.hbs',
+        pattern: getPlaceholderPattern('API_COLLECTION_QUERIES'),
+        template: '...{{camelCase name}}Queries,\n\t$1',
       },
       {
         type: 'modify',
         path: 'src/api/actions/index.ts',
-        pattern: 'import',
-        templateFile: 'plop-templates/apiActions/apiActions.index.imports.hbs',
+        pattern: getPlaceholderPattern('API_COLLECTION_MUTATIONS'),
+        template: '...{{camelCase name}}Mutations,\n\t$1',
       },
     ];
-
-    return actions;
   },
 });
 
