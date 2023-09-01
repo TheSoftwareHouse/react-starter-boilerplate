@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 
 import { {{camelCase name}} } from './{{camelCase name}}';
 
@@ -6,6 +6,6 @@ describe('{{camelCase name}}', () => {
   test('returns a value', async () => {
     const { result } = renderHook(() => {{camelCase name}}());
 
-    expect(result.current).toEqual('1');
+    expect(result.current).toBe('1');
   });
 });
