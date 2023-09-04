@@ -1,14 +1,12 @@
-import { render } from 'tests';
+import { render, screen } from 'tests';
 
 import { {{pascalCase name}} } from './{{pascalCase name}}';
 
 describe('{{pascalCase name}}', () => {
   test('renders', () => {
-    const { getByText } = render(
-      <{{pascalCase name}} />,
-    );
+    render(<{{pascalCase name}} />);
 
-    const element = getByText('{{pascalCase name}}');
+    const element = screen.getByText('{{pascalCase name}}');
 
     expect(element).toBeInTheDocument();
   });

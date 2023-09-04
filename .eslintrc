@@ -4,9 +4,10 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["prettier", "import", "vitest"],
+  "plugins": ["prettier", "import", "vitest", "jsx-a11y"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "warn",
