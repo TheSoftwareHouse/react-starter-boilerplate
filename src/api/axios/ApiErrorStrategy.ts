@@ -2,29 +2,23 @@ import { AxiosError } from 'axios';
 
 import { APIErrorOutput, ApiErrorHandlerOptions, ErrorHandlingStrategy } from 'api/types/types';
 
-export class ErrorResponseStrategy implements ErrorHandlingStrategy {
+export class ErrorDefaultStrategy implements ErrorHandlingStrategy<AxiosError> {
+  getErrorObject(error: AxiosError) {
+    return error;
+  }
+}
+
+export class ErrorResponseStrategy implements ErrorHandlingStrategy<AxiosError['response']> {
   getErrorObject(error: AxiosError) {
     return error.response;
   }
 }
 
-export class ErrorDataStrategy implements ErrorHandlingStrategy {
-  getErrorObject(error: AxiosError) {
-    return error.response?.data;
-  }
-}
-
-export class ErrorDetailsStrategy implements ErrorHandlingStrategy {
-  getErrorObject(error: AxiosError<{ error: unknown }>) {
-    return error.response?.data?.error;
-  }
-}
-
 export class ApiErrorHandler {
-  private strategy: ErrorHandlingStrategy;
+  private strategy: ErrorDefaultStrategy;
   private defaultErrorStatus: ApiErrorHandlerOptions['defaultErrorStatus'];
 
-  constructor(strategy: ErrorHandlingStrategy) {
+  constructor(strategy: ErrorHandlingStrategy<AxiosError>) {
     this.strategy = strategy;
     this.defaultErrorStatus = 500;
   }
@@ -42,3 +36,6 @@ export class ApiErrorHandler {
     return this.narrowErrorData(errorData || error);
   }
 }
+
+const errorResponseStrategy = new ErrorDefaultStrategy();
+export const responseErrorHandler = new ApiErrorHandler(errorResponseStrategy);

@@ -1,3 +1,4 @@
+import { ErrorLoggerEvent } from '../Logger.types';
 import { Environment } from '../loggerContextController/LoggerContextController.types';
 
 export type LoggerConfig = {
@@ -8,9 +9,9 @@ export type LoggerConfig = {
 
 export interface LoggerProps {
   initialize: (config: LoggerConfig) => void;
-  error?: (messageData: unknown) => void;
-  info?: (messageData: unknown) => void;
-  debug?: (messageData: unknown) => void;
-  trace?: (messageData: unknown) => void;
-  warn?: (messageData: unknown) => void;
+  error?: ErrorLoggerEvent;
+  info?: ErrorLoggerEvent;
+  debug?: ErrorLoggerEvent;
+  trace?: ErrorLoggerEvent;
+  warn?: ErrorLoggerEvent;
 }

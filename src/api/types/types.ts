@@ -35,9 +35,8 @@ export type ExtendedAxiosRequestConfig = AxiosRequestConfig & {
   _retry?: boolean;
 };
 
-export interface ErrorHandlingStrategy {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getErrorObject(error: AxiosError): any;
+export interface ErrorHandlingStrategy<T> {
+  getErrorObject(error: AxiosError): T;
 }
 
 export interface ApiErrorHandlerOptions {

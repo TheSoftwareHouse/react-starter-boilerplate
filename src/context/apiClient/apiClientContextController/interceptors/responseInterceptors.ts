@@ -4,10 +4,7 @@ import decode from 'jwt-decode';
 import { RefreshMutationResponse } from 'api/actions/auth/authActions.types';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { APIErrorOutput, ExtendedAxiosRequestConfig } from 'api/types/types';
-import { ErrorDataStrategy, ApiErrorHandler } from 'api/axios/ApiErrorStrategy';
-
-const errorResponseStrategy = new ErrorDataStrategy();
-const responseErrorHandler = new ApiErrorHandler(errorResponseStrategy);
+import { responseErrorHandler } from 'api/axios/ApiErrorStrategy';
 
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
