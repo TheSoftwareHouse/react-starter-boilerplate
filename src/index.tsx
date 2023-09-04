@@ -3,6 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/browser';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { HttpClient as HttpClientIntegration, CaptureConsole } from '@sentry/integrations';
 import { BrowserTracing } from '@sentry/browser';
 
 import 'assets/styles/main.css';
@@ -16,7 +17,14 @@ if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
 
-    integrations: [new BrowserTracing()],
+    integrations: [
+      new HttpClientIntegration({
+        failedRequestStatusCodes: [[400, 599]],
+        failedRequestTargets: [/.*/],
+      }),
+      new CaptureConsole(),
+      new BrowserTracing(),
+    ],
     tracesSampleRate: 1.0,
   });
 }
