@@ -1,0 +1,16 @@
+import { render, screen } from 'tests';
+
+import { {{pascalCase name}}Context } from './{{pascalCase name}}Context';
+
+describe('{{pascalCase name}}Context', () => {
+  test('is undefined by default', () => {
+    render(
+      <{{pascalCase name}}Context.Consumer>
+        {(context) => <div title="CONTEXT">{typeof context}</div>}
+      </{{pascalCase name}}Context.Consumer>,
+      { wrapper: ({ children }) => <>{children}</> },
+    );
+
+    expect(screen.getByTitle(/CONTEXT/)).toHaveTextContent('undefined');
+  });
+});
