@@ -16,6 +16,9 @@ export class ErrorDefaultStrategy implements ErrorHandlingStrategy<AxiosError, A
       status: error.status,
       code: error.code,
       message: error.message,
+      originalError: {
+        ...error,
+      },
     };
   }
 }

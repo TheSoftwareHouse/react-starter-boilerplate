@@ -12,9 +12,8 @@ export const responseFailureInterceptor = async (error: AxiosError): Promise<API
   const getErrorResponse = responseErrorHandler.narrowData(error);
   const status = getErrorResponse.status || 500;
   const errorData = {
+    ...getErrorResponse,
     status,
-    code: getErrorResponse.code,
-    message: getErrorResponse.message,
   };
 
   const originalRequest = error.config as ExtendedAxiosRequestConfig;

@@ -23,7 +23,7 @@ export type DataForQuery<TQueryKey extends keyof AxiosQueriesType> = Unwrap<
 
 export type ArgsForQuery<TQueryKey extends keyof AxiosQueriesType> = GetQueryParams<TQueryKey>;
 
-export type APIErrorOutput = Pick<AxiosError, 'code' | 'message' | 'status'>;
+export type APIErrorOutput = Pick<AxiosError, 'code' | 'message' | 'status'> & { originalError: AxiosError };
 
 export type ClientErrorResponse<TErrorData = APIErrorOutput> = AxiosError<TErrorData, unknown>;
 
