@@ -5,6 +5,7 @@ const componentTypes = {
   REACT_COMPONENT: 'React component',
   CUSTOM_HOOK: 'Custom hook',
   API_ACTIONS: 'API actions',
+  REACT_CONTEXT: 'React Context',
 };
 
 const customHookGenerator = () => ({
@@ -160,9 +161,52 @@ const apiActionsGenerator = () => ({
   },
 });
 
+const reactContextGenerator = () => (
+  {
+    description: componentTypes.REACT_CONTEXT,
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'context name',
+      }
+    ],
+    actions: function() {
+      return [
+        {
+          type: 'add',
+          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
+          templateFile: 'plop-templates/context/Context.hbs',
+        },
+        {
+          type: 'add',
+          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
+          templateFile: 'plop-templates/context/Context.types.hbs',
+        },
+        {
+          type: 'add',
+          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
+          templateFile: 'plop-templates/context/Context.test.hbs',
+        },
+        {
+          type: 'add',
+          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
+          templateFile: 'plop-templates/context/ContextController.hbs',
+        },
+        {
+          type: 'add',
+          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
+          templateFile: 'plop-templates/context/ContextController.types.hbs',
+        },
+      ];
+    }
+  }
+);
+
 module.exports = function(plop) {
   plop.setPrompt('directory', promptDirectory);
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
   plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
+  plop.setGenerator(componentTypes.REACT_CONTEXT, reactContextGenerator());
 };
