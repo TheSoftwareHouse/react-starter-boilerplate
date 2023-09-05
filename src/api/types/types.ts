@@ -35,8 +35,10 @@ export type ExtendedAxiosRequestConfig = AxiosRequestConfig & {
   _retry?: boolean;
 };
 
-export interface ErrorHandlingStrategy<T> {
-  getErrorObject(error: AxiosError): T;
+export interface ErrorHandlingStrategy<T, D> {
+  getBaseErrorObject(error: T): T;
+  getErrorObject(error: T): D;
+  narrowErrorData(error: T): APIErrorOutput;
 }
 
 export interface ApiErrorHandlerOptions {

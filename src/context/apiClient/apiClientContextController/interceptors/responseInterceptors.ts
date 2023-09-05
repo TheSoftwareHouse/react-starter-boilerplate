@@ -9,7 +9,7 @@ import { responseErrorHandler } from 'api/axios/ApiErrorStrategy';
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
 export const responseFailureInterceptor = async (error: AxiosError): Promise<APIErrorOutput> => {
-  const getErrorResponse = responseErrorHandler.handleError(error);
+  const getErrorResponse = responseErrorHandler.narrowData(error);
   const status = getErrorResponse.status || 500;
   const errorData = {
     status,

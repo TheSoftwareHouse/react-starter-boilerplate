@@ -1,39 +1,42 @@
 import { AxiosError } from 'axios';
 
-import { APIErrorOutput, ApiErrorHandlerOptions, ErrorHandlingStrategy } from 'api/types/types';
+import { APIErrorOutput, ErrorHandlingStrategy } from 'api/types/types';
 
-export class ErrorDefaultStrategy implements ErrorHandlingStrategy<AxiosError> {
-  getErrorObject(error: AxiosError) {
+export class ErrorDefaultStrategy implements ErrorHandlingStrategy<AxiosError, AxiosError['response']> {
+  getBaseErrorObject(error: AxiosError) {
     return error;
   }
-}
 
-export class ErrorResponseStrategy implements ErrorHandlingStrategy<AxiosError['response']> {
-  getErrorObject(error: AxiosError) {
-    return error.response;
-  }
-}
-
-export class ApiErrorHandler {
-  private strategy: ErrorDefaultStrategy;
-  private defaultErrorStatus: ApiErrorHandlerOptions['defaultErrorStatus'];
-
-  constructor(strategy: ErrorHandlingStrategy<AxiosError>) {
-    this.strategy = strategy;
-    this.defaultErrorStatus = 500;
+  getErrorObject(error: AxiosError): AxiosError['response'] {
+    return error?.response;
   }
 
   narrowErrorData(error: AxiosError): APIErrorOutput {
     return {
-      status: error.status || this.defaultErrorStatus,
+      status: error.status,
       code: error.code,
       message: error.message,
     };
   }
+}
 
-  handleError(error: AxiosError): APIErrorOutput {
-    const errorData = this.strategy.getErrorObject(error);
-    return this.narrowErrorData(errorData || error);
+export class ApiErrorHandler<T, D> {
+  private strategy: ErrorHandlingStrategy<T, D>;
+
+  constructor(strategy: ErrorHandlingStrategy<T, D>) {
+    this.strategy = strategy;
+  }
+
+  getBaseErrorObject(error: T) {
+    return this.strategy.getBaseErrorObject(error);
+  }
+
+  getErrorObject(error: T) {
+    return this.strategy.getErrorObject(error);
+  }
+
+  narrowData(error: T) {
+    return this.strategy.narrowErrorData(error);
   }
 }
 
