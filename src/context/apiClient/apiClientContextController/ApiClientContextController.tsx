@@ -9,6 +9,8 @@ import { ClientErrorResponse, ExtendedQueryMeta } from 'api/types/types';
 
 import { ApiClientControllerProps } from './ApiClientContextController.types';
 
+const metaErrorConfig = { error: { showGlobalError: true, excludedCodes: [] } };
+
 export const ApiClientContextController = ({ children }: ApiClientControllerProps) => {
   const { handleErrors, shouldHandleGlobalError } = useHandleQueryErrors();
 
@@ -28,7 +30,7 @@ export const ApiClientContextController = ({ children }: ApiClientControllerProp
   const queryClient = useMemo(
     () =>
       new QueryClient({
-        defaultOptions: { queries: { refetchOnWindowFocus: false } },
+        defaultOptions: { queries: { refetchOnWindowFocus: false, meta: metaErrorConfig } },
         mutationCache,
         queryCache,
       }),
