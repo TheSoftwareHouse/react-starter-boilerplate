@@ -1,7 +1,10 @@
+import { {{pascalCase name}}ContextValue } from '../{{camelCase name}}Context/{{pascalCase name}}Context.types';
 import { {{pascalCase name}}Context } from '../{{camelCase name}}Context/{{pascalCase name}}Context';
 
 import { {{pascalCase name}}ContextControllerProps } from './{{pascalCase name}}ContextController.types';
 
 export const {{pascalCase name}}ContextController = ({ children }: {{pascalCase name}}ContextControllerProps) => {
-  return <{{pascalCase name}}Context.Provider value={undefined}>{children}</{{pascalCase name}}Context.Provider>;
+  const value: {{pascalCase name}}ContextValue = {};
+
+  return <{{pascalCase name}}Context.Provider value={value}>{children}</{{pascalCase name}}Context.Provider>;
 }
