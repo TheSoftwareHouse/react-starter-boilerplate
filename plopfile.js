@@ -161,47 +161,55 @@ const apiActionsGenerator = () => ({
   },
 });
 
-const reactContextGenerator = () => (
-  {
-    description: componentTypes.REACT_CONTEXT,
-    prompts: [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'context name',
-      }
-    ],
-    actions: function() {
-      return [
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
-          templateFile: 'plop-templates/context/Context.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
-          templateFile: 'plop-templates/context/Context.types.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
-          templateFile: 'plop-templates/context/Context.test.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
-          templateFile: 'plop-templates/context/ContextController.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
-          templateFile: 'plop-templates/context/ContextController.types.hbs',
-        },
-      ];
+const reactContextGenerator = () => ({
+  description: componentTypes.REACT_CONTEXT,
+  prompts: [
+    {
+      type: 'input',
+      name: 'name',
+      message: 'context name',
     }
+  ],
+  actions: function() {
+    return [
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
+        templateFile: 'plop-templates/context/Context.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
+        templateFile: 'plop-templates/context/Context.types.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
+        templateFile: 'plop-templates/context/Context.test.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
+        templateFile: 'plop-templates/context/ContextController.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
+        templateFile: 'plop-templates/context/ContextController.types.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.ts',
+        templateFile: 'plop-templates/context/useContext.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.test.tsx',
+        templateFile: 'plop-templates/context/useContext.test.hbs',
+      },
+    ];
   }
-);
+});
 
 module.exports = function(plop) {
   plop.setPrompt('directory', promptDirectory);

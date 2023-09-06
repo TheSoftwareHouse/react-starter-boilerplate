@@ -1,0 +1,13 @@
+import { useContext } from 'react';
+
+import { {{pascalCase name}}Context } from 'context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context';
+
+export const use{{pascalCase name}} = () => {
+  const context = useContext({{pascalCase name}}Context);
+
+  if (context === undefined) {
+    throw new Error('{{pascalCase name}}Context must be within {{pascalCase name}}Provider');
+  }
+
+  return context;
+};

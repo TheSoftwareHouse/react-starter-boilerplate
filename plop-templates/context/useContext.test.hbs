@@ -1,0 +1,26 @@
+import { renderHook } from 'tests';
+import { {{pascalCase name}}ContextController } from 'context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController';
+
+import { use{{pascalCase name}} } from './use{{pascalCase name}}';
+
+describe('use{{pascalCase name}}', () => {
+  test('throws error when context is unavailable', () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    const renderFn = () => renderHook(() => use{{pascalCase name}}());
+
+    expect(renderFn).toThrow('{{pascalCase name}}Context must be within {{pascalCase name}}Provider');
+  });
+
+  test('returns state when context is available', () => {
+    const { result } = renderHook(() => use{{pascalCase name}}(), {
+      wrapper: ({ children }) => (
+        <{{pascalCase name}}ContextController>
+          <>{children}</>
+        </{{pascalCase name}}ContextController>
+      ),
+    });
+
+    expect(result.current).toStrictEqual({});
+  });
+});
