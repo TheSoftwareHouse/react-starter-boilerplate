@@ -11,7 +11,7 @@ import { APIErrorOutput } from 'api/types/types';
 
 import { DataForMutation, GetMutationParams } from './useMutation.types';
 
-const metaConfig = { error: { showGlobalError: true, excludedCodes: [] } };
+const meta = { error: { showGlobalError: true, excludedCodes: [] } };
 
 /**
  * Mutating data using this hook doesn't require specifying mutation function like it is required in react-query
@@ -32,6 +32,6 @@ export const useMutation = <Key extends keyof AxiosMutationsType, TError = APIEr
     mutationKey,
     async (args) => await mutationFn(args),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (options = { meta: metaConfig, ...options } as any),
+    { options, meta } as any,
   ) as UseMutationResult<DataForMutation<Key>, TError, GetMutationParams<Key>>;
 };

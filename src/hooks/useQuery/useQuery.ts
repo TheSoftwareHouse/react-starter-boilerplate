@@ -5,7 +5,7 @@ import { AxiosQueriesType, queries } from 'api/actions';
 import { APIErrorOutput, DataForQuery, GetQueryParams } from 'api/types/types';
 import { parseQueryKey } from 'utils/parseQueryKey';
 
-const metaConfig = { error: { showGlobalError: true, excludedCodes: [] } };
+const meta = { error: { showGlobalError: true, excludedCodes: [] } };
 
 export const useQuery = <Key extends keyof AxiosQueriesType, TError = APIErrorOutput>(
   query: Key,
@@ -16,12 +16,11 @@ export const useQuery = <Key extends keyof AxiosQueriesType, TError = APIErrorOu
   const queryFn = queries[query](client);
   const queryKey: QueryKey = parseQueryKey(query, args);
 
-  const result = useRQQuery(
-    queryKey,
-    async () => await queryFn(args),
-    // eslint-disable-next-line
-    (options = { meta: metaConfig, ...options } as any),
-  ) as UseQueryResult<DataForQuery<Key>, TError>;
+  const result = useRQQuery(queryKey, async () => await queryFn(args), {
+    options,
+    meta,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any) as UseQueryResult<DataForQuery<Key>, TError>;
 
   return { ...result, isLoadingAndEnabled: result.isLoading && result.fetchStatus !== 'idle' };
 };

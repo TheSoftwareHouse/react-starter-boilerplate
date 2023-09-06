@@ -14,13 +14,13 @@ export const ApiClientContextController = ({ children }: ApiClientControllerProp
 
   const mutationCache = new MutationCache({
     onError: (error, variables, context, mutation) => {
-      shouldHandleGlobalError((mutation.meta as ExtendedQueryMeta).error, (error as ClientErrorResponse)?.code) &&
+      shouldHandleGlobalError((mutation.meta as ExtendedQueryMeta)?.error, (error as ClientErrorResponse)?.code) &&
         handleErrors(error as ClientErrorResponse);
     },
   });
   const queryCache = new QueryCache({
     onError: (error, query) => {
-      shouldHandleGlobalError((query.meta as ExtendedQueryMeta).error, (error as ClientErrorResponse)?.code) &&
+      shouldHandleGlobalError((query.meta as ExtendedQueryMeta)?.error, (error as ClientErrorResponse)?.code) &&
         handleErrors(error as ClientErrorResponse);
     },
   });

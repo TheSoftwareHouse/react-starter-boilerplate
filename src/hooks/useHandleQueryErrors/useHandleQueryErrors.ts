@@ -3,12 +3,12 @@ import { isClientError, isServerError } from 'hooks/useQuery/useQuery.utils';
 
 export const useHandleQueryErrors = () => {
   const handleErrors = (error: ClientErrorResponse) => {
-    if (isServerError(error.response?.status)) {
+    if (isServerError(error.status)) {
       // show translated error message in toast/snackbar
       // handle logger method from useLogger hook
     }
 
-    if (isClientError(error.response?.status)) {
+    if (isClientError(error.status)) {
       // show translated error message in toast/snackbar
       // handle logger method from useLogger hook
     }
