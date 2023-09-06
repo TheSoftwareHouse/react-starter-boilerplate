@@ -39,6 +39,7 @@ const customHookGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'hook name',
+
     },
   ],
   actions: function() {
@@ -166,19 +167,19 @@ const apiActionsGenerator = () => ({
         type: 'modify',
         path: 'src/api/actions/index.ts',
         pattern: getPlaceholderPattern('API_COLLECTION_QUERIES'),
-        template: '...{{camelCase name}}Queries,\n\t$1',
+        template: '...{{camelCase name}}Queries,\n  $1',
       },
       {
         type: 'modify',
         path: 'src/api/actions/index.ts',
         pattern: getPlaceholderPattern('API_COLLECTION_MUTATIONS'),
-        template: '...{{camelCase name}}Mutations,\n\t$1',
+        template: '...{{camelCase name}}Mutations,\n  $1',
       },
     ];
   },
 });
 
-const apiQueryGenerator = () => ({
+const apiQueryGenerator = (toKebabCase) => ({
   description: componentTypes.API_QUERY,
   prompts: [
     {
@@ -197,6 +198,7 @@ const apiQueryGenerator = () => ({
       type: 'input',
       name: 'path',
       message: 'API query action path?',
+      default: (answers) => `/${answers.collection}/${toKebabCase(answers.name)}`,
     },
   ],
   actions: function() {
@@ -211,7 +213,7 @@ const apiQueryGenerator = () => ({
         type: 'modify',
         path: 'src/api/actions/{{collection}}/{{collection}}.queries.ts',
         pattern: getPlaceholderPattern('QUERY_TYPE_IMPORTS'),
-        template: '{{pascalCase name}}Payload,\n\t{{pascalCase name}}Response,\n\t$1',
+        template: '{{pascalCase name}}Payload,\n  {{pascalCase name}}Response,\n  $1',
       },
       {
         type: 'modify',
@@ -223,7 +225,7 @@ const apiQueryGenerator = () => ({
   }
 });
 
-const apiMutationGenerator = () => ({
+const apiMutationGenerator = (toKebabCase) => ({
   description: componentTypes.API_MUTATION,
   prompts: [
     {
@@ -242,6 +244,7 @@ const apiMutationGenerator = () => ({
       type: 'input',
       name: 'path',
       message: 'API query action path?',
+      default: (answers) => `/${answers.collection}/${toKebabCase(answers.name)}`,
     },
     {
       type: "list",
@@ -268,7 +271,7 @@ const apiMutationGenerator = () => ({
         type: 'modify',
         path: 'src/api/actions/{{collection}}/{{collection}}.mutations.ts',
         pattern: getPlaceholderPattern('MUTATION_TYPE_IMPORTS'),
-        template: '{{pascalCase name}}Payload,\n\t{{pascalCase name}}Response,\n\t$1',
+        template: '{{pascalCase name}}Payload,\n  {{pascalCase name}}Response,\n  $1',
       },
       {
         type: 'modify',
@@ -333,11 +336,13 @@ const reactContextGenerator = () => (
 );
 
 module.exports = function(plop) {
+  const toKebabCase = plop.getHelper('kebabCase');
+
   plop.setPrompt('directory', promptDirectory);
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
   plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
-  plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator());
-  plop.setGenerator(componentTypes.API_MUTATION, apiMutationGenerator());
+  plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator(toKebabCase));
+  plop.setGenerator(componentTypes.API_MUTATION, apiMutationGenerator(toKebabCase));
   plop.setGenerator(componentTypes.REACT_CONTEXT, reactContextGenerator());
 };
