@@ -34,13 +34,3 @@ export type ExtendedQueryMeta = QueryMeta & {
 export type ExtendedAxiosRequestConfig = AxiosRequestConfig & {
   _retry?: boolean;
 };
-
-export interface ErrorHandlingStrategy<T, D> {
-  getBaseErrorObject(error: T): T;
-  getErrorObject(error: T): D;
-  narrowErrorData(error: T): APIErrorOutput;
-}
-
-export interface ApiErrorHandlerOptions {
-  defaultErrorStatus: number;
-}

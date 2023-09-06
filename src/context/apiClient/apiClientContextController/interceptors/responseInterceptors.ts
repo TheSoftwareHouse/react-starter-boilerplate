@@ -4,12 +4,12 @@ import decode from 'jwt-decode';
 import { RefreshMutationResponse } from 'api/actions/auth/authActions.types';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { APIErrorOutput, ExtendedAxiosRequestConfig } from 'api/types/types';
-import { responseErrorHandler } from 'api/axios/ApiErrorStrategy';
+import { narrowErrorData } from 'api/axios/narrowErrorData';
 
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
 export const responseFailureInterceptor = async (error: AxiosError): Promise<APIErrorOutput> => {
-  const getErrorResponse = responseErrorHandler.narrowData(error);
+  const getErrorResponse = narrowErrorData(error);
   const status = getErrorResponse.status || 500;
   const errorData = {
     ...getErrorResponse,
