@@ -2,10 +2,10 @@ import { QueryKey, UseQueryResult, UseQueryOptions, useQuery as useRQQuery } fro
 
 import { useApiClient } from '../useApiClient/useApiClient';
 import { AxiosQueriesType, queries } from 'api/actions';
-import { DataForQuery, GetQueryParams } from 'api/types/types';
+import { APIErrorOutput, DataForQuery, GetQueryParams } from 'api/types/types';
 import { parseQueryKey } from 'utils/parseQueryKey';
 
-export const useQuery = <Key extends keyof AxiosQueriesType, TError = unknown>(
+export const useQuery = <Key extends keyof AxiosQueriesType, TError = APIErrorOutput>(
   query: Key,
   args: GetQueryParams<Key>,
   options?: UseQueryOptions<DataForQuery<Key>, TError>,
@@ -17,9 +17,8 @@ export const useQuery = <Key extends keyof AxiosQueriesType, TError = unknown>(
   const result = useRQQuery(
     queryKey,
     async () => await queryFn(args),
-    // eslint-disable-next-line
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     options as any,
   ) as UseQueryResult<DataForQuery<Key>, TError>;
-
   return { ...result, isLoadingAndEnabled: result.isLoading && result.fetchStatus !== 'idle' };
 };

@@ -34,3 +34,8 @@ export type GetUsersInfiniteArgs = {
 export type GetUsersListArgs = {
   page?: string;
 };
+
+export type RefreshMutationResponse = {
+  accessToken: string;
+  refreshToken: string;
+};
