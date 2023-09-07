@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
-import { AxiosQueriesType, queries } from 'api/actions';
+import { AxiosInfiniteQueriesType, queries } from 'api/actions';
 import { DataForQuery, GetQueryParams } from 'api/types/types';
 
 /**
@@ -17,7 +17,7 @@ import { DataForQuery, GetQueryParams } from 'api/types/types';
  * This hook uses proper querying strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
-export const useInfiniteQuery = <Key extends keyof AxiosQueriesType, TError = unknown>(
+export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = unknown>(
   query: Key,
   args?: GetQueryParams<Key>,
   options?: UseInfiniteQueryOptions<DataForQuery<Key>, TError>,
