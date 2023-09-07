@@ -7,6 +7,8 @@ export const queries = {
 
 export type AxiosQueriesType = typeof queries;
 
+export type AxiosInfiniteQueriesType = Pick<AxiosQueriesType, 'getUsersInfinite'>;
+
 export const mutations = {
   ...authMutations,
 } as const;
