@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios';
 
-import { Get{{pascalCase name}}QueryResponse } from './{{camelCase name}}.types';
+import {
+  // QUERY_TYPE_IMPORTS
+} from './{{camelCase name}}.types';
 
 export const {{camelCase name}}Queries = {
-  get{{pascalCase name}}: (client: AxiosInstance) => async () => {
-    return (await client.get<Get{{pascalCase name}}QueryResponse>('/{{dashCase name}}')).data;
-  },
+  // QUERY_FUNCTIONS_SETUP
 };
