@@ -4,7 +4,9 @@ const { readdirSync, lstatSync } = require('fs');
 const path = require('path');
 
 const componentTypes = {
-  REACT_COMPONENT: 'React component',
+  REACT_COMPONENT: 'React app component',
+  REACT_CONTAINER_COMPONENT: 'React app component with container',
+  REACT_UI_COMPONENT: 'React UI component',
   CUSTOM_HOOK: 'Custom hook',
   API_ACTIONS: 'API actions collection',
   API_QUERY: 'API query',
@@ -30,12 +32,6 @@ const customHookGenerator = () => ({
   description: componentTypes.CUSTOM_HOOK,
   prompts: [
     {
-      type: 'directory',
-      name: 'directory',
-      message: 'select directory',
-      basePath: './src/hooks',
-    },
-    {
       type: 'input',
       name: 'name',
       message: 'hook name',
@@ -43,15 +39,15 @@ const customHookGenerator = () => ({
     },
   ],
   actions: function() {
-    const actions = [
+    return [
       {
         type: 'add',
-        path: 'src/hooks/{{directory}}/{{camelCase name}}/{{camelCase name}}.tsx',
+        path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.tsx',
         templateFile: 'plop-templates/hook/hook.hbs',
       },
       {
         type: 'add',
-        path: 'src/hooks/{{directory}}/{{camelCase name}}/{{camelCase name}}.test.tsx',
+        path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.test.tsx',
         templateFile: 'plop-templates/hook/hook.test.hbs',
       },
       {
@@ -61,8 +57,6 @@ const customHookGenerator = () => ({
         templateFile: 'plop-templates/hook/hook.index.hbs',
       },
     ];
-
-    return actions;
   },
 });
 
@@ -70,19 +64,41 @@ const reactComponentGenerator = () => ({
   description: componentTypes.REACT_COMPONENT,
   prompts: [
     {
-      type: 'list',
-      name: 'baseDir',
-      message: 'base directory',
-      choices: ['ui', 'app'],
-      default: 1,
-    },
-    {
       type: 'directory',
       name: 'directory',
       message: 'select directory',
-      basePath: './src/ui',
-      when: answers => answers.baseDir === 'ui',
+      basePath: './src/app',
     },
+    {
+      type: 'input',
+      name: 'name',
+      message: 'component name',
+    },
+  ],
+  actions: function() {
+    return [
+      {
+        type: 'add',
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
+        templateFile: 'plop-templates/component/Component.hbs',
+      },
+      {
+        type: 'add',
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
+        templateFile: 'plop-templates/component/Component.test.hbs',
+      },
+      {
+        type: 'add',
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
+        templateFile: 'plop-templates/component/Component.types.hbs',
+      },
+    ];
+  },
+});
+
+const reactContainerComponentGenerator = () => ({
+  description: componentTypes.REACT_CONTAINER_COMPONENT,
+  prompts: [
     {
       type: 'directory',
       name: 'directory',
@@ -96,21 +112,56 @@ const reactComponentGenerator = () => ({
       message: 'component name',
     },
   ],
-  actions: function(data) {
-    const actions = [
+  actions: function() {
+    return [
       {
         type: 'add',
-        path: `src/${data.baseDir}/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
         templateFile: 'plop-templates/component/Component.hbs',
       },
       {
         type: 'add',
-        path: `src/${data.baseDir}/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
         templateFile: 'plop-templates/component/Component.test.hbs',
       },
       {
         type: 'add',
-        path: `src/${data.baseDir}/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}Container.tsx`,
+        templateFile: 'plop-templates/component/Container.hbs',
+      },
+      {
+        type: 'add',
+        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
+        templateFile: 'plop-templates/component/ContainerComponent.types.hbs',
+      },
+    ];
+  }
+});
+
+const reactUiComponentGenerator = () => ({
+  description: componentTypes.REACT_UI_COMPONENT,
+  prompts: [
+    {
+      type: 'input',
+      name: 'name',
+      message: 'component name',
+    },
+  ],
+  actions: function() {
+    return [
+      {
+        type: 'add',
+        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.tsx`,
+        templateFile: 'plop-templates/component/Component.hbs',
+      },
+      {
+        type: 'add',
+        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
+        templateFile: 'plop-templates/component/Component.test.hbs',
+      },
+      {
+        type: 'add',
+        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.types.ts`,
         templateFile: 'plop-templates/component/Component.types.hbs',
       },
       {
@@ -118,15 +169,8 @@ const reactComponentGenerator = () => ({
         path: 'src/ui/index.ts',
         pattern: 'export',
         templateFile: 'plop-templates/component/Component.index.hbs',
-        skip() {
-          if (data.baseDir !== 'ui') {
-            return 'Skipped adding export to src/ui/index.ts';
-          }
-        },
       },
     ];
-
-    return actions;
   },
 });
 
@@ -283,63 +327,63 @@ const apiMutationGenerator = (toKebabCase) => ({
   }
 });
 
-const reactContextGenerator = () => (
-  {
-    description: componentTypes.REACT_CONTEXT,
-    prompts: [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'context name',
-      }
-    ],
-    actions: function() {
-      return [
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
-          templateFile: 'plop-templates/context/Context.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
-          templateFile: 'plop-templates/context/Context.types.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
-          templateFile: 'plop-templates/context/Context.test.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
-          templateFile: 'plop-templates/context/ContextController.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
-          templateFile: 'plop-templates/context/ContextController.types.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.ts',
-          templateFile: 'plop-templates/context/useContext.hbs',
-        },
-        {
-          type: 'add',
-          path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.test.tsx',
-          templateFile: 'plop-templates/context/useContext.test.hbs',
-        },
-      ];
+const reactContextGenerator = () => ({
+  description: componentTypes.REACT_CONTEXT,
+  prompts: [
+    {
+      type: 'input',
+      name: 'name',
+      message: 'context name',
     }
+  ],
+  actions: function() {
+    return [
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
+        templateFile: 'plop-templates/context/Context.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
+        templateFile: 'plop-templates/context/Context.types.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
+        templateFile: 'plop-templates/context/Context.test.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
+        templateFile: 'plop-templates/context/ContextController.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
+        templateFile: 'plop-templates/context/ContextController.types.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.ts',
+        templateFile: 'plop-templates/context/useContext.hbs',
+      },
+      {
+        type: 'add',
+        path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.test.tsx',
+        templateFile: 'plop-templates/context/useContext.test.hbs',
+      },
+    ];
   }
-);
+});
 
 module.exports = function(plop) {
   const toKebabCase = plop.getHelper('kebabCase');
 
   plop.setPrompt('directory', promptDirectory);
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
+  plop.setGenerator(componentTypes.REACT_CONTAINER_COMPONENT, reactContainerComponentGenerator());
+  plop.setGenerator(componentTypes.REACT_UI_COMPONENT, reactUiComponentGenerator());
   plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
   plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator(toKebabCase));
