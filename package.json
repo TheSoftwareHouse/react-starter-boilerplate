@@ -62,11 +62,9 @@
     "@tanstack/react-query-devtools": "4.29.1",
     "axios": "1.3.5",
     "clsx": "1.2.1",
-    "ky": "1.0.0",
     "qs": "6.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.43.9",
     "react-intl": "6.3.2",
     "react-router-dom": "6.15.0",
     "typescript": "4.8.4"
