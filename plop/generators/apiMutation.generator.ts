@@ -44,7 +44,7 @@ export const apiMutationGenerator = (toKebabCase: Function): PlopGeneratorConfig
       type: 'modify',
       path: 'src/api/actions/{{collection}}/{{collection}}.types.ts',
       pattern: getPlaceholderPattern('API_ACTION_TYPES'),
-      templateFile: 'plop-templates/apiMutation/apiMutation.types.hbs',
+      templateFile: 'plop/templates/apiMutation/apiMutation.types.hbs',
     },
     {
       type: 'modify',
@@ -56,7 +56,7 @@ export const apiMutationGenerator = (toKebabCase: Function): PlopGeneratorConfig
       type: 'modify',
       path: 'src/api/actions/{{collection}}/{{collection}}.mutations.ts',
       pattern: getPlaceholderPattern('MUTATION_FUNCTIONS_SETUP'),
-      templateFile: 'plop-templates/apiMutation/apiMutation.hbs',
+      templateFile: 'plop/templates/apiMutation/apiMutation.hbs',
     }
   ],
 });

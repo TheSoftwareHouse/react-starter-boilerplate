@@ -16,23 +16,23 @@ export const uiComponentGenerator: PlopGeneratorConfig = {
     {
       type: 'add',
       path: `src/ui/{{camelCase name}}/{{pascalCase name}}.tsx`,
-      templateFile: 'plop-templates/component/Component.hbs',
+      templateFile: 'plop/templates/component/Component.hbs',
     },
     {
       type: 'add',
       path: `src/ui/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
-      templateFile: 'plop-templates/component/Component.test.hbs',
+      templateFile: 'plop/templates/component/Component.test.hbs',
     },
     {
       type: 'add',
       path: `src/ui/{{camelCase name}}/{{pascalCase name}}.types.ts`,
-      templateFile: 'plop-templates/component/Component.types.hbs',
+      templateFile: 'plop/templates/component/Component.types.hbs',
     },
     {
       type: 'modify',
       path: 'src/ui/index.ts',
       pattern: 'export',
-      templateFile: 'plop-templates/component/Component.index.hbs',
+      templateFile: 'plop/templates/component/Component.index.hbs',
     },
   ]
 };

@@ -16,37 +16,37 @@ export const contextGenerator: PlopGeneratorConfig = {
     {
       type: 'add',
       path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.ts',
-      templateFile: 'plop-templates/context/Context.hbs',
+      templateFile: 'plop/templates/context/Context.hbs',
     },
     {
       type: 'add',
       path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.types.ts',
-      templateFile: 'plop-templates/context/Context.types.hbs',
+      templateFile: 'plop/templates/context/Context.types.hbs',
     },
     {
       type: 'add',
       path: 'src/context/{{camelCase name}}/{{camelCase name}}Context/{{pascalCase name}}Context.test.tsx',
-      templateFile: 'plop-templates/context/Context.test.hbs',
+      templateFile: 'plop/templates/context/Context.test.hbs',
     },
     {
       type: 'add',
       path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.tsx',
-      templateFile: 'plop-templates/context/ContextController.hbs',
+      templateFile: 'plop/templates/context/ContextController.hbs',
     },
     {
       type: 'add',
       path: 'src/context/{{camelCase name}}/{{camelCase name}}ContextController/{{pascalCase name}}ContextController.types.ts',
-      templateFile: 'plop-templates/context/ContextController.types.hbs',
+      templateFile: 'plop/templates/context/ContextController.types.hbs',
     },
     {
       type: 'add',
       path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.ts',
-      templateFile: 'plop-templates/context/useContext.hbs',
+      templateFile: 'plop/templates/context/useContext.hbs',
     },
     {
       type: 'add',
       path: 'src/hooks/use{{pascalCase name}}/use{{pascalCase name}}.test.tsx',
-      templateFile: 'plop-templates/context/useContext.test.hbs',
+      templateFile: 'plop/templates/context/useContext.test.hbs',
     },
   ],
 };

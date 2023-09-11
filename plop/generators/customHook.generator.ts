@@ -16,18 +16,18 @@ export const customHookGenerator: PlopGeneratorConfig = {
     {
       type: 'add',
       path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.tsx',
-      templateFile: 'plop-templates/hook/hook.hbs',
+      templateFile: 'plop/templates/hook/hook.hbs',
     },
     {
       type: 'add',
       path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.test.tsx',
-      templateFile: 'plop-templates/hook/hook.test.hbs',
+      templateFile: 'plop/templates/hook/hook.test.hbs',
     },
     {
       type: 'modify',
       path: 'src/hooks/index.ts',
       pattern: 'export',
-      templateFile: 'plop-templates/hook/hook.index.hbs',
+      templateFile: 'plop/templates/hook/hook.index.hbs',
     },
   ],
 };

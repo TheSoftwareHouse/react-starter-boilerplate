@@ -32,7 +32,7 @@ export const apiQueryGenerator = (toKebabCase: Function): PlopGeneratorConfig =>
       type: 'modify',
       path: 'src/api/actions/{{collection}}/{{collection}}.types.ts',
       pattern: getPlaceholderPattern('API_ACTION_TYPES'),
-      templateFile: 'plop-templates/apiQuery/apiQuery.types.hbs',
+      templateFile: 'plop/templates/apiQuery/apiQuery.types.hbs',
     },
     {
       type: 'modify',
@@ -44,7 +44,7 @@ export const apiQueryGenerator = (toKebabCase: Function): PlopGeneratorConfig =>
       type: 'modify',
       path: 'src/api/actions/{{collection}}/{{collection}}.queries.ts',
       pattern: getPlaceholderPattern('QUERY_FUNCTIONS_SETUP'),
-      templateFile: 'plop-templates/apiQuery/apiQuery.hbs',
+      templateFile: 'plop/templates/apiQuery/apiQuery.hbs',
     }
   ],
 });

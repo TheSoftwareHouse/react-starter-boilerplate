@@ -17,17 +17,17 @@ export const apiActionsGenerator: PlopGeneratorConfig = {
     {
       type: 'add',
       path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.mutations.ts',
-      templateFile: 'plop-templates/apiActions/apiActions.mutations.hbs',
+      templateFile: 'plop/templates/apiActions/apiActions.mutations.hbs',
     },
     {
       type: 'add',
       path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.queries.ts',
-      templateFile: 'plop-templates/apiActions/apiActions.queries.hbs',
+      templateFile: 'plop/templates/apiActions/apiActions.queries.hbs',
     },
     {
       type: 'add',
       path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.types.ts',
-      templateFile: 'plop-templates/apiActions/apiActions.types.hbs',
+      templateFile: 'plop/templates/apiActions/apiActions.types.hbs',
     },
     {
       type: 'modify',
