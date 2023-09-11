@@ -80,7 +80,7 @@
     "@types/jest": "29.5.0",
     "@types/node": "18.15.11",
     "@types/qs": "6.9.7",
-    "@types/react": "18.0.34",
+    "@types/react": "18.2.21",
     "@types/react-dom": "18.0.11",
     "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "5.58.0",
