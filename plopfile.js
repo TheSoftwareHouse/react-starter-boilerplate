@@ -35,7 +35,7 @@ const customHookGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'hook name',
-
+      validate: input => input.length > 1 || 'Hook name cannot be empty!',
     },
   ],
   actions: function() {
@@ -73,6 +73,7 @@ const reactComponentGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'component name',
+      validate: input => input.length > 1 || 'Component name cannot be empty!',
     },
   ],
   actions: function() {
@@ -110,6 +111,7 @@ const reactContainerComponentGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'component name',
+      validate: input => input.length > 1 || 'Component name cannot be empty!',
     },
   ],
   actions: function() {
@@ -145,6 +147,7 @@ const reactUiComponentGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'component name',
+      validate: input => input.length > 1 || 'Component name cannot be empty!',
     },
   ],
   actions: function() {
@@ -181,6 +184,7 @@ const apiActionsGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'actions collection name',
+      validate: input => input.length > 1 || 'Actions collection name cannot be empty!',
     },
   ],
   actions: function() {
@@ -237,12 +241,14 @@ const apiQueryGenerator = (toKebabCase) => ({
       type: 'input',
       name: 'name',
       message: 'API query action name?',
+      validate: input => input.length > 1 || 'API query action name cannot be empty!',
     },
     {
       type: 'input',
       name: 'path',
       message: 'API query action path?',
       default: (answers) => `/${answers.collection}/${toKebabCase(answers.name)}`,
+      validate: input => input.length > 1 || 'API query action path cannot be empty!',
     },
   ],
   actions: function() {
@@ -282,13 +288,15 @@ const apiMutationGenerator = (toKebabCase) => ({
     {
       type: 'input',
       name: 'name',
-      message: 'API query action name?',
+      message: 'API mutation action name?',
+      validate: input => input.length > 1 || 'API mutation action name cannot be empty!',
     },
     {
       type: 'input',
       name: 'path',
-      message: 'API query action path?',
+      message: 'API mutation action path?',
       default: (answers) => `/${answers.collection}/${toKebabCase(answers.name)}`,
+      validate: input => input.length > 1 || 'API mutation action path cannot be empty!',
     },
     {
       type: "list",
@@ -334,6 +342,7 @@ const reactContextGenerator = () => ({
       type: 'input',
       name: 'name',
       message: 'context name',
+      validate: input => input.length > 1 || 'Context name cannot be empty!',
     }
   ],
   actions: function() {
