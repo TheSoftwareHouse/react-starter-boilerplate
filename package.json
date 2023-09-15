@@ -25,12 +25,7 @@
     "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome",
     "e2e:ci:firefox": "npm-run-all -p -r serve:cypress e2e:wait-and-run:firefox",
     "e2e:ci:chrome": "npm-run-all -p -r serve:cypress e2e:wait-and-run:chrome",
-    "version": "auto-changelog -p && git add CHANGELOG.md",
     "prepare": "husky install"
-  },
-  "auto-changelog": {
-    "issueUrl": "https://headstart.atlassian.net/browse/{id}",
-    "issuePattern": "[A-Z]+-[1-9]+"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,md}": [
@@ -88,7 +83,6 @@
     "@vitejs/plugin-react-swc": "3.3.2",
     "@vitest/coverage-v8": "0.34.4",
     "@welldone-software/why-did-you-render": "7.0.1",
-    "auto-changelog": "2.4.0",
     "babelsheet2": "0.0.12",
     "babelsheet2-json-writer": "0.0.4",
     "babelsheet2-reader": "0.0.6",
