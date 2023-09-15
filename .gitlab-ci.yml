@@ -1,6 +1,6 @@
 # START PLAYWRIGHT SPECIFIC CONFIG
 default:
-  image: mcr.microsoft.com/playwright:v1.29.1-focal
+  image: mcr.microsoft.com/playwright:v1.31.2-focal
 
 stages:
   - build
