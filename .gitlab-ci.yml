@@ -162,7 +162,7 @@ deploy_to_staging:
   stage: deploy
   environment: staging
   image:
-    name: tshio/awscli-docker-compose-pipelines:0.0.5
+    name: tshio/awscli-docker-compose-pipelines:0.0.6
     entrypoint: ['']
   script:
     - npm ci
