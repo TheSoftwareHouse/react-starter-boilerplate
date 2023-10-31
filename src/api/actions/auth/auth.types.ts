@@ -23,7 +23,7 @@ export type User = {
 
 export type GetUsersResponse = {
   users: User[];
-  nextPage: number | null;
+  nextPage?: number | null;
 };
 
 export type GetUsersInfiniteArgs = {
