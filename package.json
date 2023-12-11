@@ -16,7 +16,7 @@
     "lint": "eslint \"./src/**/*.{ts,tsx}\" && stylelint \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\" && stylelint --fix \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",
     "plop": "plop",
-    "translations": "ts-node -T --skip-project ./scripts/fetch-translations.ts",
+    "translations": "ts-node -T --project tsconfig.json ./scripts/fetch-translations.ts",
     "serve:cypress": "http-server --proxy $(grep CYPRESS_HOST e2e/.env | cut -d '=' -f2)? ./build --port 1337",
     "e2e:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
     "e2e:run:firefox": "cd e2e && ./node_modules/.bin/cypress run --browser firefox && cd ..",

@@ -18,5 +18,11 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+    }
+  },
   "include": ["src", "vite.config.ts"]
 }
