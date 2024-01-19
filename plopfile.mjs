@@ -13,65 +13,18 @@ import {
   reactContainerComponentGeneratorDescription,
   reactContainerComponentGenerator,
 } from './plop/generators/reactContainerComponent.mjs';
+import {
+  apiActionsCollectionGeneratorDescription,
+  apiActionsCollectionGenerator,
+} from './plop/generators/apiActionsCollection.mjs';
 
 const componentTypes = {
-  API_ACTIONS: 'API actions collection',
   API_QUERY: 'API query',
   API_MUTATION: 'API mutation',
   REACT_CONTEXT: 'React Context',
 };
 
 const apiActionCollections = getDirectoriesList(`./src/api/actions`);
-
-const apiActionsGenerator = () => ({
-  description: componentTypes.API_ACTIONS,
-  prompts: [
-    {
-      type: 'input',
-      name: 'name',
-      message: 'actions collection name',
-      validate: input => input.length > 1 || 'Actions collection name cannot be empty!',
-    },
-  ],
-  actions: function() {
-    return [
-      {
-        type: 'add',
-        path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.mutations.ts',
-        templateFile: 'plop-templates/apiActions/apiActions.mutations.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.queries.ts',
-        templateFile: 'plop-templates/apiActions/apiActions.queries.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/api/actions/{{camelCase name}}/{{camelCase name}}.types.ts',
-        templateFile: 'plop-templates/apiActions/apiActions.types.hbs',
-      },
-      {
-        type: 'modify',
-        path: 'src/api/actions/index.ts',
-        pattern: getPlaceholderPattern('API_COLLECTION_IMPORTS'),
-        template:
-          'import { {{camelCase name}}Mutations } from \'./{{camelCase name}}/{{camelCase name}}.mutations\';\nimport { {{camelCase name}}Queries } from \'./{{camelCase name}}/{{camelCase name}}.queries\';\n$1',
-      },
-      {
-        type: 'modify',
-        path: 'src/api/actions/index.ts',
-        pattern: getPlaceholderPattern('API_COLLECTION_QUERIES'),
-        template: '...{{camelCase name}}Queries,\n  $1',
-      },
-      {
-        type: 'modify',
-        path: 'src/api/actions/index.ts',
-        pattern: getPlaceholderPattern('API_COLLECTION_MUTATIONS'),
-        template: '...{{camelCase name}}Mutations,\n  $1',
-      },
-    ];
-  },
-});
 
 const apiQueryGenerator = (toKebabCase) => ({
   description: componentTypes.API_QUERY,
@@ -240,7 +193,7 @@ export default function(plop) {
   plop.setGenerator(reactContainerComponentGeneratorDescription, reactContainerComponentGenerator);
   plop.setGenerator(reactUiComponentGeneratorDescription, reactUiComponentGenerator);
   plop.setGenerator(customHookGeneratorDescription, customHookGenerator);
-  plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
+  plop.setGenerator(apiActionsCollectionGeneratorDescription, apiActionsCollectionGenerator);
   plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator(toKebabCase));
   plop.setGenerator(componentTypes.API_MUTATION, apiMutationGenerator(toKebabCase));
   plop.setGenerator(componentTypes.REACT_CONTEXT, reactContextGenerator());
