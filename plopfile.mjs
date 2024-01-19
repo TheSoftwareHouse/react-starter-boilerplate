@@ -1,11 +1,11 @@
 import * as promptDirectory from 'inquirer-directory';
 import { getDirectoriesList, getPlaceholderPattern } from './plop/utils.mjs';
+import { customHookGeneratorDescription, customHookGenerator } from './plop/generators/customHook.mjs';
 
 const componentTypes = {
   REACT_COMPONENT: 'React app component',
   REACT_CONTAINER_COMPONENT: 'React app component with container',
   REACT_UI_COMPONENT: 'React UI component',
-  CUSTOM_HOOK: 'Custom hook',
   API_ACTIONS: 'API actions collection',
   API_QUERY: 'API query',
   API_MUTATION: 'API mutation',
@@ -13,38 +13,6 @@ const componentTypes = {
 };
 
 const apiActionCollections = getDirectoriesList(`./src/api/actions`);
-
-const customHookGenerator = () => ({
-  description: componentTypes.CUSTOM_HOOK,
-  prompts: [
-    {
-      type: 'input',
-      name: 'name',
-      message: 'hook name',
-      validate: input => input.length > 1 || 'Hook name cannot be empty!',
-    },
-  ],
-  actions: function() {
-    return [
-      {
-        type: 'add',
-        path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.tsx',
-        templateFile: 'plop-templates/hook/hook.hbs',
-      },
-      {
-        type: 'add',
-        path: 'src/hooks/{{camelCase name}}/{{camelCase name}}.test.tsx',
-        templateFile: 'plop-templates/hook/hook.test.hbs',
-      },
-      {
-        type: 'modify',
-        path: 'src/hooks/index.ts',
-        pattern: 'export',
-        templateFile: 'plop-templates/hook/hook.index.hbs',
-      },
-    ];
-  },
-});
 
 const reactComponentGenerator = () => ({
   description: componentTypes.REACT_COMPONENT,
@@ -379,7 +347,7 @@ export default function(plop) {
   plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
   plop.setGenerator(componentTypes.REACT_CONTAINER_COMPONENT, reactContainerComponentGenerator());
   plop.setGenerator(componentTypes.REACT_UI_COMPONENT, reactUiComponentGenerator());
-  plop.setGenerator(componentTypes.CUSTOM_HOOK, customHookGenerator());
+  plop.setGenerator(customHookGeneratorDescription, customHookGenerator);
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
   plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator(toKebabCase));
   plop.setGenerator(componentTypes.API_MUTATION, apiMutationGenerator(toKebabCase));
