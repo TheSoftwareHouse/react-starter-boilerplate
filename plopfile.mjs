@@ -1,11 +1,20 @@
 import * as promptDirectory from 'inquirer-directory';
 import { getDirectoriesList, getPlaceholderPattern } from './plop/utils.mjs';
 import { customHookGeneratorDescription, customHookGenerator } from './plop/generators/customHook.mjs';
+import {
+  reactAppComponentGeneratorDescription,
+  reactAppComponentGenerator,
+} from './plop/generators/reactAppComponent.mjs';
+import {
+  reactUiComponentGeneratorDescription,
+  reactUiComponentGenerator,
+} from './plop/generators/reactUiComponent.mjs';
+import {
+  reactContainerComponentGeneratorDescription,
+  reactContainerComponentGenerator,
+} from './plop/generators/reactContainerComponent.mjs';
 
 const componentTypes = {
-  REACT_COMPONENT: 'React app component',
-  REACT_CONTAINER_COMPONENT: 'React app component with container',
-  REACT_UI_COMPONENT: 'React UI component',
   API_ACTIONS: 'API actions collection',
   API_QUERY: 'API query',
   API_MUTATION: 'API mutation',
@@ -13,123 +22,6 @@ const componentTypes = {
 };
 
 const apiActionCollections = getDirectoriesList(`./src/api/actions`);
-
-const reactComponentGenerator = () => ({
-  description: componentTypes.REACT_COMPONENT,
-  prompts: [
-    {
-      type: 'directory',
-      name: 'directory',
-      message: 'select directory',
-      basePath: './src/app',
-    },
-    {
-      type: 'input',
-      name: 'name',
-      message: 'component name',
-      validate: input => input.length > 1 || 'Component name cannot be empty!',
-    },
-  ],
-  actions: function() {
-    return [
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
-        templateFile: 'plop-templates/component/Component.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
-        templateFile: 'plop-templates/component/Component.test.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
-        templateFile: 'plop-templates/component/Component.types.hbs',
-      },
-    ];
-  },
-});
-
-const reactContainerComponentGenerator = () => ({
-  description: componentTypes.REACT_CONTAINER_COMPONENT,
-  prompts: [
-    {
-      type: 'directory',
-      name: 'directory',
-      message: 'select directory',
-      basePath: './src/app',
-      when: answers => answers.baseDir === 'app',
-    },
-    {
-      type: 'input',
-      name: 'name',
-      message: 'component name',
-      validate: input => input.length > 1 || 'Component name cannot be empty!',
-    },
-  ],
-  actions: function() {
-    return [
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
-        templateFile: 'plop-templates/component/Component.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
-        templateFile: 'plop-templates/component/Component.test.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}Container.tsx`,
-        templateFile: 'plop-templates/component/Container.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
-        templateFile: 'plop-templates/component/ContainerComponent.types.hbs',
-      },
-    ];
-  }
-});
-
-const reactUiComponentGenerator = () => ({
-  description: componentTypes.REACT_UI_COMPONENT,
-  prompts: [
-    {
-      type: 'input',
-      name: 'name',
-      message: 'component name',
-      validate: input => input.length > 1 || 'Component name cannot be empty!',
-    },
-  ],
-  actions: function() {
-    return [
-      {
-        type: 'add',
-        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.tsx`,
-        templateFile: 'plop-templates/component/Component.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
-        templateFile: 'plop-templates/component/Component.test.hbs',
-      },
-      {
-        type: 'add',
-        path: `src/ui/{{camelCase name}}/{{pascalCase name}}.types.ts`,
-        templateFile: 'plop-templates/component/Component.types.hbs',
-      },
-      {
-        type: 'modify',
-        path: 'src/ui/index.ts',
-        pattern: 'export',
-        templateFile: 'plop-templates/component/Component.index.hbs',
-      },
-    ];
-  },
-});
 
 const apiActionsGenerator = () => ({
   description: componentTypes.API_ACTIONS,
@@ -344,9 +236,9 @@ export default function(plop) {
   const toKebabCase = plop.getHelper('kebabCase');
 
   plop.setPrompt('directory', promptDirectory);
-  plop.setGenerator(componentTypes.REACT_COMPONENT, reactComponentGenerator());
-  plop.setGenerator(componentTypes.REACT_CONTAINER_COMPONENT, reactContainerComponentGenerator());
-  plop.setGenerator(componentTypes.REACT_UI_COMPONENT, reactUiComponentGenerator());
+  plop.setGenerator(reactAppComponentGeneratorDescription, reactAppComponentGenerator);
+  plop.setGenerator(reactContainerComponentGeneratorDescription, reactContainerComponentGenerator);
+  plop.setGenerator(reactUiComponentGeneratorDescription, reactUiComponentGenerator);
   plop.setGenerator(customHookGeneratorDescription, customHookGenerator);
   plop.setGenerator(componentTypes.API_ACTIONS, apiActionsGenerator());
   plop.setGenerator(componentTypes.API_QUERY, apiQueryGenerator(toKebabCase));
