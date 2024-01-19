@@ -1,6 +1,5 @@
 import * as promptDirectory from 'inquirer-directory';
-import { readdirSync, lstatSync } from 'fs';
-import path from 'path';
+import { getDirectoriesList, getPlaceholderPattern } from './plop/utils.mjs';
 
 const componentTypes = {
   REACT_COMPONENT: 'React app component',
@@ -13,19 +12,7 @@ const componentTypes = {
   REACT_CONTEXT: 'React Context',
 };
 
-const isDirectory = (source) => lstatSync(source).isDirectory();
-
-const getDirectories = (source) =>
-  readdirSync(source)
-    .map((name) => path.join(source, name))
-    .filter(isDirectory);
-
-const NAME_REGEX = /[^\/]+$/;
-
-const apiActionCollections = getDirectories(`./src/api/actions`)
-  .map(collection => NAME_REGEX.exec(collection)[0].trimStart().trimEnd());
-
-const getPlaceholderPattern = (pattern) => new RegExp(`(\/\/ ${pattern})`, 's');
+const apiActionCollections = getDirectoriesList(`./src/api/actions`);
 
 const customHookGenerator = () => ({
   description: componentTypes.CUSTOM_HOOK,
