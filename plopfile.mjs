@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const promptDirectory = require('inquirer-directory');
-const { readdirSync, lstatSync } = require('fs');
-const path = require('path');
+import * as promptDirectory from 'inquirer-directory';
+import { readdirSync, lstatSync } from 'fs';
+import path from 'path';
 
 const componentTypes = {
   REACT_COMPONENT: 'React app component',
@@ -386,7 +385,7 @@ const reactContextGenerator = () => ({
   }
 });
 
-module.exports = function(plop) {
+export default function(plop) {
   const toKebabCase = plop.getHelper('kebabCase');
 
   plop.setPrompt('directory', promptDirectory);
