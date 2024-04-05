@@ -52,7 +52,8 @@
     ]
   },
   "dependencies": {
-    "@sentry/browser": "7.68.0",
+    "@sentry/browser": "7.109.0",
+    "@sentry/integrations": "7.109.0",
     "@tanstack/react-query": "4.36.1",
     "@tanstack/react-query-devtools": "4.35.0",
     "axios": "1.5.0",
