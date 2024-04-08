@@ -7,6 +7,7 @@ import {
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosMutationsType, mutations } from 'api/actions';
+import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 
 import { DataForMutation, GetMutationParams } from './useMutation.types';
 
@@ -17,7 +18,7 @@ import { DataForMutation, GetMutationParams } from './useMutation.types';
  * @see ApiClientContextController.ts
  * */
 
-export const useMutation = <Key extends keyof AxiosMutationsType, TError = unknown>(
+export const useMutation = <Key extends keyof AxiosMutationsType, TError = ApiError>(
   mutation: Key,
   options?: UseMutationOptions<DataForMutation<Key>, TError>,
 ) => {
