@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { QueryMeta } from '@tanstack/react-query';
 
 export type MutationHTTPMethod = 'DELETE' | 'POST' | 'PUT' | 'PATCH';
 
@@ -19,3 +20,7 @@ export type DataForQuery<TQueryKey extends keyof AxiosQueriesType> = Unwrap<
 >;
 
 export type ArgsForQuery<TQueryKey extends keyof AxiosQueriesType> = GetQueryParams<TQueryKey>;
+
+export type ExtendedQueryMeta = QueryMeta & {
+  error: { excludedCodes: number[]; showGlobalError: boolean };
+};
