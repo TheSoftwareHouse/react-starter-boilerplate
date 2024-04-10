@@ -5,18 +5,23 @@ import { ApiError, BasicErrorData, FormErrorData } from './apiError.types';
 
 export const getStandarizedApiError = (error: AxiosError<unknown>): ApiError => {
   const errorData = error.response?.data;
-  const standarizedError = { statusCode: error.response?.status, originalError: error, data: errorData };
+  const standarizedError = {
+    type: 'unknown',
+    statusCode: error.response?.status,
+    originalError: error,
+    data: errorData,
+  } satisfies ApiError;
 
   if (isBasicErrorData(errorData)) {
     return {
-      isBasicError: true,
       ...standarizedError,
+      type: 'basic',
     } as ApiError;
   }
   if (isFormErrorData(errorData)) {
     return {
-      isFormError: true,
       ...standarizedError,
+      type: 'form',
     } as ApiError;
   }
 

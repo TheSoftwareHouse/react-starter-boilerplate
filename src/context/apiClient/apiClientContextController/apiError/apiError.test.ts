@@ -20,7 +20,7 @@ describe('getStandarizedApiError', () => {
     const mockAxiosError = getMockAxiosError(errorData);
 
     expect(getStandarizedApiError(mockAxiosError)).toEqual({
-      isBasicError: true,
+      type: 'basic',
       statusCode: 400,
       data: errorData,
       originalError: mockAxiosError,
@@ -36,7 +36,7 @@ describe('getStandarizedApiError', () => {
     const mockAxiosError = getMockAxiosError(errorData);
 
     expect(getStandarizedApiError(mockAxiosError)).toEqual({
-      isFormError: true,
+      type: 'form',
       statusCode: 400,
       data: errorData,
       originalError: mockAxiosError,
@@ -53,6 +53,7 @@ describe('getStandarizedApiError', () => {
 
     expect(getStandarizedApiError(mockAxiosError)).toEqual({
       statusCode: 400,
+      type: 'unknown',
       data: errorData,
       originalError: mockAxiosError,
     });
