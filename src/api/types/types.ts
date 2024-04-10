@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { QueryMeta } from '@tanstack/react-query';
-
-export type MutationHTTPMethod = 'DELETE' | 'POST' | 'PUT' | 'PATCH';
+import { AxiosRequestConfig } from 'axios';
 
 import { AxiosQueriesType } from 'api/actions';
+
+export type MutationHTTPMethod = 'DELETE' | 'POST' | 'PUT' | 'PATCH';
 
 export type Unwrap<T> = T extends PromiseLike<infer U> ? U : T;
 
@@ -23,4 +24,8 @@ export type ArgsForQuery<TQueryKey extends keyof AxiosQueriesType> = GetQueryPar
 
 export type ExtendedQueryMeta = QueryMeta & {
   error: { excludedCodes: number[]; showGlobalError: boolean };
+};
+
+export type ExtendedAxiosRequestConfig = AxiosRequestConfig & {
+  _retry?: boolean;
 };

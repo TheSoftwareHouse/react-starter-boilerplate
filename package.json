@@ -58,6 +58,7 @@
     "@tanstack/react-query-devtools": "4.35.0",
     "axios": "1.6.8",
     "clsx": "2.1.0",
+    "jwt-decode": "4.0.0",
     "qs": "6.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
