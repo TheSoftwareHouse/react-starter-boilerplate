@@ -6,7 +6,7 @@ import { getStandarizedApiError } from 'context/apiClient/apiClientContextContro
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ExtendedAxiosRequestConfig } from 'api/types/types';
 import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
-import { BASE_URL } from 'api/axios';
+import { refreshTokenUrl } from 'api/actions/auth/auth.mutations';
 
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
@@ -29,7 +29,7 @@ export const responseFailureInterceptor = async (error: AxiosError<unknown>) => 
     originalRequest._retry = true;
 
     try {
-      const { data } = await axios.post<RefreshTokenMutationResponse>(`${BASE_URL}/users/refresh-token`, {
+      const { data } = await axios.post<RefreshTokenMutationResponse>(refreshTokenUrl, {
         accessToken: authStorage.accessToken,
         refreshToken: authStorage.refreshToken,
       });
