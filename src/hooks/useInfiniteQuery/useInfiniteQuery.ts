@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {
-  QueryKey,
-  useInfiniteQuery as useRQInfiniteQuery,
-  UseInfiniteQueryOptions,
-  UseInfiniteQueryResult,
-} from '@tanstack/react-query';
+import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryOptions } from '@tanstack/react-query';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosInfiniteQueriesType, queries } from 'api/actions';
@@ -32,5 +27,5 @@ export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TEr
     async ({ pageParam }: { pageParam?: string }) =>
       (await queryFn({ pageParam, ...(args || {}) })) as DataForQuery<Key>,
     options,
-  ) as UseInfiniteQueryResult<DataForQuery<Key>, TError>;
+  );
 };
