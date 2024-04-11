@@ -9,7 +9,7 @@ import {
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosInfiniteQueriesType, queries } from 'api/actions';
-import { DataForQuery, GetQueryParams } from 'api/types/types';
+import { DataForQuery, ExtendedQueryMeta, GetQueryParams } from 'api/types/types';
 import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 
 /**
@@ -21,7 +21,7 @@ import { ApiError } from 'context/apiClient/apiClientContextController/apiError/
 export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = ApiError>(
   query: Key,
   args?: GetQueryParams<Key>,
-  options?: UseInfiniteQueryOptions<DataForQuery<Key>, TError>,
+  options?: UseInfiniteQueryOptions<DataForQuery<Key>, TError> & { meta?: Partial<ExtendedQueryMeta> },
 ) => {
   const { client } = useApiClient();
   const queryFn = queries[query](client);
@@ -29,7 +29,8 @@ export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TEr
 
   return useRQInfiniteQuery(
     queryKey,
-    async ({ pageParam }: { pageParam?: string }) => await queryFn({ pageParam, ...(args || {}) }),
-    options as any,
+    async ({ pageParam }: { pageParam?: string }) =>
+      (await queryFn({ pageParam, ...(args || {}) })) as DataForQuery<Key>,
+    options,
   ) as UseInfiniteQueryResult<DataForQuery<Key>, TError>;
 };
