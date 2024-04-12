@@ -1,9 +1,9 @@
 import { Link, Outlet } from 'react-router-dom';
+import ViteLogo from 'assets/images/vite-logo.svg?react';
+import VitestLogo from 'assets/images/vitest-logo.svg?react';
 
 import logo from 'assets/images/logo.svg';
 import { AppRoute } from 'routing/AppRoute.enum';
-import { ReactComponent as ViteLogo } from 'assets/images/vite-logo.svg';
-import { ReactComponent as VitestLogo } from 'assets/images/vitest-logo.svg';
 import './Layout.css';
 
 export const Layout = () => {
