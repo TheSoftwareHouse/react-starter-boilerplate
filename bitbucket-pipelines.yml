@@ -14,7 +14,7 @@ definitions:
 pipelines:
   default:
     - step:
-        image: node:18
+        image: node:20
         caches:
           - node
           - npm
