@@ -1,5 +1,5 @@
 {
-  "cliVersion": "0.0.12",
+  "cliVersion": "0.0.15",
   "spreadsheetId": "example spreadsheetId",
   "credentials": ".credentials.json",
   "userInput": {
