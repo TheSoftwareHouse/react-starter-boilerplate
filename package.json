@@ -52,17 +52,17 @@
     ]
   },
   "dependencies": {
-    "@sentry/browser": "7.109.0",
-    "@sentry/integrations": "7.109.0",
+    "@sentry/browser": "7.110.0",
+    "@sentry/integrations": "7.110.0",
     "@tanstack/react-query": "4.36.1",
     "@tanstack/react-query-devtools": "4.35.0",
     "axios": "1.6.8",
-    "clsx": "2.0.0",
+    "clsx": "2.1.0",
     "qs": "6.12.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-intl": "6.5.5",
-    "react-router-dom": "6.16.0",
+    "react-intl": "6.6.5",
+    "react-router-dom": "6.22.3",
     "typescript": "5.4.3"
   },
   "devDependencies": {
