@@ -82,7 +82,7 @@
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.6.0",
     "@vitejs/plugin-react-swc": "3.3.2",
-    "@vitest/coverage-v8": "0.34.4",
+    "@vitest/coverage-v8": "0.34.6",
     "@welldone-software/why-did-you-render": "8.0.1",
     "babelsheet2": "0.0.12",
     "babelsheet2-json-writer": "0.0.4",
