@@ -86,7 +86,7 @@
     "@welldone-software/why-did-you-render": "8.0.1",
     "babelsheet2": "0.0.12",
     "babelsheet2-json-writer": "0.0.4",
-    "babelsheet2-reader": "0.0.6",
+    "babelsheet2-reader": "0.0.8",
     "cross-env": "7.0.3",
     "eslint": "8.49.0",
     "eslint-config-prettier": "9.0.0",
