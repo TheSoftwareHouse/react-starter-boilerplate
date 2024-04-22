@@ -1,9 +1,9 @@
-import { useLocation } from 'react-router-dom';
+import { useRouterState } from '@tanstack/react-router';
 
 import { CodeBlock } from 'ui/codeBlock/CodeBlock';
 
 export const LocationInfo = () => {
-  const location = useLocation();
+  const location = useRouterState({ select: (state) => state.location });
 
   return (
     <div>

@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearch, useNavigate } from '@tanstack/react-router';
 
 import { CodeBlock } from 'ui/codeBlock/CodeBlock';
 import { useQuery } from 'hooks/useQuery/useQuery';
@@ -7,14 +6,12 @@ import { useQuery } from 'hooks/useQuery/useQuery';
 type SortType = 'asc' | 'desc';
 
 export const UsersList = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const sort = searchParams.get('sort') as SortType;
-  const page = searchParams.get('page');
+  const { sort, page } = useSearch({ from: '/users/' });
+  const navigate = useNavigate();
 
   const { data: usersResponse, isFetched: areUsersFetched } = useQuery(
     'getUsersList',
-    { page: page || undefined },
+    { page: page?.toString() || undefined },
     {
       select: (data) => {
         return { ...data, users: data.users.sort((a, b) => (sort === 'desc' ? +b.id - +a.id : +a.id - +b.id)) };
@@ -23,39 +20,50 @@ export const UsersList = () => {
   );
 
   const sortUsers = (type: SortType) => {
-    setSearchParams((prev) => {
-      prev.set('sort', type);
-      prev.delete('page');
-      return prev;
+    navigate({
+      search: {
+        sort: type,
+      },
     });
   };
 
   const goToNextPage = () => {
-    setSearchParams((prev) => {
-      const current = prev.get('page');
-      const nextPage = !!current ? +current + 1 : 1;
-      prev.set('page', nextPage.toString());
-      return prev;
+    const newPage = !!page ? +page + 1 : 2;
+
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        page: newPage,
+      }),
     });
   };
 
   const goToPrevPage = () => {
-    setSearchParams((prev) => {
-      const current = prev.get('page');
-      const prevPage = current !== null ? +current - 1 : 0;
-      prev.set('page', prevPage.toString());
-      return prev;
+    const newPage = page && page !== 1 ? +page - 1 : undefined;
+
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        page: newPage,
+      }),
     });
   };
 
   return (
     <>
       <h2>Users</h2>
-      <div>This is an example how to use useSearchParams() from react-router</div>
+      <div>This is an example how to use useSearch() from tanstack-router</div>
       <div>
         Current searchParams (provided by{' '}
-        <a href="https://reactrouter.com/en/main/hooks/use-search-params">useSearchParams()</a> hook)
-        <CodeBlock>{JSON.stringify({ sort: searchParams.get('sort'), page: searchParams.get('page') })}</CodeBlock>
+        <a
+          href="https://tanstack.com/router/latest/docs/framework/react/guide/search-params#search-params-in-components"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          useSearch()
+        </a>{' '}
+        hook)
+        <CodeBlock>{JSON.stringify({ sort, page })}</CodeBlock>
       </div>
       <div style={{ marginTop: '24px' }}>
         <label htmlFor="sort">Sort by: </label>
@@ -64,7 +72,7 @@ export const UsersList = () => {
           <option value="desc">DESC</option>
         </select>
         <ul>{areUsersFetched && usersResponse?.users.map((u) => <li key={u.id}>{u.name}</li>)}</ul>
-        <button onClick={goToPrevPage} disabled={page === '0'}>
+        <button onClick={goToPrevPage} disabled={page <= 1}>
           Prev page
         </button>
         <button onClick={goToNextPage} disabled={!usersResponse?.nextPage}>

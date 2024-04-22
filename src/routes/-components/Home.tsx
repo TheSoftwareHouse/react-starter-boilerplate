@@ -1,11 +1,10 @@
 import { Fragment } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 
-import { AppRoute } from 'routing/AppRoute.enum';
 import { AppLocale } from 'context/locale/AppLocale.enum';
 import { useLocale } from 'hooks/useLocale/useLocale';
 import { useAuth } from 'hooks/useAuth/useAuth';
 import { useUsers } from 'hooks/useUsers/useUsers';
-import { useNavigate } from 'hooks/useNavigate/useNavigate';
 import { Translation } from 'ui/translation/Translation';
 import { LocationInfo } from 'ui/locationInfo/LocationInfo';
 
@@ -75,7 +74,7 @@ export const Home = () => {
                     <li key={user.id}>
                       <button
                         onClick={() => {
-                          navigate(AppRoute.user, { params: { id: user.id } });
+                          navigate({ to: '/users/$id', params: { id: user.id } });
                         }}
                       >
                         User {user.id}

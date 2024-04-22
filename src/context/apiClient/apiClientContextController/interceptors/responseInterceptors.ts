@@ -3,7 +3,6 @@ import { jwtDecode } from 'jwt-decode';
 
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { getStandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError';
-import { AppRoute } from 'routing/AppRoute.enum';
 import { ExtendedAxiosRequestConfig } from 'api/types/types';
 import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
 import { refreshTokenUrl } from 'api/actions/auth/auth.mutations';
@@ -20,7 +19,7 @@ export const responseFailureInterceptor = async (error: AxiosError<unknown>) => 
     authStorage.expires = null;
     authStorage.refreshToken = null;
 
-    window.location.replace(AppRoute.login);
+    window.location.replace('/login');
 
     return Promise.reject(standarizedError);
   }
@@ -44,7 +43,7 @@ export const responseFailureInterceptor = async (error: AxiosError<unknown>) => 
       authStorage.accessToken = null;
       authStorage.expires = null;
       authStorage.refreshToken = null;
-      window.location.replace(AppRoute.login);
+      window.location.replace('/login');
 
       return Promise.reject(standarizedError);
     }

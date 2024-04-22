@@ -8,13 +8,13 @@ const response = { status: 200, data: {} };
 vitest.spyOn(axiosClient, 'get').mockResolvedValue(response);
 
 describe('Home', () => {
-  test('renders heading', () => {
+  test('renders heading', async () => {
     render(<Home />);
-    const element = screen.getByText(/Home/);
+    const element = await screen.findByText(/Home/);
     expect(element).toBeInTheDocument();
   });
 
-  test('changes locale when "here" button is clicked', () => {
+  test('changes locale when "here" button is clicked', async () => {
     render(
       <LocaleContext.Consumer>
         {(value) => (
@@ -26,14 +26,14 @@ describe('Home', () => {
       </LocaleContext.Consumer>,
     );
 
-    const initialText = screen.getByText(/LOCALE/).textContent as string;
+    const initialText = (await screen.findByText(/LOCALE/)).textContent as string;
 
     act(() => screen.getByText(/here/).click());
 
-    expect(screen.getByText(/LOCALE/)).not.toHaveTextContent(initialText);
+    expect(await screen.findByText(/LOCALE/)).not.toHaveTextContent(initialText);
 
     act(() => screen.getByText(/here/).click());
 
-    expect(screen.getByText(/LOCALE/)).toHaveTextContent(initialText);
+    expect(await screen.findByText(/LOCALE/)).toHaveTextContent(initialText);
   });
 });

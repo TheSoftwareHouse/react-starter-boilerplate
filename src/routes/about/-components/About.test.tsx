@@ -3,9 +3,9 @@ import { render, screen } from 'tests';
 import { About } from './About';
 
 describe('About', () => {
-  test('renders heading', () => {
+  test('renders heading', async () => {
     render(<About />);
-    const element = screen.getByText(/About/);
+    const element = await screen.findByText(/About/);
     expect(element).toBeInTheDocument();
   });
 });
