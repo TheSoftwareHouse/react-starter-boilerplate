@@ -1,11 +1,9 @@
 import { Page, expect } from '@playwright/test';
 
-import { AppRoute } from '../../src/routing/AppRoute.enum';
-
 const navigateToHomePage = async (page: Page) => {
   const link = page.getByRole('link', { name: 'Home' });
 
-  await expect(link).toHaveAttribute('href', AppRoute.home);
+  await expect(link).toHaveAttribute('href', '/');
   await link.click();
 
   await expect(page).toHaveURL('');
@@ -13,7 +11,7 @@ const navigateToHomePage = async (page: Page) => {
 const navigateToAboutPage = async (page: Page) => {
   const link = page.getByRole('link', { name: 'About' });
 
-  await expect(link).toHaveAttribute('href', AppRoute.about);
+  await expect(link).toHaveAttribute('href', '/about');
   await link.click();
 
   await expect(page).toHaveURL(/about/);
@@ -21,7 +19,7 @@ const navigateToAboutPage = async (page: Page) => {
 const navigateToHelpPage = async (page: Page) => {
   const link = page.getByRole('link', { name: 'Help' });
 
-  await expect(link).toHaveAttribute('href', AppRoute.help);
+  await expect(link).toHaveAttribute('href', '/help');
   await link.click();
 
   await expect(page).toHaveURL(/help/);
