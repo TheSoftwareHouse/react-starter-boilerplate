@@ -20,7 +20,7 @@ export const useHandleQueryErrors = () => {
       return false;
     }
 
-    return !metaError.showGlobalError || metaError.excludedCodes.includes(errorCode);
+    return metaError.showGlobalError && !metaError.excludedCodes.includes(errorCode);
   };
 
   return { handleErrors, shouldHandleGlobalError };
