@@ -3,7 +3,7 @@ import zod from 'zod';
 
 import { ApiError, BasicErrorData, FormErrorData } from './apiError.types';
 
-export const getStandarizedApiError = (error: AxiosError<unknown>): ApiError => {
+export const getStandardizedApiError = (error: AxiosError<unknown>): ApiError => {
   const errorData = error.response?.data;
   const standarizedError = {
     type: 'unknown',

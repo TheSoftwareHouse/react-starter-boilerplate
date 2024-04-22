@@ -2,7 +2,7 @@ import axios, { type AxiosError, AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
-import { getStandarizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError';
+import { getStandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError';
 import { AppRoute } from 'routing/AppRoute.enum';
 import { ExtendedAxiosRequestConfig } from 'api/types/types';
 import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
@@ -11,7 +11,7 @@ import { refreshTokenUrl } from 'api/actions/auth/auth.mutations';
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
 export const responseFailureInterceptor = async (error: AxiosError<unknown>) => {
-  const standarizedError = getStandarizedApiError(error);
+  const standarizedError = getStandardizedApiError(error);
 
   const originalRequest = error.config as ExtendedAxiosRequestConfig;
 

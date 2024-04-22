@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { getStandarizedApiError } from './apiError';
+import { getStandardizedApiError } from './apiError';
 
 const getMockAxiosError = (data: unknown) => {
   return new AxiosError('mockError', 'ERR', undefined, undefined, {
@@ -9,7 +9,7 @@ const getMockAxiosError = (data: unknown) => {
   } as AxiosResponse);
 };
 
-describe('getStandarizedApiError', () => {
+describe('getStandardizedApiError', () => {
   it('returns basic ApiError', () => {
     const errorData = {
       error: {
@@ -19,7 +19,7 @@ describe('getStandarizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandarizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toEqual({
       type: 'basic',
       statusCode: 400,
       data: errorData,
@@ -35,7 +35,7 @@ describe('getStandarizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandarizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toEqual({
       type: 'form',
       statusCode: 400,
       data: errorData,
@@ -51,7 +51,7 @@ describe('getStandarizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandarizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toEqual({
       statusCode: 400,
       type: 'unknown',
       data: errorData,
