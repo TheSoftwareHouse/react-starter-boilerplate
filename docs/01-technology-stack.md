@@ -8,7 +8,7 @@ It brings toolchain for bundling, serving and testing our frontend application.
 | Library name     | Description                                                                  |
 |------------------|------------------------------------------------------------------------------|
 | React            | Core library for web application user interface                              |
-| React Router DOM | Library used for handling routing mechanism in React application             |
+| Tanstack Router  | Library used for handling routing mechanism in React application             |
 | React intl       | Library used for handling internationalization in React application          |
 | TypeScript       | Library that adds static typing with optional type annotations to JavaScript |
 | Axios            | Library for making HTTP calls to API                                         |
