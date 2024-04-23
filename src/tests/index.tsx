@@ -21,9 +21,9 @@ import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 import { ExtraRenderOptions, WrapperProps } from './types';
 
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
-const _Wrapper = ({ children, routerConfig }: WrapperProps) => {
+const _Wrapper = ({ children, routerConfig = {} }: WrapperProps) => {
   const [locale, setLocale] = useState<AppLocale>(defaultLocale);
-  const { routerPath = '/', currentPath = routerPath } = routerConfig || {};
+  const { routerPath = '/', currentPath = routerPath } = routerConfig;
 
   const rootRoute = createRootRoute({ component: () => <Outlet /> });
 
@@ -55,8 +55,6 @@ const _Wrapper = ({ children, routerConfig }: WrapperProps) => {
       >
         <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
           <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-            {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-            {/* @ts-ignore */}
             <RouterProvider router={router} />
           </LocaleContext.Provider>
         </IntlProvider>
