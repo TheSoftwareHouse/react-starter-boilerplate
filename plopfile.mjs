@@ -1,4 +1,4 @@
-import * as promptDirectory from 'inquirer-directory';
+import promptDirectory from 'inquirer-directory';
 
 import { customHookGeneratorDescription, customHookGenerator } from './plop/generators/customHook.mjs';
 import {
@@ -21,7 +21,7 @@ import { apiQueryGeneratorDescription, apiQueryGenerator } from './plop/generato
 import { apiMutationGeneratorDescription, apiMutationGenerator } from './plop/generators/apiMutation.mjs';
 import { reactContextGeneratorDescription, reactContextGenerator } from './plop/generators/reactContext.mjs';
 
-export default function(plop) {
+export default function (plop) {
   const toKebabCase = plop.getHelper('kebabCase');
 
   plop.setPrompt('directory', promptDirectory);
@@ -33,4 +33,4 @@ export default function(plop) {
   plop.setGenerator(apiQueryGeneratorDescription, apiQueryGenerator(toKebabCase));
   plop.setGenerator(apiMutationGeneratorDescription, apiMutationGenerator(toKebabCase));
   plop.setGenerator(reactContextGeneratorDescription, reactContextGenerator);
-};
+}

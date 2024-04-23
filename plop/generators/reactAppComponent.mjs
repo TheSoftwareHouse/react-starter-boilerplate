@@ -7,30 +7,30 @@ export const reactAppComponentGenerator = {
       type: 'directory',
       name: 'directory',
       message: 'select directory',
-      basePath: './src/app',
+      basePath: './src/routes',
     },
     {
       type: 'input',
       name: 'name',
       message: 'component name',
-      validate: input => input.length > 1 || 'Component name cannot be empty!',
+      validate: (input) => input.length > 1 || 'Component name cannot be empty!',
     },
   ],
-  actions: function() {
+  actions: function () {
     return [
       {
         type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
+        path: `src/routes/{{directory}}/{{camelCase name}}/{{pascalCase name}}.tsx`,
         templateFile: 'plop/templates/component/Component.hbs',
       },
       {
         type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
+        path: `src/routes/{{directory}}/{{camelCase name}}/{{pascalCase name}}.test.tsx`,
         templateFile: 'plop/templates/component/Component.test.hbs',
       },
       {
         type: 'add',
-        path: `src/app/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
+        path: `src/routes/{{directory}}/{{camelCase name}}/{{pascalCase name}}.types.ts`,
         templateFile: 'plop/templates/component/Component.types.hbs',
       },
     ];
