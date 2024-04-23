@@ -2,8 +2,7 @@ import { useSearch, useNavigate } from '@tanstack/react-router';
 
 import { CodeBlock } from 'ui/codeBlock/CodeBlock';
 import { useQuery } from 'hooks/useQuery/useQuery';
-
-type SortType = 'asc' | 'desc';
+import { UserSortType } from 'routes/users';
 
 export const UsersList = () => {
   const { sort, page } = useSearch({ from: '/users/' });
@@ -11,7 +10,7 @@ export const UsersList = () => {
 
   const { data: usersResponse, isFetched: areUsersFetched } = useQuery(
     'getUsersList',
-    { page: page?.toString() || undefined },
+    { page: page.toString() || undefined },
     {
       select: (data) => {
         return { ...data, users: data.users.sort((a, b) => (sort === 'desc' ? +b.id - +a.id : +a.id - +b.id)) };
@@ -19,7 +18,7 @@ export const UsersList = () => {
     },
   );
 
-  const sortUsers = (type: SortType) => {
+  const sortUsers = (type: UserSortType) => {
     navigate({
       search: {
         sort: type,
@@ -28,18 +27,16 @@ export const UsersList = () => {
   };
 
   const goToNextPage = () => {
-    const newPage = !!page ? +page + 1 : 2;
-
     navigate({
       search: (prev) => ({
         ...prev,
-        page: newPage,
+        page: page + 1,
       }),
     });
   };
 
   const goToPrevPage = () => {
-    const newPage = page && page !== 1 ? +page - 1 : undefined;
+    const newPage = page <= 1 ? undefined : page - 1;
 
     navigate({
       search: (prev) => ({
@@ -67,7 +64,7 @@ export const UsersList = () => {
       </div>
       <div style={{ marginTop: '24px' }}>
         <label htmlFor="sort">Sort by: </label>
-        <select id="sort" onChange={(e) => sortUsers(e.target.value as SortType)}>
+        <select id="sort" onChange={(e) => sortUsers(e.target.value as UserSortType)}>
           <option value="asc">ASC</option>
           <option value="desc">DESC</option>
         </select>

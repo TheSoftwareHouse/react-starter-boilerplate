@@ -5,10 +5,11 @@ import { UsersList } from 'routes/users/-components/UsersList';
 
 const userSearchSchema = z.object({
   sort: z.enum(['asc', 'desc']).catch('asc'),
-  page: z.number().catch(1),
+  page: z.number().positive().catch(1),
 });
 
 export type UserSearch = z.infer<typeof userSearchSchema>;
+export type UserSortType = UserSearch['sort'];
 
 export const Route = createFileRoute('/users/')({
   component: () => <UsersList />,

@@ -15,13 +15,13 @@ export const authQueries = {
   },
   getUsersInfinite:
     (client: AxiosInstance) =>
-    async ({ pageParam = '0', count = '5' }: GetUsersInfiniteArgs) => {
+    async ({ pageParam = '1', count = '5' }: GetUsersInfiniteArgs) => {
       const queryParams = stringify({ page: pageParam, count: count }, { addQueryPrefix: true });
       return (await client.get<GetUsersResponse>(`/users/${queryParams}`)).data;
     },
   getUsersList:
     (client: AxiosInstance) =>
-    async ({ page = '0' }: GetUsersListArgs) => {
+    async ({ page = '1' }: GetUsersListArgs) => {
       const queryParams = stringify({ page, count: 5 }, { addQueryPrefix: true });
       return (await client.get<GetUsersResponse>(`/users/${queryParams}`)).data;
     },
