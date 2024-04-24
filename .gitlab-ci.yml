@@ -1,6 +1,6 @@
 # START PLAYWRIGHT SPECIFIC CONFIG
 default:
-  image: mcr.microsoft.com/playwright:v1.31.2-focal
+  image: mcr.microsoft.com/playwright:v1.43.0-focal
 
 stages:
   - build
@@ -92,7 +92,7 @@ deploy_to_staging:
   stage: deploy
   environment: staging
   image:
-    name: tshio/awscli-docker-compose-pipelines:0.0.6
+    name: tshio/awscli-docker-compose-pipelines:0.0.7
     entrypoint: ['']
   script:
     - npm ci
