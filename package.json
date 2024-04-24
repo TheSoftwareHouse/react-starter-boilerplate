@@ -17,14 +17,11 @@
     "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\" && stylelint --fix \"./src/**/*.{css,pcss,scss}\" && echo \"lint success\"",
     "plop": "plop",
     "translations": "ts-node -T --project tsconfig.json ./scripts/fetch-translations.ts",
-    "serve:cypress": "http-server --proxy $(grep CYPRESS_HOST e2e/.env | cut -d '=' -f2)? ./build --port 1337",
-    "e2e:open": "cd e2e && ./node_modules/.bin/cypress open; cd ..",
-    "e2e:run:firefox": "cd e2e && ./node_modules/.bin/cypress run --browser firefox && cd ..",
-    "e2e:run:chrome": "cd e2e && ./node_modules/.bin/cypress run --browser chrome && cd ..",
-    "e2e:wait-and-run:firefox": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:firefox",
-    "e2e:wait-and-run:chrome": "./node_modules/.bin/wait-on http://localhost:1337/ && npm run e2e:run:chrome",
-    "e2e:ci:firefox": "npm-run-all -p -r serve:cypress e2e:wait-and-run:firefox",
-    "e2e:ci:chrome": "npm-run-all -p -r serve:cypress e2e:wait-and-run:chrome",
+    "e2e": "cd e2e && npm run test && cd ..",
+    "e2e:firefox": "cd e2e && npm run test:firefox && cd ..",
+    "e2e:chrome": "cd e2e && npm run test:chrome && cd ..",
+    "e2e:safari": "cd e2e && npm run test:safari && cd ..",
+    "e2e:debug": "cd e2e && npm run test:debug && cd ..",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -103,13 +100,11 @@
     "eslint-plugin-ui-testing": "2.0.1",
     "eslint-plugin-vitest": "0.5.1",
     "full-icu": "1.5.0",
-    "http-server": "14.1.1",
     "husky": "9.0.11",
     "inquirer-directory": "2.2.0",
     "jsdom": "24.0.0",
     "lint-staged": "15.2.2",
     "msw": "2.2.13",
-    "npm-run-all": "4.1.5",
     "plop": "4.0.1",
     "prettier": "3.1.1",
     "stylelint": "16.3.1",
@@ -117,8 +112,7 @@
     "vite": "5.2.8",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "1.5.0",
-    "wait-on": "7.2.0"
+    "vitest": "1.5.0"
   },
   "msw": {
     "workerDirectory": "public"
