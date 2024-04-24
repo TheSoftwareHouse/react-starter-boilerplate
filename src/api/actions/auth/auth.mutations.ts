@@ -1,5 +1,7 @@
 import { AxiosInstance } from 'axios';
 
+import { BASE_URL } from 'api/axios';
+
 import {
   LoginMutationArguments,
   LoginMutationResponse,
@@ -12,3 +14,5 @@ export const authMutations = {
   },
   // MUTATION_FUNCTIONS_SETUP
 };
+
+export const refreshTokenUrl = `${BASE_URL}/users/refresh-token`;

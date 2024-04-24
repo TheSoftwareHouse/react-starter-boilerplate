@@ -35,4 +35,9 @@ export type GetUsersListArgs = {
   page?: string;
 };
 
+export type RefreshTokenMutationResponse = {
+  accessToken: string;
+  refreshToken: string;
+};
+
 // API_ACTION_TYPES
