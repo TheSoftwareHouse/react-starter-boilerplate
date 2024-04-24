@@ -1,4 +1,6 @@
-import './wdyr';
+if (import.meta.env.DEV) {
+  import.meta.glob('./wdyr.ts', { eager: true });
+}
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
