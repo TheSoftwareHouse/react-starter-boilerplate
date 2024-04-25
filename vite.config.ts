@@ -5,6 +5,12 @@ import svgrPlugin from 'vite-plugin-svgr';
 import { configDefaults } from 'vitest/config';
 import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 
+const manualChunks = (id: string) => {
+  if (id.includes('@sentry')) {
+    return 'sentry';
+  }
+};
+
 /* eslint-disable import/no-default-export */
 export default defineConfig({
   plugins: [
@@ -21,6 +27,11 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+    rollupOptions: {
+      output: {
+        manualChunks,
+      },
+    },
   },
   test: {
     globals: true,
