@@ -78,6 +78,7 @@ npm run [command_name]
 - `start` - Launches the app in development mode on [http://localhost:3000](http://localhost:3000)
 - `build` - Compiles and bundles the app for deployment*
 - `build:ci` - Build command optimized for CI/CD pipelines
+- `build:analyze` - Builds the app and opens the rollup-plugin-visualizer report in the browser
 - `typecheck` - Validate the code using TypeScript compiler
 - `preview` - Boot up a local static web server that serves application build. It's an easy way to check if the production build looks OK on your local machine
 - `test` - Run unit tests with vitest
