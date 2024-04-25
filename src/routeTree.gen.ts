@@ -32,7 +32,7 @@ const UsersIndexRoute = UsersIndexImport.update({
 const HelpIndexRoute = HelpIndexImport.update({
   path: '/help/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/help/index.lazy').then((d) => d.Route))
 
 const AboutIndexRoute = AboutIndexImport.update({
   path: '/about/',
