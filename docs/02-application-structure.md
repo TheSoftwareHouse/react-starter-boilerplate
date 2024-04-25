@@ -17,13 +17,12 @@
 ## Source code structure
 
 `├──`[`api`](src/api) — Configuration of API client and collection of API actions (queries and mutations) definition. <br>
-`├──`[`app`](src/app) — React application features (view components/modules) <br>
+`├──`[`routes`](src/routes) — React application Routing and features (view components/modules) <br>
 `├──`[`assets`](src/assets) - React application public assets (images, icons, custom fonts etc.) <br>
 `├──`[`context`](src/context) - Global contexts using across React application. Each context has its context and controller files <br>
 `├──`[`hooks`](src/hooks) - Global hooks used across the application. The best approach is to keep flat structure of hooks in this directory <br>
 `├──`[`i18n`](src/i18n) - Configuration of internationalization module in SPA application. It also contains JSON files with application translations managed with Babelsheet tool <br>
 `├──`[`providers`](src/providers) - Configuration of providers tree in React application <br>
-`├──`[`routing`](src/routing) - Application routing definitions and implementation of special route components like `PrivateRoute` etc. <br>
 `├──`[`tests`](src/tests) - Configuration of React application unit tests <br>
 `├──`[`types`](src/types) - Global types used across the application <br>
 `├──`[`ui`](src/ui) - Base UI components used across the application. The best approach is to keep flat structure of UI components in this directory <br>

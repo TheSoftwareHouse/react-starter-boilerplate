@@ -1,15 +1,13 @@
-import { MemoryRouter as Router } from 'react-router';
-
 import { render, screen } from 'tests';
 
 import { LocationInfo } from './LocationInfo';
 
 describe('Location info', () => {
-  test('renders current location data', () => {
+  test('renders current location data', async () => {
     render(<LocationInfo />, {
-      wrapper: ({ children }) => <Router initialEntries={['/foo']}>{children}</Router>,
+      routerConfig: { routerPath: '/foo' },
     });
-    const element = screen.getByText(/\/foo/);
+    const element = await screen.findByText(/\/foo/);
     expect(element).toBeInTheDocument();
   });
 });

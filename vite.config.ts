@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
 import { configDefaults } from 'vitest/config';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 
 /* eslint-disable import/no-default-export */
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
     }),
     viteTsconfigPaths(),
     svgrPlugin(),
+    TanStackRouterVite(),
   ],
   server: {
     open: true,

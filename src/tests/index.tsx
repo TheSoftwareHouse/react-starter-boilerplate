@@ -3,7 +3,14 @@ import { Queries } from '@testing-library/dom';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { useState } from 'react';
 import { IntlProvider } from 'react-intl';
-import { MemoryRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  RouterProvider,
+  createRootRoute,
+  Outlet,
+  createRoute,
+  createRouter,
+  createMemoryHistory,
+} from '@tanstack/react-router';
 
 import { ApiClientContextController } from 'context/apiClient/apiClientContextController/ApiClientContextController';
 import { AuthContext } from 'context/auth/authContext/AuthContext';
@@ -13,30 +20,24 @@ import { LocaleContext } from 'context/locale/localeContext/LocaleContext';
 
 import { ExtraRenderOptions, WrapperProps } from './types';
 
-const RouterForTests = ({ children, routerConfig }: WrapperProps) => {
-  if (routerConfig?.withRouter) {
-    // need to prefix the route with / for memory router
-    const initialEntries = routerConfig.routerHistory.map((historyItem) =>
-      historyItem.startsWith('/') ? historyItem : `/${historyItem}`,
-    );
-
-    const path = routerConfig.path.startsWith('/') ? routerConfig.path : `/${routerConfig.path}`;
-
-    return (
-      <Router initialEntries={initialEntries}>
-        <Routes>
-          <Route path={path} element={children} />
-        </Routes>
-      </Router>
-    );
-  }
-
-  return <Router>{children}</Router>;
-};
-
 // @TODO: https://bitbucket.org/thesoftwarehouse/react-starter-boilerplate/pull-requests/5/rss-9-add-login-page/diff#comment-132626297
-const _Wrapper = ({ children, routerConfig = { withRouter: false } }: WrapperProps) => {
+const _Wrapper = ({ children, routerConfig = {} }: WrapperProps) => {
   const [locale, setLocale] = useState<AppLocale>(defaultLocale);
+  const { routerPath = '/', currentPath = routerPath } = routerConfig;
+
+  const rootRoute = createRootRoute({ component: () => <Outlet /> });
+
+  const componentRoute = createRoute({
+    path: routerPath,
+    getParentRoute: () => rootRoute,
+    component: () => children,
+  });
+  const router = createRouter({
+    history: createMemoryHistory({
+      initialEntries: [currentPath],
+    }),
+    routeTree: rootRoute.addChildren([componentRoute]),
+  });
 
   return (
     <ApiClientContextController>
@@ -54,7 +55,7 @@ const _Wrapper = ({ children, routerConfig = { withRouter: false } }: WrapperPro
       >
         <IntlProvider onError={() => {}} defaultLocale={defaultLocale} locale={locale}>
           <LocaleContext.Provider value={{ defaultLocale, locale, setLocale }}>
-            <RouterForTests routerConfig={routerConfig}>{children}</RouterForTests>
+            <RouterProvider router={router} />
           </LocaleContext.Provider>
         </IntlProvider>
       </AuthContext.Provider>

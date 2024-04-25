@@ -1,14 +1,9 @@
 import { ReactNode } from 'react';
 
-import { AppRoute } from 'routing/AppRoute.enum';
-
-export type RouterConfig =
-  | {
-      withRouter: true;
-      routerHistory: string[];
-      path: AppRoute;
-    }
-  | { withRouter: false };
+export type RouterConfig = {
+  routerPath?: string;
+  currentPath?: string;
+};
 
 export type ExtraRenderOptions = {
   routerConfig?: RouterConfig;
