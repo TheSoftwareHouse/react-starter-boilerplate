@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=20"
   },
+  "type": "module",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
