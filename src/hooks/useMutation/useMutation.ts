@@ -2,7 +2,7 @@ import { useMutation as useRQMutation, UseMutationOptions, MutationKey } from '@
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosMutationsType, mutations } from 'api/actions';
-import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 import { ExtendedQueryMeta } from 'api/types/types';
 
 import { DataForMutation, GetMutationParams } from './useMutation.types';
@@ -14,7 +14,7 @@ import { DataForMutation, GetMutationParams } from './useMutation.types';
  * @see ApiClientContextController.ts
  * */
 
-export const useMutation = <Key extends keyof AxiosMutationsType, TError = ApiError>(
+export const useMutation = <Key extends keyof AxiosMutationsType, TError = StandardizedApiError>(
   mutation: Key,
   options?: Omit<
     UseMutationOptions<DataForMutation<Key>, TError, GetMutationParams<Key>>,

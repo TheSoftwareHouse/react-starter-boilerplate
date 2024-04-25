@@ -8,7 +8,7 @@ import { useHandleQueryErrors } from 'hooks/useHandleQueryErrors/useHandleQueryE
 import { ExtendedQueryMeta } from 'api/types/types';
 
 import { ApiClientControllerProps } from './ApiClientContextController.types';
-import { ApiError } from './apiError/apiError.types';
+import { StandardizedApiError } from './apiError/apiError.types';
 
 const metaErrorConfig = { error: { showGlobalError: true, excludedCodes: [] } };
 
@@ -17,14 +17,14 @@ export const ApiClientContextController = ({ children }: ApiClientControllerProp
 
   const mutationCache = new MutationCache({
     onError: (err, variables, context, mutation) => {
-      const error = err as unknown as ApiError; //TODO: refactor ApiErrors to extend Error
+      const error = err as StandardizedApiError;
       shouldHandleGlobalError((mutation.meta as ExtendedQueryMeta)?.error, error?.statusCode) && handleErrors(error);
     },
   });
 
   const queryCache = new QueryCache({
     onError: (err, query) => {
-      const error = err as unknown as ApiError; //TODO: refactor ApiErrors to extend Error
+      const error = err as StandardizedApiError;
 
       shouldHandleGlobalError((query.meta as ExtendedQueryMeta)?.error, error?.statusCode) && handleErrors(error);
     },

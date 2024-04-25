@@ -19,7 +19,7 @@ describe('getStandardizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandardizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toMatchObject({
       type: 'basic',
       statusCode: 400,
       data: errorData,
@@ -35,7 +35,7 @@ describe('getStandardizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandardizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toMatchObject({
       type: 'form',
       statusCode: 400,
       data: errorData,
@@ -51,7 +51,7 @@ describe('getStandardizedApiError', () => {
     };
     const mockAxiosError = getMockAxiosError(errorData);
 
-    expect(getStandardizedApiError(mockAxiosError)).toEqual({
+    expect(getStandardizedApiError(mockAxiosError)).toMatchObject({
       statusCode: 400,
       type: 'unknown',
       data: errorData,

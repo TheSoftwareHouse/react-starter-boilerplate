@@ -4,9 +4,9 @@ import { useApiClient } from '../useApiClient/useApiClient';
 import { AxiosQueriesType, queries } from 'api/actions';
 import { DataForQuery, ExtendedQueryMeta, GetQueryParams } from 'api/types/types';
 import { parseQueryKey } from 'utils/parseQueryKey';
-import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 
-export const useQuery = <Key extends keyof AxiosQueriesType, TError = ApiError>(
+export const useQuery = <Key extends keyof AxiosQueriesType, TError = StandardizedApiError>(
   query: Key,
   args: GetQueryParams<Key>,
   options?: Omit<UseQueryOptions<DataForQuery<Key>, TError>, 'queryFn' | 'queryKey'> & {

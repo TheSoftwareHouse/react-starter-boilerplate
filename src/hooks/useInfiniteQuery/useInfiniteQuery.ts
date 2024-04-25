@@ -8,7 +8,7 @@ import {
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosInfiniteQueriesType, queries } from 'api/actions';
 import { DataForQuery, ExtendedQueryMeta, GetQueryParams } from 'api/types/types';
-import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 
 /**
  * Fetching data using this hook doesn't require specifying query function like it's required in react-query
@@ -16,7 +16,7 @@ import { ApiError } from 'context/apiClient/apiClientContextController/apiError/
  * This hook uses proper querying strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
-export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = ApiError>({
+export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = StandardizedApiError>({
   query,
   args,
   options,
