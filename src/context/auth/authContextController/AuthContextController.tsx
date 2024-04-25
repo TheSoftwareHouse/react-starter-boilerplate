@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useMutation } from 'hooks/useMutation/useMutation';
 import { useUser } from '../../../hooks/useUser/useUser';
@@ -7,17 +8,19 @@ import { AuthContext } from '../authContext/AuthContext';
 import { AuthContextValue } from '../authContext/AuthContext.types';
 import { authReducer } from '../authReducer/authReducer';
 import { authStorage } from '../authStorage/AuthStorage';
+import { parseQueryKey } from 'utils/parseQueryKey';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
+  const queryClient = useQueryClient();
   const [state, dispatch] = useReducer(authReducer, {
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,
     expires: authStorage.expires,
   });
 
-  const { mutateAsync: login, isLoading: isAuthenticating } = useMutation('loginMutation', {
+  const { mutateAsync: login, isPending: isAuthenticating } = useMutation('loginMutation', {
     onSuccess: (res) => {
       dispatch(
         setTokens({
@@ -37,18 +40,25 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
     data: user,
     isLoadingAndEnabled,
     isSuccess: isUserSuccess,
-    remove: resetUser,
+    isError,
   } = useUser({
     enabled: !!state.accessToken,
-    onError: () => {
-      dispatch(resetTokens());
-    },
   });
+
+  const resetUser = useCallback(() => {
+    queryClient.removeQueries({ queryKey: parseQueryKey('getCurrentUser', {}) }); //TODO: THIS LOOKS BAD, but might be necessary in some cases when there are additional arguments, there needs to be a better queryKey management,
+  }, [queryClient]);
 
   const logout = useCallback(() => {
     resetUser();
     dispatch(resetTokens());
   }, [resetUser]);
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(resetTokens());
+    }
+  }, [isError]);
 
   useEffect(() => {
     authStorage.accessToken = state.accessToken;

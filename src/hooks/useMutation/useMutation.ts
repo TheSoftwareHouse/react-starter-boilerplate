@@ -16,7 +16,10 @@ import { DataForMutation, GetMutationParams } from './useMutation.types';
 
 export const useMutation = <Key extends keyof AxiosMutationsType, TError = ApiError>(
   mutation: Key,
-  options?: UseMutationOptions<DataForMutation<Key>, TError, GetMutationParams<Key>> & {
+  options?: Omit<
+    UseMutationOptions<DataForMutation<Key>, TError, GetMutationParams<Key>>,
+    'mutationKey' | 'mutationFn'
+  > & {
     meta?: Partial<ExtendedQueryMeta>;
   },
 ) => {
@@ -24,5 +27,9 @@ export const useMutation = <Key extends keyof AxiosMutationsType, TError = ApiEr
   const mutationFn = mutations[mutation](client);
   const mutationKey: MutationKey = [mutation];
 
-  return useRQMutation(mutationKey, async (args) => (await mutationFn(args)) as DataForMutation<Key>, options);
+  return useRQMutation({
+    mutationKey,
+    mutationFn: async (args) => (await mutationFn(args)) as DataForMutation<Key>,
+    ...options,
+  });
 };

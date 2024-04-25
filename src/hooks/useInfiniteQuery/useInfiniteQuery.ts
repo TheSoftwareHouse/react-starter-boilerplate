@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { QueryKey, useInfiniteQuery as useRQInfiniteQuery, UseInfiniteQueryOptions } from '@tanstack/react-query';
+import {
+  QueryKey,
+  useInfiniteQuery as useRQInfiniteQuery,
+  UseInfiniteQueryOptions,
+  InfiniteData,
+} from '@tanstack/react-query';
 
 import { useApiClient } from 'hooks/useApiClient/useApiClient';
 import { AxiosInfiniteQueriesType, queries } from 'api/actions';
@@ -13,19 +16,35 @@ import { ApiError } from 'context/apiClient/apiClientContextController/apiError/
  * This hook uses proper querying strategy provided via ApiClientContext
  * @see ApiClientContextController.ts
  * */
-export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = ApiError>(
-  query: Key,
-  args?: GetQueryParams<Key>,
-  options?: UseInfiniteQueryOptions<DataForQuery<Key>, TError> & { meta?: Partial<ExtendedQueryMeta> },
-) => {
+export const useInfiniteQuery = <Key extends keyof AxiosInfiniteQueriesType, TError = ApiError>({
+  query,
+  args,
+  options,
+}: {
+  query: Key;
+  args?: GetQueryParams<Key>;
+  options: Omit<
+    UseInfiniteQueryOptions<
+      DataForQuery<Key>,
+      TError,
+      InfiniteData<DataForQuery<Key>>,
+      DataForQuery<Key>,
+      QueryKey,
+      string
+    >,
+    'queryKey' | 'queryFn'
+  > & {
+    meta?: Partial<ExtendedQueryMeta>;
+  };
+}) => {
   const { client } = useApiClient();
   const queryFn = queries[query](client);
   const queryKey: QueryKey = [query];
 
-  return useRQInfiniteQuery(
+  return useRQInfiniteQuery({
     queryKey,
-    async ({ pageParam }: { pageParam?: string }) =>
+    queryFn: async ({ pageParam }: { pageParam: string }) =>
       (await queryFn({ pageParam, ...(args || {}) })) as DataForQuery<Key>,
-    options,
-  );
+    ...options,
+  });
 };
