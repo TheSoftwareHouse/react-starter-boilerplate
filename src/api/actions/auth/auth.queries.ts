@@ -1,6 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { stringify } from 'qs';
 
+import { queryFactoryOptions, infiniteQueryFactoryOptions } from '../../utils/queryFactoryOptions';
+
 import { GetMeQueryResponse, GetUsersInfiniteArgs, GetUsersListArgs, GetUsersResponse } from './auth.types';
 
 const getCurrentUser = (client: AxiosInstance) => async () => {
@@ -21,25 +23,25 @@ const getUsersList =
     return (await client.get<GetUsersResponse>(`/users/${queryParams}`)).data;
   };
 
-const injectClient =
-  <TParams, TReturn>(fn: (client: AxiosInstance, params: TParams) => TReturn, params: TParams) =>
-  (client: AxiosInstance) =>
-    fn(client, params);
-
 export const authQueries = {
   all: () => ['users'],
-  me: () => ({
-    queryKey: [...authQueries.all(), 'me'],
-    queryFn: getCurrentUser,
-  }),
+  me: () =>
+    queryFactoryOptions({
+      queryKey: [...authQueries.all(), 'me'],
+      queryFn: getCurrentUser,
+    }),
   lists: () => [...authQueries.all(), 'list'],
-  list: (params: GetUsersListArgs) => ({
-    queryKey: [...authQueries.lists(), params],
-    queryFn: injectClient(getUsersList, params),
-  }),
+  list: (params: GetUsersListArgs) =>
+    queryFactoryOptions({
+      queryKey: [...authQueries.lists(), params],
+      queryFn: (client) => getUsersList(client, params),
+    }),
   listsInfinite: () => [...authQueries.lists(), 'infinite'],
-  listInfinite: (params: GetUsersInfiniteArgs) => ({
-    queryKey: [...authQueries.listsInfinite(), params],
-    queryFn: injectClient(getUsersInfinite, params),
-  }),
+  listInfinite: (params: GetUsersInfiniteArgs) =>
+    infiniteQueryFactoryOptions({
+      queryKey: [...authQueries.listsInfinite(), params],
+      queryFn: (client) => getUsersInfinite(client, params),
+      initialPageParam: '1',
+      getNextPageParam: ({ nextPage }) => nextPage?.toString(),
+    }),
 };
