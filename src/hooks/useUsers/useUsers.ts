@@ -1,12 +1,11 @@
+import { authQueries } from 'api/actions/auth/auth.queries';
 import { useInfiniteQuery } from '../useInfiniteQuery/useInfiniteQuery';
 
 export const useUsers = () =>
   useInfiniteQuery({
-    query: 'getUsersInfinite',
-    options: {
-      getNextPageParam: ({ nextPage }) => {
-        return nextPage ? nextPage.toString() : null;
-      },
-      initialPageParam: '1',
+    ...authQueries.listInfinite({}),
+    getNextPageParam: ({ nextPage }) => {
+      return nextPage ? nextPage.toString() : null;
     },
+    initialPageParam: '1',
   });

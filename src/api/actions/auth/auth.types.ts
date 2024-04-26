@@ -27,7 +27,6 @@ export type GetUsersResponse = {
 };
 
 export type GetUsersInfiniteArgs = {
-  pageParam?: string;
   count?: string;
 };
 

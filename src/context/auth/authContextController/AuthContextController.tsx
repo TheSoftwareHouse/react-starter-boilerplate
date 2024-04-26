@@ -8,7 +8,7 @@ import { AuthContext } from '../authContext/AuthContext';
 import { AuthContextValue } from '../authContext/AuthContext.types';
 import { authReducer } from '../authReducer/authReducer';
 import { authStorage } from '../authStorage/AuthStorage';
-import { parseQueryKey } from 'utils/parseQueryKey';
+import { authQueries } from 'api/actions/auth/auth.queries';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
@@ -46,7 +46,7 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
   });
 
   const resetUser = useCallback(() => {
-    queryClient.removeQueries({ queryKey: parseQueryKey('getCurrentUser', {}) }); //TODO: THIS LOOKS BAD, but might be necessary in some cases when there are additional arguments, there needs to be a better queryKey management,
+    queryClient.removeQueries({ queryKey: authQueries.me().queryKey });
   }, [queryClient]);
 
   const logout = useCallback(() => {
