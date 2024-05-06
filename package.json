@@ -101,7 +101,6 @@
     "eslint-plugin-testing-library": "6.2.1",
     "eslint-plugin-ui-testing": "2.0.1",
     "eslint-plugin-vitest": "0.5.1",
-    "full-icu": "1.5.0",
     "husky": "9.0.11",
     "inquirer-directory": "2.2.0",
     "jsdom": "24.0.0",
