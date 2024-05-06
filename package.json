@@ -5,10 +5,12 @@
   "engines": {
     "node": ">=20"
   },
+  "type": "module",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
     "build:ci": "cross-env VITE_CI=1 vite build",
+    "build:analyze": "cross-env ANALYZE=1 npm run build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
@@ -107,6 +109,7 @@
     "msw": "2.2.13",
     "plop": "4.0.1",
     "prettier": "3.1.1",
+    "rollup-plugin-visualizer": "5.12.0",
     "stylelint": "16.3.1",
     "stylelint-config-recommended": "14.0.0",
     "vite": "5.2.8",
