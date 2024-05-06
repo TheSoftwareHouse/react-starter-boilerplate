@@ -21,7 +21,7 @@ export default defineConfig({
     viteTsconfigPaths(),
     svgrPlugin(),
     TanStackRouterVite(),
-    process.env.ANALYZE ? (visualizer({ open: true }) as PluginOption) : null,
+    process.env.ANALYZE ? (visualizer({ open: true, gzipSize: true }) as PluginOption) : null,
   ],
   server: {
     open: true,
