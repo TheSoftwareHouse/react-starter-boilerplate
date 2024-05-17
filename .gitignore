@@ -14,7 +14,7 @@
 # misc
 .DS_Store
 .env.babelsheet
-.env
+.env.local
 
 # editor files
 .idea/
