@@ -81,7 +81,7 @@
     "@types/qs": "6.9.14",
     "@types/react": "18.2.78",
     "@types/react-dom": "18.2.25",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
+    "@typescript-eslint/eslint-plugin": "7.9.0",
     "@typescript-eslint/parser": "7.6.0",
     "@vitejs/plugin-react-swc": "3.6.0",
     "@vitest/coverage-v8": "1.5.0",
