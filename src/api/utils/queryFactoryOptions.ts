@@ -1,14 +1,12 @@
-import { InfiniteData, QueryFunction, QueryKey, UseInfiniteQueryOptions, UseQueryOptions } from '@tanstack/react-query';
+import { InfiniteData, QueryFunction, QueryKey, UseInfiniteQueryOptions } from '@tanstack/react-query';
 import { AxiosInstance } from 'axios';
 
 import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 import { ExtendedQueryMeta } from 'api/types/types';
+import { UseQueryOptions } from 'hooks/useQuery/useQuery.types';
 
 export const queryFactoryOptions = <TQueryFnData = unknown, TError = StandardizedApiError>(
-  options: Omit<UseQueryOptions<TQueryFnData, TError>, 'queryFn'> & {
-    meta?: Partial<ExtendedQueryMeta>;
-    queryFn: (client: AxiosInstance) => QueryFunction<TQueryFnData, QueryKey>;
-  },
+  options: UseQueryOptions<TQueryFnData, TError>,
 ) => options;
 
 export const infiniteQueryFactoryOptions = <

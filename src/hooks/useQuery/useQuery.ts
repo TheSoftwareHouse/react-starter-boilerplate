@@ -1,15 +1,11 @@
-import { QueryFunction, QueryKey, UseQueryOptions, useQuery as useRQQuery } from '@tanstack/react-query';
-import { AxiosInstance } from 'axios';
+import { useQuery as useRQQuery } from '@tanstack/react-query';
 
 import { useApiClient } from '../useApiClient/useApiClient';
-import { ExtendedQueryMeta } from 'api/types/types';
 import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { UseQueryOptions } from 'hooks/useQuery/useQuery.types';
 
 export const useQuery = <TQueryFnData = unknown, TError = StandardizedApiError>(
-  params: Omit<UseQueryOptions<TQueryFnData, TError>, 'queryFn'> & {
-    meta?: Partial<ExtendedQueryMeta>;
-    queryFn: (client: AxiosInstance) => QueryFunction<TQueryFnData, QueryKey>;
-  },
+  params: UseQueryOptions<TQueryFnData, TError>,
 ) => {
   const { client } = useApiClient();
   const { queryFn, ...options } = params;
