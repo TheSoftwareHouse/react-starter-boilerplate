@@ -19,5 +19,5 @@ export const useQuery = <TQueryFnData = unknown, TError = StandardizedApiError>(
     ...options,
   });
 
-  return { ...result, isLoadingAndEnabled: result.isLoading && result.fetchStatus !== 'idle' };
+  return { ...result, isLoadingAndEnabled: result.isPending && result.fetchStatus !== 'idle' };
 };
