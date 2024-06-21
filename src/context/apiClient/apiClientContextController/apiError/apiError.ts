@@ -4,10 +4,10 @@ import zod from 'zod';
 import { BasicApiError, BasicErrorData, FormApiError, FormErrorData, UnknownApiError } from './apiError.types';
 
 export class ApiError<T extends BasicApiError | FormApiError | UnknownApiError> extends Error {
-  originalError: T['originalError'];
-  statusCode: T['statusCode'];
-  type: T['type'];
-  data: T['data'];
+  readonly originalError;
+  readonly statusCode;
+  readonly type;
+  readonly data;
 
   constructor(data: T, message?: string) {
     super(message);
