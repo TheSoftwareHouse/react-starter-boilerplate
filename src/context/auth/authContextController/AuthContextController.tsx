@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useReducer } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 
 import { useMutation } from 'hooks/useMutation/useMutation';
 import { useUser } from '../../../hooks/useUser/useUser';
@@ -8,16 +7,24 @@ import { AuthContext } from '../authContext/AuthContext';
 import { AuthContextValue } from '../authContext/AuthContext.types';
 import { authReducer } from '../authReducer/authReducer';
 import { authStorage } from '../authStorage/AuthStorage';
-import { authQueries } from 'api/actions/auth/auth.queries';
 
 import { AuthContextControllerProps } from './AuthContextController.types';
 
 export const AuthContextController = ({ children }: AuthContextControllerProps) => {
-  const queryClient = useQueryClient();
   const [state, dispatch] = useReducer(authReducer, {
     accessToken: authStorage.accessToken,
     refreshToken: authStorage.refreshToken,
     expires: authStorage.expires,
+  });
+
+  const {
+    data: user,
+    isLoadingAndEnabled,
+    isSuccess: isUserSuccess,
+    isError,
+    resetUser,
+  } = useUser({
+    enabled: !!state.accessToken,
   });
 
   const { mutateAsync: login, isPending: isAuthenticating } = useMutation('loginMutation', {
@@ -35,19 +42,6 @@ export const AuthContextController = ({ children }: AuthContextControllerProps) 
       resetUser();
     },
   });
-
-  const {
-    data: user,
-    isLoadingAndEnabled,
-    isSuccess: isUserSuccess,
-    isError,
-  } = useUser({
-    enabled: !!state.accessToken,
-  });
-
-  const resetUser = useCallback(() => {
-    queryClient.removeQueries({ queryKey: authQueries.me().queryKey });
-  }, [queryClient]);
 
   const logout = useCallback(() => {
     resetUser();
