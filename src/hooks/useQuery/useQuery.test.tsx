@@ -1,6 +1,7 @@
 import axiosClient from 'api/axios';
 import { AppProviders } from 'providers/AppProviders';
 import { renderHook, waitFor } from 'tests';
+import { authQueries } from 'api/actions/auth/auth.queries';
 
 import { useQuery } from './useQuery';
 
@@ -19,7 +20,7 @@ describe('useQuery', () => {
   test('returns the data fetched from api', async () => {
     mockApiResponse(mockCurrentUser, 'get');
 
-    const { result } = renderHook(() => useQuery('getCurrentUser', {}), {
+    const { result } = renderHook(() => useQuery(authQueries.me()), {
       wrapper: ({ children }) => (
         <AppProviders>
           <>{children}</>,
@@ -36,7 +37,7 @@ describe('useQuery', () => {
   test('returns proper loading state', async () => {
     mockApiResponse(mockCurrentUser, 'get');
 
-    const { result } = renderHook(() => useQuery('getCurrentUser', {}), {
+    const { result } = renderHook(() => useQuery(authQueries.me()), {
       wrapper: ({ children }) => (
         <AppProviders>
           <>{children}</>,
@@ -54,7 +55,7 @@ describe('useQuery', () => {
     const response = { status: 401 };
     vitest.spyOn(axiosClient, 'get').mockRejectedValue(response);
 
-    const { result } = renderHook(() => useQuery('getCurrentUser', {}, { retry: false }), {
+    const { result } = renderHook(() => useQuery({ ...authQueries.me(), retry: false }), {
       wrapper: ({ children }) => (
         <AppProviders>
           <>{children}</>,
@@ -62,7 +63,7 @@ describe('useQuery', () => {
       ),
     });
 
-    expect(result.current.status).toBe('loading');
+    expect(result.current.status).toBe('pending');
     await waitFor(() => {
       expect(result.current.status).toBe('error');
     });

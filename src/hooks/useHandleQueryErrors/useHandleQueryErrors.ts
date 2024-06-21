@@ -1,10 +1,10 @@
 import { isClientError, isServerError } from 'utils/apiErrorStatuses';
-import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 import { ExtendedQueryMeta } from 'api/types/types';
 import { logger } from 'integrations/logger';
+import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
 
 export const useHandleQueryErrors = () => {
-  const handleErrors = (error: ApiError) => {
+  const handleErrors = (error: StandardizedApiError) => {
     if (isServerError(error.statusCode)) {
       // show translated error message in toast/snackbar
       logger.error(error.originalError.message);
