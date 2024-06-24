@@ -1,82 +1,93 @@
-import { Storage } from './AuthStorage.types';
+import { Storage, TokenData } from './AuthStorage.types';
 
 const ACCESS_TOKEN_KEY = 'accessToken';
 const REFRESH_TOKEN_KEY = 'refreshToken';
 const EXPIRES_KEY = 'expires';
 
+const defaultTokenData = {
+  accessToken: null,
+  refreshToken: null,
+  expires: null,
+} satisfies TokenData;
 class AuthStorage {
-  private _accessToken: string | null = null;
-  private _refreshToken: string | null = null;
-  private _expires: number | null = null;
-  private _storage: Storage | null = null;
+  private _storage: Storage | null;
+  private _tokenData: TokenData = defaultTokenData;
+  private listeners: VoidFunction[] = [];
 
   constructor(_storage: Storage) {
     try {
       this._storage = _storage;
-      this.accessToken = _storage.getItem(ACCESS_TOKEN_KEY);
-      this.refreshToken = _storage.getItem(REFRESH_TOKEN_KEY);
-      this.expires = Number(_storage.getItem(EXPIRES_KEY));
+      this._tokenData = {
+        accessToken: _storage.getItem(ACCESS_TOKEN_KEY),
+        refreshToken: _storage.getItem(REFRESH_TOKEN_KEY),
+        expires: Number(_storage.getItem(EXPIRES_KEY)),
+      };
     } catch (error) {
       this._storage = null;
-      this.accessToken = null;
-      this.refreshToken = null;
-      this.expires = null;
+      this._tokenData = defaultTokenData;
     }
   }
 
-  get accessToken(): string | null {
-    return this._accessToken;
+  subscribe = (listener: VoidFunction) => {
+    this.listeners = [...this.listeners, listener];
+
+    return () => {
+      this.listeners = this.listeners.filter((subscriber) => subscriber !== listener);
+    };
+  };
+
+  notify() {
+    this.listeners.forEach((listener) => listener());
+  }
+
+  getTokenData = () => {
+    return this._tokenData;
+  };
+
+  private setStorageValue = (storageKey: string, value: number | string | null) => {
+    try {
+      if (value !== null) {
+        this._storage?.setItem(storageKey, String(value));
+      } else {
+        this._storage?.removeItem(storageKey);
+      }
+    } catch (error) {
+      this._storage?.onError(error);
+    }
+  };
+
+  set tokenData(value: TokenData) {
+    this._tokenData = value;
+    this.setStorageValue(REFRESH_TOKEN_KEY, value.refreshToken);
+    this.setStorageValue(ACCESS_TOKEN_KEY, value.accessToken);
+    this.setStorageValue(EXPIRES_KEY, value.expires);
+    this.notify();
   }
 
   set accessToken(value: string | null) {
-    this._accessToken = value;
-
-    try {
-      if (typeof value === 'string') {
-        this._storage?.setItem(ACCESS_TOKEN_KEY, value);
-      } else {
-        this._storage?.removeItem(ACCESS_TOKEN_KEY);
-      }
-    } catch (error) {
-      this._storage?.onError(error);
-    }
-  }
-
-  get refreshToken(): string | null {
-    return this._refreshToken;
+    this.tokenData = {
+      ...this._tokenData,
+      accessToken: value,
+    };
   }
 
   set refreshToken(value: string | null) {
-    this._refreshToken = value;
-
-    try {
-      if (typeof value === 'string') {
-        this._storage?.setItem(REFRESH_TOKEN_KEY, value);
-      } else {
-        this._storage?.removeItem(REFRESH_TOKEN_KEY);
-      }
-    } catch (error) {
-      this._storage?.onError(error);
-    }
-  }
-
-  get expires(): number | null {
-    return this._expires;
+    this.tokenData = {
+      ...this._tokenData,
+      refreshToken: value,
+    };
   }
 
   set expires(value: number | null) {
-    this._expires = value;
-
-    try {
-      if (typeof value === 'number') {
-        this._storage?.setItem(EXPIRES_KEY, value.toString());
-      } else {
-        this._storage?.removeItem(EXPIRES_KEY);
-      }
-    } catch (error) {
-      this._storage?.onError(error);
-    }
+    this.tokenData = {
+      ...this._tokenData,
+      expires: value,
+    };
   }
+
+  resetTokens = () => {
+    this.tokenData = defaultTokenData;
+  };
 }
 
 const storage: Storage = {
