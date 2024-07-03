@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import zod from 'zod';
 
+import { ApiError } from './apiError';
 import { formErrorDataSchema, basicErrorDataSchema } from './apiError';
 
 export type FormErrorData = zod.infer<typeof formErrorDataSchema>;
@@ -13,10 +14,10 @@ type BaseApiError<TData = unknown> = {
   originalError: AxiosError<TData>;
 };
 
-type BasicApiError = { type: 'basic' } & BaseApiError<BasicErrorData>;
+export type BasicApiError = { type: 'basic' } & BaseApiError<BasicErrorData>;
 
-type FormApiError = { type: 'form' } & BaseApiError<FormErrorData>;
+export type FormApiError = { type: 'form' } & BaseApiError<FormErrorData>;
 
-type UnknownApiError = { type: 'unknown' } & BaseApiError;
+export type UnknownApiError = { type: 'unknown' } & BaseApiError;
 
-export type ApiError = BasicApiError | FormApiError | UnknownApiError;
+export type StandardizedApiError = ApiError<BasicApiError> | ApiError<FormApiError> | ApiError<UnknownApiError>;

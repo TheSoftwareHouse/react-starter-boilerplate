@@ -65,6 +65,12 @@ git commit -m 'Initial commit'
 git push origin master
 ```
 
+6. Copy the `.env.dist` file to `.env.local` and populate the environment variables with the values used in the local environment
+
+```shell
+cp .env.dist .env.local
+```
+
 Now, your project is bootstrapped successfully! 🎉
 
 You can install dependencies and start developing your React application 🚀

@@ -1,21 +1,19 @@
-import { QueryKey, UseQueryOptions, useQuery as useRQQuery } from '@tanstack/react-query';
+import { useQuery as useRQQuery } from '@tanstack/react-query';
 
 import { useApiClient } from '../useApiClient/useApiClient';
-import { AxiosQueriesType, queries } from 'api/actions';
-import { DataForQuery, ExtendedQueryMeta, GetQueryParams } from 'api/types/types';
-import { parseQueryKey } from 'utils/parseQueryKey';
-import { ApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { StandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError.types';
+import { UseQueryOptions } from 'hooks/useQuery/useQuery.types';
 
-export const useQuery = <Key extends keyof AxiosQueriesType, TError = ApiError>(
-  query: Key,
-  args: GetQueryParams<Key>,
-  options?: UseQueryOptions<DataForQuery<Key>, TError> & { meta?: Partial<ExtendedQueryMeta> },
+export const useQuery = <TQueryFnData = unknown, TError = StandardizedApiError>(
+  params: UseQueryOptions<TQueryFnData, TError>,
 ) => {
   const { client } = useApiClient();
-  const queryFn = queries[query](client);
-  const queryKey: QueryKey = parseQueryKey(query, args);
+  const { queryFn, ...options } = params;
 
-  const result = useRQQuery(queryKey, async () => (await queryFn(args)) as DataForQuery<Key>, options);
+  const result = useRQQuery({
+    queryFn: (args) => queryFn(client)(args),
+    ...options,
+  });
 
-  return { ...result, isLoadingAndEnabled: result.isLoading && result.fetchStatus !== 'idle' };
+  return { ...result, isLoadingAndEnabled: result.isPending && result.fetchStatus !== 'idle' };
 };
