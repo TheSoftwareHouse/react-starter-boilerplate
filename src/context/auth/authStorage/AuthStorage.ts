@@ -10,9 +10,9 @@ const defaultTokenData = {
   expires: null,
 } satisfies TokenData;
 class AuthStorage {
-  private _storage: Storage | null;
-  private _tokenData: TokenData = defaultTokenData;
-  private listeners: VoidFunction[] = [];
+  private _storage;
+  private _tokenData: TokenData;
+  private _listeners: VoidFunction[] = [];
 
   constructor(_storage: Storage) {
     try {
@@ -29,15 +29,15 @@ class AuthStorage {
   }
 
   subscribe = (listener: VoidFunction) => {
-    this.listeners = [...this.listeners, listener];
+    this._listeners = [...this._listeners, listener];
 
     return () => {
-      this.listeners = this.listeners.filter((subscriber) => subscriber !== listener);
+      this._listeners = this._listeners.filter((subscriber) => subscriber !== listener);
     };
   };
 
-  notify() {
-    this.listeners.forEach((listener) => listener());
+  private notify() {
+    this._listeners.forEach((listener) => listener());
   }
 
   getTokenData = () => {
