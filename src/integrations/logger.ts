@@ -1,5 +1,11 @@
-import { init, captureException, captureMessage, browserTracingIntegration } from '@sentry/browser';
-import { httpClientIntegration, captureConsoleIntegration } from '@sentry/integrations';
+import {
+  init,
+  captureException,
+  captureMessage,
+  browserTracingIntegration,
+  httpClientIntegration,
+  captureConsoleIntegration,
+} from '@sentry/browser';
 
 type LogLevel = 'error' | 'info' | 'warning';
 type Logger = Record<LogLevel, (message: string | Error) => void> & Record<string, unknown>;
