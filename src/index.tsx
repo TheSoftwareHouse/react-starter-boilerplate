@@ -1,4 +1,3 @@
-import './wdyr.ts';
 import { createRoot } from 'react-dom/client';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';

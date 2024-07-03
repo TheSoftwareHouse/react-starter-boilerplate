@@ -15,9 +15,7 @@ const manualChunks = (id: string) => {
 /* eslint-disable import/no-default-export */
 export default defineConfig({
   plugins: [
-    react({
-      jsxImportSource: '@welldone-software/why-did-you-render',
-    }),
+    react(),
     viteTsconfigPaths(),
     svgrPlugin(),
     TanStackRouterVite(),
