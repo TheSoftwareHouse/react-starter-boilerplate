@@ -1,8 +1,8 @@
 import axios, { AxiosRequestHeaders, InternalAxiosRequestConfig } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
 import { authStorage } from 'context/auth/authStorage/AuthStorage';
+import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
 import { refreshTokenUrl } from 'api/actions/auth/auth.mutations';
 
 export const requestSuccessInterceptor = async (
@@ -24,13 +24,13 @@ export const requestSuccessInterceptor = async (
 
       const { exp } = jwtDecode<{ exp: number }>(data.accessToken);
 
-      authStorage.accessToken = data.accessToken;
-      authStorage.expires = exp;
-      authStorage.refreshToken = data.refreshToken;
+      authStorage.tokenData = {
+        accessToken: data.accessToken,
+        expires: exp,
+        refreshToken: data.refreshToken,
+      };
     } catch (e) {
-      authStorage.accessToken = null;
-      authStorage.expires = null;
-      authStorage.refreshToken = null;
+      authStorage.resetTokens();
     }
 
     return {
