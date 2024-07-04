@@ -11,16 +11,17 @@ const defaultTokenData = {
 } satisfies TokenData;
 class AuthStorage {
   private _storage;
-  private _tokenData: TokenData;
+  private _tokenData;
   private _listeners: VoidFunction[] = [];
 
   constructor(_storage: Storage) {
     try {
       this._storage = _storage;
+      const expires = _storage.getItem(EXPIRES_KEY);
       this._tokenData = {
         accessToken: _storage.getItem(ACCESS_TOKEN_KEY),
         refreshToken: _storage.getItem(REFRESH_TOKEN_KEY),
-        expires: Number(_storage.getItem(EXPIRES_KEY)),
+        expires: expires ? Number(expires) : defaultTokenData.expires,
       };
     } catch (error) {
       this._storage = null;
