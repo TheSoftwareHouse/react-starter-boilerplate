@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.27.1",
-    "@commitlint/cli": "19.2.2",
+    "@commitlint/cli": "19.4.1",
     "@commitlint/config-conventional": "19.2.2",
     "@tanstack/router-devtools": "1.29.2",
     "@tanstack/router-vite-plugin": "1.30.0",
