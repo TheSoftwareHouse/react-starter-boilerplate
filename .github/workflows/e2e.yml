@@ -16,7 +16,7 @@ jobs:
       - name: Build ci
         run: npm run build:ci
       - name: Upload build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: build
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
@@ -43,7 +43,7 @@ jobs:
       - name: Run build and tests
         run: npm run test:chrome
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: e2e-chrome-artifacts
@@ -64,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
@@ -75,7 +75,7 @@ jobs:
       - name: Run build and tests
         run: npm run test:firefox
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: e2e-firefox-artifacts
@@ -95,7 +95,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Download build
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
           path: build
@@ -106,7 +106,7 @@ jobs:
       - name: Run build and tests
         run: npm run test:safari
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: e2e-safari-artifacts
