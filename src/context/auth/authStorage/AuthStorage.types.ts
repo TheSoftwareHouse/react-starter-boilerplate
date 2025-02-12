@@ -4,3 +4,9 @@ export interface Storage<TItem = string | null> {
   removeItem: (key: string) => void;
   onError: (error: unknown) => void;
 }
+
+export type TokenData = {
+  accessToken: string | null;
+  refreshToken: string | null;
+  expires: number | null;
+};

@@ -1,7 +1,7 @@
 import { GetMeQueryResponse, LoginMutationArguments } from 'api/actions/auth/auth.types';
-import { AuthState } from '../authReducer/authReducer.types';
+import { TokenData } from 'context/auth/authStorage/AuthStorage.types';
 
-export type AuthContextValue = AuthState & {
+export type AuthContextValue = TokenData & {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   login: ({ password, username }: LoginMutationArguments) => void;

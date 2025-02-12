@@ -1,11 +1,11 @@
 import axios, { type AxiosError, AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-import { authStorage } from 'context/auth/authStorage/AuthStorage';
 import { getStandardizedApiError } from 'context/apiClient/apiClientContextController/apiError/apiError';
 import { ExtendedAxiosRequestConfig } from 'api/types/types';
 import { RefreshTokenMutationResponse } from 'api/actions/auth/auth.types';
 import { refreshTokenUrl } from 'api/actions/auth/auth.mutations';
+import { authStorage } from 'context/auth/authStorage/AuthStorage';
 
 export const responseSuccessInterceptor = (response: AxiosResponse) => response;
 
@@ -15,9 +15,7 @@ export const responseFailureInterceptor = async (error: AxiosError<unknown>) => 
   const originalRequest = error.config as ExtendedAxiosRequestConfig;
 
   if (standarizedError.statusCode === 401 && originalRequest?._retry) {
-    authStorage.accessToken = null;
-    authStorage.expires = null;
-    authStorage.refreshToken = null;
+    authStorage.resetTokens();
 
     window.location.replace('/login');
 
@@ -34,15 +32,15 @@ export const responseFailureInterceptor = async (error: AxiosError<unknown>) => 
       });
       const { exp } = jwtDecode<{ exp: number }>(data.accessToken);
 
-      authStorage.accessToken = data.accessToken;
-      authStorage.expires = exp;
-      authStorage.refreshToken = data.refreshToken;
+      authStorage.tokenData = {
+        accessToken: data.accessToken,
+        expires: exp,
+        refreshToken: data.refreshToken,
+      };
 
       return axios(originalRequest);
     } catch {
-      authStorage.accessToken = null;
-      authStorage.expires = null;
-      authStorage.refreshToken = null;
+      authStorage.resetTokens();
       window.location.replace('/login');
 
       return Promise.reject(standarizedError);
