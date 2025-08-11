@@ -24,7 +24,10 @@
     "e2e:chrome": "cd e2e && npm run test:chrome && cd ..",
     "e2e:safari": "cd e2e && npm run test:safari && cd ..",
     "e2e:debug": "cd e2e && npm run test:debug && cd ..",
-    "prepare": "husky"
+    "prepare": "husky",
+    "figma:builder": "TS_NODE_PROJECT=tsconfig.node.json tsx tools/figma/builder-generator.ts",
+    "storybook": "storybook dev -p 6006",
+    "build:storybook": "storybook build"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,md}": [
@@ -72,6 +75,7 @@
     "@commitlint/config-conventional": "19.2.2",
     "@tanstack/router-devtools": "1.29.2",
     "@tanstack/router-vite-plugin": "1.30.0",
+    "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "15.0.2",
     "@testing-library/user-event": "14.5.2",
@@ -87,7 +91,9 @@
     "babelsheet2": "0.0.15",
     "babelsheet2-json-writer": "0.0.6",
     "babelsheet2-reader": "0.0.8",
+    "commander": "^12.1.0",
     "cross-env": "7.0.3",
+    "dotenv": "17.2.1",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
@@ -99,6 +105,7 @@
     "eslint-plugin-testing-library": "6.2.2",
     "eslint-plugin-ui-testing": "2.0.1",
     "eslint-plugin-vitest": "0.5.1",
+    "handlebars": "^4.7.8",
     "husky": "9.0.11",
     "inquirer-directory": "2.2.0",
     "jsdom": "24.0.0",
@@ -109,10 +116,13 @@
     "rollup-plugin-visualizer": "5.12.0",
     "stylelint": "16.3.1",
     "stylelint-config-recommended": "14.0.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
     "vite": "5.2.8",
     "vite-plugin-svgr": "4.2.0",
     "vite-tsconfig-paths": "4.3.2",
-    "vitest": "1.5.0"
+    "vitest": "^2.0.5",
+    "zod": "^3.23.8"
   },
   "msw": {
     "workerDirectory": "public"

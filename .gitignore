@@ -31,3 +31,4 @@ e2e/testsResults
 
 .credentials.json
 stats.html
+.env

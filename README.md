@@ -108,6 +108,7 @@ npm run [command_name]
 3. [React Query abstraction](/docs/03-react-query-abstraction.md)
 4. [Using plop commands](/docs/04-using-plop-commands.md)
 5. [E2E tests](/docs/05-e2e-tests.md)
+6. [Generating Components from Figma](/docs/06-figma-generator.md)
 
 ## How to Contribute
 
