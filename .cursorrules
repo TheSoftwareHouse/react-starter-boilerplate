@@ -1,0 +1,115 @@
+# Cursor Rules — Single Source of Truth
+
+## Baseline
+Read and obey ALL rules defined in `instructions/_base-rules.md`.
+That file is the **single source of truth** for architecture, Design System usage, testing, accessibility, and performance.
+
+Key points (summary, not a substitute for the base file):
+- React + TypeScript (strict). Functional components only.
+- UI from `@/shared/ui`; layout from `@/shared/layout`. **No external UI libraries**.
+- No inline styles; **no hard-coded colours/pixels** — use DS tokens.
+- Pages in `src/pages`; feature components in `src/features/<page>/components` with barrel exports.
+- Max **two levels of nesting**, prefer early returns, **no if–else chains** (extract helpers).
+- Routing + menu update **in the same PR**.
+- Tests required: unit (Vitest + RTL) and e2e (Playwright) when repo has `e2e/`.
+- Follow accessibility & performance sections from `_base-rules.md`.
+- Use absolute imports `@/...`; remove unused imports.
+
+---
+
+## Hard Rules (must never be violated)
+1. Do not import any external UI library (e.g. MUI, Ant, Chakra, Tailwind classes not part of DS tokens).
+2. Do not add inline styles or hard-coded colour/spacing values.
+3. Do not introduce `any` unless justified with a short code comment and there is no practical alternative.
+4. Do not exceed two levels of logical nesting; replace if–else chains with small helper functions.
+5. Do not add a page without:
+   - a router entry,
+   - a menu link (if applicable),
+   - basic unit tests,
+   - an e2e scenario (if `e2e/` exists).
+6. Do not leave dead code, unused imports, or unreferenced assets.
+
+---
+
+## Generation Tasks (canonical outputs)
+
+### A) Generate a page from a screenshot
+- Create file at `src/pages/<kebab>.tsx`.
+- Use components from `@/shared/ui` and layout from `@/shared/layout` only.
+- Extract repeating blocks to `src/features/<page>/components` and provide barrel export.
+- Add route (lazy load if project already uses it) and global menu entry with proper active state.
+- Add tests:
+  - Unit tests in `tests/<page>/...` (render, props, interactions).
+  - E2E test in `e2e/<page>/...` if present (open via menu, assert heading, happy-path flow).
+- Ensure visual fidelity using DS tokens (spacing/typography/colours).
+- Keep logic flat (≤ 2 nesting levels); prefer early returns.
+
+### B) Refactor for readability
+- Reduce nesting to ≤ 2 levels; extract branches into helpers.
+- Remove unused imports and dead code; replace `any` with exact types.
+- Memoise only when profiling indicates benefit (`React.memo`, `useMemo`, `useCallback`).
+- Keep public API of components stable unless instructed otherwise.
+
+### C) Add tests
+- Unit (Vitest + RTL): role/name selectors, not classnames; cover render + core interactions.
+- Routing test: navigating to `/route` renders the new page.
+- E2E (Playwright): navigate via menu, verify heading/landmarks, run one happy path.
+
+### D) Accessibility pass
+- Inputs must have labels; icon buttons must have `aria-label`.
+- Images: meaningful `alt`, or `alt=""` if decorative; complex visuals described via `aria-describedby`.
+- Provide a “skip to content” link for complex layouts.
+- Dialogues: `role="dialog"`, `aria-modal="true"`, labelled via `aria-labelledby`, trap focus.
+- Tables: `<th>` with `scope="col/row"`, summaries for complex tables.
+- Prefer role/name selectors in tests; ensure keyboard navigation works.
+
+### E) Performance pass
+- Lazy load heavy routes/sections; split large components.
+- Optimise assets (WebP/AVIF, responsive `srcset`, compressed SVG).
+- Debounce/throttle expensive handlers (scroll/resize/input); use stable keys.
+- Avoid unnecessary re-renders; memoise where it helps measurably.
+- Remove unused deps/assets; keep initial bundle within budget (see `_base-rules.md`).
+
+---
+
+## File/Import Discipline
+- Absolute imports `@/...` preferred; organise imports: external → shared → features → local.
+- Remove unused imports immediately.
+- No duplicate dependencies; respect existing tooling versions (ESLint/Prettier/TS).
+
+---
+
+## Prohibited Patterns (reject output if present)
+- Inline styles, hex colours, magic pixel values.
+- External UI libs or ad-hoc CSS outside DS tokens.
+- Deeply nested conditionals; long `if–else` chains.
+- `any` without justification comment.
+- Pages without router/menu integration or without tests.
+
+---
+
+## Commit Message Guidance (Conventional Commits)
+Use appropriate type/scope:
+- `feat(page): add dashboard route + components + tests`
+- `fix(ui): correct button focus state`
+- `refactor(auth): simplify token validation`
+- `test(e2e): add dashboard happy path`
+- `chore(deps): update eslint to v9`
+
+---
+
+## Final Checklist (must be true before finishing)
+- [ ] Page is routed and menu-linked; route works by direct URL.
+- [ ] Unit tests (and e2e if applicable) are added and pass.
+- [ ] No inline styles; DS tokens only; no external UI libs.
+- [ ] Accessibility validated (labels, alt, roles, keyboard focus, skip link).
+- [ ] Performance validated (lazy load, debounce/throttle, memo where needed).
+- [ ] Imports are absolute and clean; no dead code or unused assets.
+- [ ] Commit message follows Conventional Commits.
+- [ ] Code runs out-of-the-box; no manual fixes required.
+
+---
+
+## Cross-reference
+For detailed rationale, edge cases, and examples, see:
+`instructions/_base-rules.md`, `instructions/quality-examples.md`, `instructions/a11y-and-performance.md`.
