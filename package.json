@@ -82,7 +82,7 @@
     "@types/react-dom": "18.2.25",
     "@typescript-eslint/eslint-plugin": "7.13.0",
     "@typescript-eslint/parser": "7.13.0",
-    "@vitejs/plugin-react-swc": "3.6.0",
+    "@vitejs/plugin-react-swc": "3.7.0",
     "@vitest/coverage-v8": "1.5.0",
     "babelsheet2": "0.0.15",
     "babelsheet2-json-writer": "0.0.6",
