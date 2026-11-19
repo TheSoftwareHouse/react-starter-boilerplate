@@ -10,10 +10,10 @@ describe('useHandleQueryErrors', () => {
       expect(result.current.shouldHandleGlobalError()).toEqual(false);
     });
 
-    it('should return false when no metaError provided', () => {
+    it('should return false when no errorCode provided', () => {
       const { result } = renderHook(useHandleQueryErrors);
 
-      expect(result.current.shouldHandleGlobalError(undefined, 400)).toEqual(false);
+      expect(result.current.shouldHandleGlobalError({ excludedCodes: [400], showGlobalError: true })).toEqual(false);
     });
 
     it('should return false when no errorCode provided', () => {
